@@ -1,6 +1,5 @@
 import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import BottomSheet, {BottomSheetSectionList} from "@gorhom/bottom-sheet";
-import renderMap from "./map";
 import React, {useEffect, useState} from "react";
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import mapStyles from '../../../../dummy_data/mapStyles.json';
@@ -13,6 +12,7 @@ import { Tabs } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
+import Map from '../../../../components/map';
 
 export default function App() {
     const navigation: any = useNavigation();
@@ -27,9 +27,7 @@ export default function App() {
         },
         header: {
             fontSize: 24,
-        },
-        title: {
-            fontSize: 18,
+            backgroundColor: 'white',
         },
         map: {
             width: '100%',
@@ -39,16 +37,67 @@ export default function App() {
 
     const DATA = [
         {
-            title: 'Your Moves',
-            data: ['Red Hat', "Mozilla"],
+            title: 'Your Movelos',
+            data: [
+                {
+                    entity: "redhat",
+                    vechain_reward_to_mile: 0.1,
+                    location: {
+                        latitude: 42.371433,
+                        longitude: -71.128903,
+                    }, 
+                },
+                {
+                    entity: "github",
+                    vechain_reward_to_mile: 0.1,
+                    location: {
+                        latitude: 42.371433,
+                        longitude: -71.128903,
+                    },
+                }
+            ],
         },
         {
             title: 'Promoted Movelos',
-            data: ['Tattes Harvard', 'GSU', 'Marcianos'],
+            data: /* ['Tattes Harvard', 'GSU', 'Marcianos'], */ [
+                {
+                    entity: "GSU",
+                    vechain_reward_to_mile: 0.1,
+                    location: {
+                        latitude: 42.371433,
+                        longitude: -71.128903,
+                    }, 
+                },
+                {
+                    entity: "Marcianos",
+                    vechain_reward_to_mile: 0.1,
+                    location: {
+                        latitude: 42.371433,
+                        longitude: -71.128903,
+                    },
+                }
+            ]
         },
         {
-            title: 'Online Movelos',
-            data: ['Dominoes', 'Papa Johns', 'Pizza Hut', "McDonalds"],
+            title: 'Nearby Movelos',
+            data: /* ['Dominoes', 'Papa Johns', 'Pizza Hut', "McDonalds"], */ [
+                {
+                    entity: "Dominoes",
+                    vechain_reward_to_mile: 0.1,
+                    location: {
+                        latitude: 42.371433,
+                        longitude: -71.128903,
+                    }, 
+                },
+                {
+                    entity: "McDonalds",
+                    vechain_reward_to_mile: 0.1,
+                    location: {
+                        latitude: 42.371433,
+                        longitude: -71.128903,
+                    },
+                }
+            ]
         },
     ];
 
@@ -97,22 +146,39 @@ export default function App() {
                 </TouchableOpacity>
             </View>
 
-            {renderMap(styles)}
+            <Map styles={styles}/>
 
             <BottomSheet
                 index={1}
                 snapPoints={[150, 550]}
                 backgroundComponent={({ style }) => (
-                    <View style={[style, { backgroundColor: '#ffffff', borderRadius: 8, }]} />
+                    <View style={[style, { backgroundColor: '#ffffff', borderRadius: 12, }]} />
                 )}
             >
                 <BottomSheetSectionList
                     sections={DATA}
-                    keyExtractor={(item, index) => item + index}
+                    keyExtractor={(item, index) => item.entity + index}
                     renderItem={({ item, index, section }) => (
-                        <View style={{ marginBottom: index === section.data.length - 1 ? 24 : 0 }}>
-                            <Text style={styles.title}>{item}</Text>
+
+                        <View style={{
+                                marginBottom: index === section.data.length - 1 ? 24 : 8 ,
+                                flexDirection: 'row',
+                            }}
+                        >
+                            <View style={{borderRadius: 6, padding: 8, backgroundColor: '#306844'}}>
+                                <Text style={{
+                                    fontSize: 17,
+                                    color: 'white',
+                                }}>{item.entity}</Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 8}}>
+                                <Text style={{
+                                    fontSize: 17,
+                                    color: 'black',
+                                }}>{item.vechain_reward_to_mile} VET</Text>
+                                </View>
                         </View>
+
                     )}
                     renderSectionHeader={({ section: { title } }) => (
                         <Text style={styles.header}>{title}</Text>
