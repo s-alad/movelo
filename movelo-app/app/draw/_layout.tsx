@@ -6,6 +6,7 @@ export default function DrawerLayout() {
             screenOptions={
                 {
                     headerShown: true,
+                    swipeEnabled: false,
                 }
             }
         >

@@ -21,15 +21,18 @@ export default function TabsLayout() {
                     position: 'absolute',
                     top: 50,
                     left: 25,
-                    right: 0,
-                    height: 50,
-                    width: 50,
+                    padding: 8,
+                    borderRadius: 8,
                     zIndex: 100,
-                    backgroundColor: 'red',
+                    backgroundColor: 'white',
                 }}
             >   
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <Text>Draw</Text>
+                    <FontAwesome
+                        size={26}
+                        style={{ marginBottom: -3 }}
+                        name="bars"
+                    />
                 </TouchableOpacity>
             </View>
 
@@ -38,26 +41,34 @@ export default function TabsLayout() {
                     position: 'absolute',
                     top: 50,
                     right: 25,
-                    height: 50,
-                    width: 50,
+                    padding: 8,
+                    borderRadius: 8,
                     zIndex: 100,
-                    backgroundColor: 'yellow',
+                    backgroundColor: 'white',
                 }}
             >
                 <TouchableOpacity onPress={() => router.push('/draw/main/leaderboard')}>
-                    <Text>Leader</Text>
+                    <FontAwesome
+                        size={26}
+                        style={{ marginBottom: -3 }}
+                        name="trophy"
+                    />
                 </TouchableOpacity>
             </View>
 
             <Tabs
                 initialRouteName="move"
                 screenOptions={{
-                    tabBarStyle:
-                        Platform.OS === "ios"
-                        && {
-                            backgroundColor: "transparent",
-                        },
                     headerShown: false,
+                    tabBarStyle: {
+                        backgroundColor: "#425c5a",
+                        height: 60,
+                        borderRadius: 8,
+                    },
+                    tabBarIconStyle: {
+                        color: "#fff",
+                    },
+                    tabBarActiveTintColor: "#fff",
                 }}
             >
                 <Tabs.Screen
@@ -72,12 +83,12 @@ export default function TabsLayout() {
                                 style={{
                                     flexDirection: "column",
                                     alignItems: "center",
-                                    marginTop: 17,
+                                    marginTop: 18,
                                     backgroundColor: "transparent",
                                 }}
                             >
-                                <TabBarIcon name="map" color={color} size={24} />
-                                <Text style={{ marginTop: 5, fontSize: 10, opacity: 0.5 }}>
+                                <TabBarIcon name="map" color={color} size={18} />
+                                <Text style={{ marginTop: 5, fontSize: 10, opacity: 0.5, color: color }}>
                                     Moves
                                 </Text>
                             </View>
@@ -97,12 +108,12 @@ export default function TabsLayout() {
                                 style={{
                                     flexDirection: "column",
                                     alignItems: "center",
-                                    marginTop: 17,
+                                    marginTop: 18,
                                     backgroundColor: "transparent",
                                 }}
                             >
-                                <TabBarIcon name="map" color={color} size={24} />
-                                <Text style={{ marginTop: 5, fontSize: 10, opacity: 0.5 }}>
+                                <TabBarIcon name="feed" color={color} size={18} />
+                                <Text style={{ marginTop: 5, fontSize: 10, opacity: 0.5, color: color }}>
                                     Feed
                                 </Text>
                             </View>

@@ -139,7 +139,7 @@ export default function App() {
                 index={1}
                 snapPoints={[150, 300, 550]}
                 backgroundComponent={({ style }) => (
-                    <View style={[style, { backgroundColor: 'grey' }]} />
+                    <View style={[style, { backgroundColor: '#ffffff', borderRadius: 8, }]} />
                 )}
             >
                 <BottomSheetSectionList
