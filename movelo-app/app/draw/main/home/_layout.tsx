@@ -25,10 +25,10 @@ export default function TabsLayout() {
                     zIndex: 100,
                     backgroundColor: 'red',
                 }}
-
-                
-            >
-                <Text>Menu</Text>
+            >   
+                <TouchableOpacity>
+                    <Text>Draw</Text>
+                </TouchableOpacity>
             </View>
 
             <View
@@ -42,12 +42,13 @@ export default function TabsLayout() {
                     backgroundColor: 'yellow',
                 }}
             >
-                <TouchableOpacity onPress={() => router.push('/leaderboard')}>
+                <TouchableOpacity onPress={() => router.push('/main/leaderboard')}>
                     <Text>Leader</Text>
                 </TouchableOpacity>
             </View>
+
             <Tabs
-                initialRouteName="home"
+                initialRouteName="move"
                 screenOptions={{
                     tabBarStyle:
                         Platform.OS === "ios"
@@ -58,9 +59,9 @@ export default function TabsLayout() {
                 }}
             >
                 <Tabs.Screen
-                    name="home"
+                    name="move"
                     options={{
-                        href: "/home",
+                        href: "/move",
                         title: "",
                         tabBarIcon: ({ color }) => (
                             <View
@@ -80,12 +81,12 @@ export default function TabsLayout() {
                     }}
                 />
                 <Tabs.Screen
-                    name="other"
+                    name="feed"
                     options={{
                         title: "",
                         headerShown: true,
                         href: {
-                            pathname: "/other",
+                            pathname: "/feed",
                         },
                         tabBarIcon: ({ color }) => (
                             <View
@@ -98,7 +99,7 @@ export default function TabsLayout() {
                             >
                                 <TabBarIcon name="map" color={color} size={24} />
                                 <Text style={{ marginTop: 5, fontSize: 10, opacity: 0.5 }}>
-                                    Other
+                                    Feed
                                 </Text>
                             </View>
                         ),

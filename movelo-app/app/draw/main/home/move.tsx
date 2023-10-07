@@ -101,24 +101,24 @@ export default function App() {
             <BottomSheet
                 index={1}
                 snapPoints={[150, 300, 550]}
-                backgroundComponent={({style}) => (
-                    <View style={[style, {backgroundColor: 'grey'}]}/>
+                backgroundComponent={({ style }) => (
+                    <View style={[style, { backgroundColor: 'grey' }]} />
                 )}
             >
                 <BottomSheetSectionList
                     sections={DATA}
                     keyExtractor={(item, index) => item + index}
-                    renderItem={({item, index, section}) => (
+                    renderItem={({ item, index, section }) => (
                         <View style={[styles.item,
-                            {marginBottom: index === section.data.length - 1 ? 24 : 0}
+                        { marginBottom: index === section.data.length - 1 ? 24 : 0 }
                         ]}>
                             <Text style={styles.title}>{item}</Text>
                         </View>
                     )}
-                    renderSectionHeader={({section: {title}}) => (
+                    renderSectionHeader={({ section: { title } }) => (
                         <Text style={styles.header}>{title}</Text>
                     )}
-                    style={{width: '100%', paddingLeft: 24, paddingRight: 24}}
+                    style={{ width: '100%', paddingLeft: 24, paddingRight: 24 }}
                 />
             </BottomSheet>
         </View>
