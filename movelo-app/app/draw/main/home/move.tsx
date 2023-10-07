@@ -2,8 +2,8 @@ import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import BottomSheet, {BottomSheetSectionList} from "@gorhom/bottom-sheet";
 import React, {useEffect, useState} from "react";
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import mapStyles from './mapStyles.json';
-import mapMarkers from './dummyMarkers.json';
+import mapStyles from '../../../../dummy_data/mapStyles.json';
+import mapMarkers from '../../../../dummy_data/dummyMarkers.json';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 
 export default function App() {
