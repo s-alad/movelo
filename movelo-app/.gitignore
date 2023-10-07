@@ -35,3 +35,6 @@ yarn-error.*
 *.tsbuildinfo
 
 .env
+
+# bad but we are bad
+app.json
