@@ -106,6 +106,8 @@ export default function Map({styles}: Props) {
                 longitudeDelta: 0.0421,
             }}
             showsUserLocation={true}
+            showsCompass={false}
+            showsMyLocationButton={false}
         >
             {/* TODO add markers for each sponsorship */}
             {mapMarkers.map((marker, index) => (
