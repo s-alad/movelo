@@ -1,0 +1,116 @@
+import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as SystemUI from 'expo-system-ui';
+import { Appearance, useColorScheme } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import BottomSheet, { BottomSheetSectionList } from "@gorhom/bottom-sheet";
+import React, { useCallback, useRef, useMemo } from "react";
+import { StyleSheet, View, Text, Button } from "react-native";
+import MapView from 'react-native-maps';
+
+
+export default function App() {
+
+    let colorScheme = useColorScheme();
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        item: {
+            padding: 2,
+        },
+        header: {
+            fontSize: 32,
+
+        },
+        title: {
+            fontSize: 24,
+        },
+        map: {
+            width: '100%',
+            height: '100%',
+        }
+    });
+
+    const DATA = [
+        {
+            title: 'Promoted Movelos',
+            data: ['Tattes Harvard', 'GSU', 'Marcianos'],
+        },
+        {
+            title: 'Online Movelos',
+            data: ['Dominoes', 'Papa Johns', 'Pizza Hut', "McDonalds"],
+        },
+    ];
+
+    return (
+        <SafeAreaProvider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <View
+                    style={styles.container}
+                >   
+
+                    <View
+                        style={{
+                            position: 'absolute',
+                            top: 50,
+                            left: 25,
+                            right: 0,
+                            height: 50,
+                            width: 50,
+                            zIndex: 100,
+                            backgroundColor: 'red',
+                        }}
+                    >
+                        <Text>Menu</Text>
+                    </View>
+
+                    <View
+                        style={{
+                            position: 'absolute',
+                            top: 50,
+                            right: 25,
+                            height: 50,
+                            width: 50,
+                            zIndex: 100,
+                            backgroundColor: 'yellow',
+                        }}
+                    >
+                        <Text>User</Text>
+                    </View>
+
+
+
+                    <MapView style={styles.map} />
+                    <BottomSheet
+                        index={1}
+                        snapPoints={[150, 300, 550]}
+                        backgroundComponent={({ style }) => (
+                            <View style={[style, { backgroundColor: 'grey' }]} />
+                        )}
+                    >
+                        <BottomSheetSectionList
+                            sections={DATA}
+                            keyExtractor={(item, index) => item + index}
+                            renderItem={({ item, index, section }) => (
+                                <View style={[styles.item,
+                                { marginBottom: index === section.data.length - 1 ? 24 : 0 }
+                                ]}>
+                                    <Text style={styles.title}>{item}</Text>
+                                </View>
+                            )}
+                            renderSectionHeader={({ section: { title } }) => (
+                                <Text style={styles.header}>{title}</Text>
+                            )}
+                            style={{ width: '100%', paddingLeft: 24, paddingRight: 24 }}
+                        />
+                    </BottomSheet>
+                </View>
+            </GestureHandlerRootView>
+        </SafeAreaProvider>
+    );
+
+}
