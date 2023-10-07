@@ -1,14 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import * as SystemUI from 'expo-system-ui';
-import { Appearance, useColorScheme } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import BottomSheet, { BottomSheetSectionList } from "@gorhom/bottom-sheet";
-import React, { useCallback, useRef, useMemo } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import BottomSheet, {BottomSheetSectionList} from "@gorhom/bottom-sheet";
+import React from "react";
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import mapStyles from './mapStyles.json';
-
+import mapMarkers from './dummyMarkers.json';
 
 export default function App() {
 
@@ -62,30 +57,39 @@ export default function App() {
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}
-            />
+            >
+                {mapMarkers.map((marker, index) => (
+                    <Marker
+                        key={index}
+                        coordinate={marker.latlng}
+                        title={marker.title}
+                        description={marker.description}
+                    />
+                ))}
+            </MapView>
 
 
             <BottomSheet
                 index={1}
                 snapPoints={[150, 300, 550]}
-                backgroundComponent={({ style }) => (
-                    <View style={[style, { backgroundColor: 'grey' }]} />
+                backgroundComponent={({style}) => (
+                    <View style={[style, {backgroundColor: 'grey'}]}/>
                 )}
             >
                 <BottomSheetSectionList
                     sections={DATA}
                     keyExtractor={(item, index) => item + index}
-                    renderItem={({ item, index, section }) => (
+                    renderItem={({item, index, section}) => (
                         <View style={[styles.item,
-                        { marginBottom: index === section.data.length - 1 ? 24 : 0 }
+                            {marginBottom: index === section.data.length - 1 ? 24 : 0}
                         ]}>
                             <Text style={styles.title}>{item}</Text>
                         </View>
                     )}
-                    renderSectionHeader={({ section: { title } }) => (
+                    renderSectionHeader={({section: {title}}) => (
                         <Text style={styles.header}>{title}</Text>
                     )}
-                    style={{ width: '100%', paddingLeft: 24, paddingRight: 24 }}
+                    style={{width: '100%', paddingLeft: 24, paddingRight: 24}}
                 />
             </BottomSheet>
         </View>

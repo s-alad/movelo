@@ -1,0 +1,10 @@
+[
+    {
+      "title": "Trader Joes",
+      "description": "Buy food n' stuff",
+      "latlng": {
+        "latitude": 42.363245,
+        "longitude": -71.129785
+      }
+    }
+]
