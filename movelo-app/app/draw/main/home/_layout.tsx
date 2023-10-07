@@ -8,7 +8,7 @@ import { router } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
 
 export default function TabsLayout() {
-    const navigation = useNavigation();
+    const navigation: any = useNavigation();
     return (
         <View
             style={{
