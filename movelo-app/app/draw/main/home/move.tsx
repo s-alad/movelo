@@ -5,6 +5,8 @@ import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import mapStyles from '../../../../dummy_data/mapStyles.json';
 import mapMarkers from '../../../../dummy_data/dummyMarkers.json';
 import { GOOGLE_MAPS_API_KEY } from '@env';
+import MapViewDirections from 'react-native-maps-directions';
+import * as Location from 'expo-location';
 
 export default function App() {
 
@@ -43,20 +45,53 @@ export default function App() {
         },
     ];
 
-    const [userLocation, setUserLocation] = useState(null);
-    const [destination, setDestination] = useState(null);
+    // Request user permission to use location
+    console.log("Google API Key: " + GOOGLE_MAPS_API_KEY);
+    useEffect(() => {
+        const fetchUserLocation = async () => {
+            // Ask for permissions first
+            const { status } = await Location.requestForegroundPermissionsAsync();
 
-    // set user location
-    /*useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                const {latitude, longitude} = position.coords;
-                setUserLocation({latitude, longitude});
-            },
-            error => alert(error.message),
-            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-        );
-    };*/
+            if (status === 'granted') {
+                const location = await Location.getCurrentPositionAsync({});
+                const { latitude, longitude } = location.coords;
+                setUserLocation({ latitude, longitude });
+            } else {
+                alert('Location permission not granted');
+            }
+        };
+
+        fetchUserLocation();
+    }, []);
+
+    type Location = {
+        latitude: number;
+        longitude: number;
+    } | null;
+    const [userLocation, setUserLocation] = useState<Location>(null);
+    const [destination, setDestination] = useState<Location>(null);
+
+    // Handler for marker press to set destination
+    const handleMarkerPress = (coordinate: Location) => {
+        setDestination(coordinate);
+    };
+
+    useEffect(() => {
+        const fetchUserLocation = async () => {
+            const { status } = await Location.requestForegroundPermissionsAsync();
+
+            if (status === 'granted') {
+                const location = await Location.getCurrentPositionAsync({});
+                const { latitude, longitude } = location.coords;
+                setUserLocation({ latitude, longitude });
+            } else {
+                alert('Location permission not granted');
+            }
+        };
+
+        fetchUserLocation();
+    }, []);  // Note the addition of dependency array.
+
 
     return (
 
@@ -82,19 +117,21 @@ export default function App() {
                         coordinate={marker.latlng}
                         title={marker.title}
                         description={marker.description}
+                        onPress={() => handleMarkerPress(marker.latlng)}
                     />
                 ))}
 
                 {/* Show directions from user's location to destination */}
-                {/*userLocation && destination && (
+                {userLocation && mapMarkers.length > 0 && (
                     <MapViewDirections
                         origin={userLocation}
-                        destination={destination}
-                        apikey={GOOGLE_MAPS_KEY}
-                        strokeWidth={3}
-                        strokeColor="hotpink"
+                        destination={mapMarkers[0].latlng}
+                        apikey={GOOGLE_MAPS_API_KEY}  // Ensure this is the correct name for your API key variable
+                        strokeWidth={6}
+                        strokeColor="white"
                     />
-                )*/}
+                )}
+
             </MapView>
 
 
