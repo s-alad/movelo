@@ -1,10 +1,20 @@
 [
-    {
-      "title": "Trader Joes",
-      "description": "Buy food n' stuff",
-      "latlng": {
-        "latitude": 42.363245,
-        "longitude": -71.129785
-      }
-    }
+  {
+    "title": "Trader Joes",
+    "description": "Buy food n' stuff",
+    "latlng": {
+      "latitude": 42.363245,
+      "longitude": -71.129785
+    },
+    "icon": "trader_joes.png"
+  },
+  {
+    "title": "BU FitRec",
+    "description": "Go to the gym",
+    "latlng": {
+      "latitude": 42.351117,
+      "longitude": -71.114117
+    },
+    "icon": "bu.png"
+  }
 ]
