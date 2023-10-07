@@ -42,7 +42,7 @@ export default function TabsLayout() {
                     backgroundColor: 'yellow',
                 }}
             >
-                <TouchableOpacity onPress={() => router.push('/main/leaderboard')}>
+                <TouchableOpacity onPress={() => router.push('/draw/main/leaderboard')}>
                     <Text>Leader</Text>
                 </TouchableOpacity>
             </View>
@@ -61,7 +61,7 @@ export default function TabsLayout() {
                 <Tabs.Screen
                     name="move"
                     options={{
-                        href: "/move",
+                        href: "move",
                         title: "",
                         tabBarIcon: ({ color }) => (
                             <View
@@ -86,7 +86,7 @@ export default function TabsLayout() {
                         title: "",
                         headerShown: true,
                         href: {
-                            pathname: "/feed",
+                            pathname: "feed",
                         },
                         tabBarIcon: ({ color }) => (
                             <View

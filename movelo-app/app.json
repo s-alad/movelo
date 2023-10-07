@@ -28,13 +28,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": "0ee90832-0952-4a51-81fd-3d11e5083af9"
-      },
-      "router": {
-        "origin": false
+        "projectId": "2a39dbe5-acb1-4c4c-b88b-4503ff07359e"
       }
     },
-    "owner": "cjcrafter",
+    "owner": "sa1ad",
     "plugins": [
       "expo-router"
     ],
