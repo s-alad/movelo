@@ -6,6 +6,38 @@ import MapViewDirections from "react-native-maps-directions";
 import * as Location from 'expo-location';
 import { GOOGLE_MAPS_API_KEY } from "@env";
 
+const axios = require('axios');
+
+type Location = {
+    latitude: number;
+    longitude: number;
+} | null;
+
+async function getBikingDistance(origin: Location, destination: Location) {
+    if (!origin || !destination) {
+        throw new Error('Origin or destination is null');
+    }
+    const endpoint = 'https://maps.googleapis.com/maps/api/directions/json';
+
+    try {
+        const response = await axios.get(endpoint, {
+            params: {
+                origin: `${origin.latitude},${origin.longitude}`,
+                destination: `${destination.latitude},${destination.longitude}`,
+                mode: 'bicycling',
+                key: GOOGLE_MAPS_API_KEY
+            }
+        });
+
+        if (response.data.routes[0] && response.data.routes[0].legs[0]) {
+            return response.data.routes[0].legs[0].distance;
+        } else {
+            throw new Error('No route found.');
+        }
+    } catch (error) {
+        console.error(`Failed to get biking distance: ${error}`);
+    }
+}
 
 const renderMap = (styles: any) => {
 
@@ -28,10 +60,6 @@ const renderMap = (styles: any) => {
         fetchUserLocation();
     }, []);
 
-    type Location = {
-        latitude: number;
-        longitude: number;
-    } | null;
     const [userLocation, setUserLocation] = useState<Location>(null);
     const [destination, setDestination] = useState<Location>(null);
 
@@ -56,6 +84,12 @@ const renderMap = (styles: any) => {
 
         fetchUserLocation();
     }, []);  // Note the addition of dependency array.
+
+    if (userLocation && destination) {
+        getBikingDistance(userLocation, destination).then((distance) => {
+            console.log("Distance: " + distance.text);
+        });
+    }
 
     return (
         <MapView
