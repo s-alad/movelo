@@ -47,70 +47,40 @@ export default function App() {
     ];
 
     return (
-        <SafeAreaProvider>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-                <View
-                    style={styles.container}
-                >   
 
-                    <View
-                        style={{
-                            position: 'absolute',
-                            top: 50,
-                            left: 25,
-                            right: 0,
-                            height: 50,
-                            width: 50,
-                            zIndex: 100,
-                            backgroundColor: 'red',
-                        }}
-                    >
-                        <Text>Menu</Text>
-                    </View>
+        <View
+            style={styles.container}
+        >
 
-                    <View
-                        style={{
-                            position: 'absolute',
-                            top: 50,
-                            right: 25,
-                            height: 50,
-                            width: 50,
-                            zIndex: 100,
-                            backgroundColor: 'yellow',
-                        }}
-                    >
-                        <Text>User</Text>
-                    </View>
+            
 
 
 
-                    <MapView style={styles.map} />
-                    <BottomSheet
-                        index={1}
-                        snapPoints={[150, 300, 550]}
-                        backgroundComponent={({ style }) => (
-                            <View style={[style, { backgroundColor: 'grey' }]} />
-                        )}
-                    >
-                        <BottomSheetSectionList
-                            sections={DATA}
-                            keyExtractor={(item, index) => item + index}
-                            renderItem={({ item, index, section }) => (
-                                <View style={[styles.item,
-                                { marginBottom: index === section.data.length - 1 ? 24 : 0 }
-                                ]}>
-                                    <Text style={styles.title}>{item}</Text>
-                                </View>
-                            )}
-                            renderSectionHeader={({ section: { title } }) => (
-                                <Text style={styles.header}>{title}</Text>
-                            )}
-                            style={{ width: '100%', paddingLeft: 24, paddingRight: 24 }}
-                        />
-                    </BottomSheet>
-                </View>
-            </GestureHandlerRootView>
-        </SafeAreaProvider>
+            <MapView style={styles.map} />
+            <BottomSheet
+                index={1}
+                snapPoints={[150, 300, 550]}
+                backgroundComponent={({ style }) => (
+                    <View style={[style, { backgroundColor: 'grey' }]} />
+                )}
+            >
+                <BottomSheetSectionList
+                    sections={DATA}
+                    keyExtractor={(item, index) => item + index}
+                    renderItem={({ item, index, section }) => (
+                        <View style={[styles.item,
+                        { marginBottom: index === section.data.length - 1 ? 24 : 0 }
+                        ]}>
+                            <Text style={styles.title}>{item}</Text>
+                        </View>
+                    )}
+                    renderSectionHeader={({ section: { title } }) => (
+                        <Text style={styles.header}>{title}</Text>
+                    )}
+                    style={{ width: '100%', paddingLeft: 24, paddingRight: 24 }}
+                />
+            </BottomSheet>
+        </View>
     );
 
 }
