@@ -1,9 +1,10 @@
 import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import BottomSheet, {BottomSheetSectionList} from "@gorhom/bottom-sheet";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import mapStyles from './mapStyles.json';
 import mapMarkers from './dummyMarkers.json';
+import { GOOGLE_MAPS_API_KEY } from '@env';
 
 export default function App() {
 
@@ -42,6 +43,21 @@ export default function App() {
         },
     ];
 
+    const [userLocation, setUserLocation] = useState(null);
+    const [destination, setDestination] = useState(null);
+
+    // set user location
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const {latitude, longitude} = position.coords;
+                setUserLocation({latitude, longitude});
+            },
+            error => alert(error.message),
+            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+        );
+    };
+
     return (
 
         <View
@@ -57,7 +73,9 @@ export default function App() {
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}
+                showsUserLocation={true}
             >
+                {/* TODO add markers for each sponsorship */}
                 {mapMarkers.map((marker, index) => (
                     <Marker
                         key={index}
@@ -66,6 +84,17 @@ export default function App() {
                         description={marker.description}
                     />
                 ))}
+
+                {/* Show directions from user's location to destination */}
+                {userLocation && destination && (
+                    <MapViewDirections
+                        origin={userLocation}
+                        destination={destination}
+                        apikey={GOOGLE_MAPS_KEY}
+                        strokeWidth={3}
+                        strokeColor="hotpink"
+                    />
+                )}
             </MapView>
 
 
