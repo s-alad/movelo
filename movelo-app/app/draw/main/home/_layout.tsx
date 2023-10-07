@@ -5,8 +5,10 @@ import React from "react";
 import { Platform, View, Text, Button } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 
 export default function TabsLayout() {
+    const navigation = useNavigation();
     return (
         <View
             style={{
@@ -26,7 +28,7 @@ export default function TabsLayout() {
                     backgroundColor: 'red',
                 }}
             >   
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <Text>Draw</Text>
                 </TouchableOpacity>
             </View>
