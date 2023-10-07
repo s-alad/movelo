@@ -7,7 +7,6 @@ export default function RootLayout() {
 
     return (
         <Stack
-
         >
             <Stack.Screen
                 name="home"

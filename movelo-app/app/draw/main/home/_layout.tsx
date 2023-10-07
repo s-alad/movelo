@@ -16,46 +16,6 @@ export default function TabsLayout() {
                 display: "flex",
             }}
         >
-            <View
-                style={{
-                    position: 'absolute',
-                    top: 50,
-                    left: 25,
-                    padding: 8,
-                    borderRadius: 8,
-                    zIndex: 100,
-                    backgroundColor: 'white',
-                }}
-            >   
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <FontAwesome
-                        size={26}
-                        style={{ marginBottom: -3 }}
-                        name="bars"
-                    />
-                </TouchableOpacity>
-            </View>
-
-            <View
-                style={{
-                    position: 'absolute',
-                    top: 50,
-                    right: 25,
-                    padding: 8,
-                    borderRadius: 8,
-                    zIndex: 100,
-                    backgroundColor: 'white',
-                }}
-            >
-                <TouchableOpacity onPress={() => router.push('/draw/main/leaderboard')}>
-                    <FontAwesome
-                        size={26}
-                        style={{ marginBottom: -3 }}
-                        name="trophy"
-                    />
-                </TouchableOpacity>
-            </View>
-
             <Tabs
                 initialRouteName="move"
                 screenOptions={{
@@ -64,6 +24,13 @@ export default function TabsLayout() {
                         backgroundColor: "#425c5a",
                         height: 60,
                         borderRadius: 8,
+                        //check if iphone, if so add padding
+                        ...Platform.select({
+                            ios: {
+                                height: 80,
+                                paddingBottom: 10,
+                            },
+                        }),
                     },
                     tabBarIconStyle: {
                         color: "#fff",
@@ -99,7 +66,7 @@ export default function TabsLayout() {
                     name="feed"
                     options={{
                         title: "",
-                        headerShown: true,
+                        headerShown: false,
                         href: {
                             pathname: "/draw/main/home/feed",
                         },
