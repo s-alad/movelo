@@ -1,6 +1,5 @@
 import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import BottomSheet, {BottomSheetSectionList} from "@gorhom/bottom-sheet";
-import renderMap from "./map";
 import React, {useEffect, useState} from "react";
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import mapStyles from '../../../../dummy_data/mapStyles.json';
@@ -13,6 +12,7 @@ import { Tabs } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
+import Map from '../../../../components/map';
 
 export default function App() {
     const navigation: any = useNavigation();
@@ -146,7 +146,7 @@ export default function App() {
                 </TouchableOpacity>
             </View>
 
-            {renderMap(styles)}
+            <Map styles={styles}/>
 
             <BottomSheet
                 index={1}

@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import mapStyles from "../../../../dummy_data/mapStyles.json";
-import mapMarkers from "../../../../dummy_data/dummyMarkers.json";
+import mapStyles from "../dummy_data/mapStyles.json";
+import mapMarkers from "../dummy_data/dummyMarkers.json";
 import MapViewDirections from "react-native-maps-directions";
 import * as Location from 'expo-location';
 import { GOOGLE_MAPS_API_KEY } from "@env";
 
+interface Props {
+    styles: any;
+}
 
-const renderMap = (styles: any) => {
+export default function Map({styles}: Props) {
 
     // Request user permission to use location
     console.log("Google API Key: " + GOOGLE_MAPS_API_KEY);
@@ -109,4 +112,3 @@ const renderMap = (styles: any) => {
     );
 }
 
-export default renderMap;
