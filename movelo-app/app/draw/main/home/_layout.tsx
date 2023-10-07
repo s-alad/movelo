@@ -61,7 +61,9 @@ export default function TabsLayout() {
                 <Tabs.Screen
                     name="move"
                     options={{
-                        href: "move",
+                        href: {
+                            pathname: "/draw/main/home/move",
+                        },
                         title: "",
                         tabBarIcon: ({ color }) => (
                             <View
@@ -86,7 +88,7 @@ export default function TabsLayout() {
                         title: "",
                         headerShown: true,
                         href: {
-                            pathname: "feed",
+                            pathname: "/draw/main/home/feed",
                         },
                         tabBarIcon: ({ color }) => (
                             <View
