@@ -6,7 +6,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetSectionList } from "@gorhom/bottom-sheet";
 import React, { useCallback, useRef, useMemo } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
-import MapView from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import mapStyles from './mapStyles.json';
 
 
 export default function App() {
@@ -51,12 +52,19 @@ export default function App() {
         <View
             style={styles.container}
         >
+            <MapView
+                style={styles.map}
+                provider={PROVIDER_GOOGLE}
+                customMapStyle={mapStyles}
+                initialRegion={{
+                    latitude: 42.371433,
+                    longitude: -71.128903,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                }}
+            />
 
-            
 
-
-
-            <MapView style={styles.map} />
             <BottomSheet
                 index={1}
                 snapPoints={[150, 300, 550]}
