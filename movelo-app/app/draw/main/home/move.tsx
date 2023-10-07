@@ -47,7 +47,7 @@ export default function App() {
     const [destination, setDestination] = useState(null);
 
     // set user location
-    useEffect(() => {
+    /*useEffect(() => {
         navigator.geolocation.getCurrentPosition(
             position => {
                 const {latitude, longitude} = position.coords;
@@ -56,7 +56,7 @@ export default function App() {
             error => alert(error.message),
             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
         );
-    };
+    };*/
 
     return (
 
@@ -86,7 +86,7 @@ export default function App() {
                 ))}
 
                 {/* Show directions from user's location to destination */}
-                {userLocation && destination && (
+                {/*userLocation && destination && (
                     <MapViewDirections
                         origin={userLocation}
                         destination={destination}
@@ -94,7 +94,7 @@ export default function App() {
                         strokeWidth={3}
                         strokeColor="hotpink"
                     />
-                )}
+                )*/}
             </MapView>
 
 
