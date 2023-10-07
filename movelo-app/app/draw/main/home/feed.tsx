@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 
-export default function Other() {
+export default function Feed() {
     return (
         <View
             style={{
@@ -10,7 +10,7 @@ export default function Other() {
                 justifyContent: 'center',
             }}
         >
-            <Text>Other</Text>
+            <Text>Feed</Text>
         </View>
     )
 }
