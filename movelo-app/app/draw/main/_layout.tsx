@@ -1,8 +1,10 @@
 import { Stack, Tabs, router } from 'expo-router';
 import React from 'react';
 import { Appearance, Platform, TouchableOpacity, useColorScheme, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function RootLayout() {
+
     return (
         <Stack
 
