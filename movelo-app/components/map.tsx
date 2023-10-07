@@ -147,5 +147,3 @@ export default function Map({styles}: Props) {
         </MapView>
     );
 }
-
-export default renderMap;
