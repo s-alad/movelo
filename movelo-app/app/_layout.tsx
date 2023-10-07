@@ -14,10 +14,16 @@ export default function RootLayout() {
     <AuthProvider>
       <SafeAreaProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <Drawer />
+          
           <Stack
             
-          >
+          > 
+            <Stack.Screen
+              name="draw"
+              options={{
+                headerShown: false,
+              }}
+            />
             <Stack.Screen
               name="(tabs)"
               options={{
