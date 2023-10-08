@@ -1,6 +1,6 @@
 import {Image, Text, View} from 'react-native';
 
-interface Marker {
+export interface Marker {
     title: string,
     description: string,
     latlng: {

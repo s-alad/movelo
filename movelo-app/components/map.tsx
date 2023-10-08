@@ -7,17 +7,18 @@ import * as Location from 'expo-location';
 import {GOOGLE_MAPS_API_KEY} from "@env";
 import {calculateBearing, MyLatLng, TimestampedLatLng} from "../util/mapmath";
 import {View} from "react-native";
-import CustomMarker, { markers } from './custommarker';
+import { Marker as MarkerInterface } from './custommarker';
 
 let isTraveling = false;
 let timestamps = [];
 
 interface Props {
     styles: any;
-    markers: any;
+    markers: MarkerInterface[];
+    selectMarker: (marker: MarkerInterface, index: number) => void;
 }
 
-export default function Map({styles}: Props) {
+export default function Map({styles, markers, selectMarker}: Props) {
     // Data for the user
     const [userLocation, setUserLocation] = useState<MyLatLng | null>(null);
     const [destination, setDestination] = useState<MyLatLng | null>(null);
@@ -155,7 +156,10 @@ export default function Map({styles}: Props) {
                     coordinate={marker.latlng}
                     title={marker.title}
                     description={marker.description}
-                    onPress={() => startTravel(marker.latlng)}
+                    onPress={() => {
+                        startTravel(marker.latlng);
+                        selectMarker(marker, index);
+                    }}
                     icon={require("../dummy_data/traderjoes_overlay.png")}
                     // Give the image rounded borders
                 />

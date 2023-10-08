@@ -13,10 +13,11 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
 import Map from '../../../../components/map';
+import CustomMarker, { markers } from '../../../../components/custommarker';
+import { Marker as MarkerInterface } from '../../../../components/custommarker';
 
 export default function App() {
     const navigation: any = useNavigation();
-
     let colorScheme = useColorScheme();
     const styles = StyleSheet.create({
         container: {
@@ -24,10 +25,6 @@ export default function App() {
             backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
             alignItems: 'center',
             justifyContent: 'center',
-        },
-        header: {
-            fontSize: 24,
-            backgroundColor: 'white',
         },
         map: {
             width: '100%',
@@ -101,6 +98,13 @@ export default function App() {
         },
     ];
 
+
+    let [currentMarker, setCurrentMarker] = useState<MarkerInterface | null>(null);
+    function handleMarkerChange(marker: MarkerInterface, index: number) {
+        setCurrentMarker(marker);
+        console.log(marker)
+    }
+
     return (
 
         <View
@@ -146,7 +150,7 @@ export default function App() {
                 </TouchableOpacity>
             </View>
 
-            <Map styles={styles}/>
+            <Map styles={styles} markers={markers} selectMarker={handleMarkerChange}/>
 
             <BottomSheet
                 index={1}
@@ -181,7 +185,7 @@ export default function App() {
 
                     )}
                     renderSectionHeader={({ section: { title } }) => (
-                        <Text style={styles.header}>{title}</Text>
+                        <Text style={{ fontSize: 24, backgroundColor: 'white'}}>{title}</Text>
                     )}
                     style={{ width: '100%', paddingLeft: 24, paddingRight: 24 }}
                 />
