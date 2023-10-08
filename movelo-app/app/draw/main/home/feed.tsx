@@ -1,12 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet } from 'react-native';
 
+function formatTime(date: Date) {
+    return new Intl.DateTimeFormat('default', { hour: '2-digit', minute: '2-digit' }).format(date);
+}
+
+function generateDummy(id: number) {
+    let names = ["Collin", "Ryan", "Lauren", "Aditya", "Samantha", "Emma", "Tess", "Christina"]
+    let companies = ["Google", "Facebook", "Amazon", "Microsoft", "Apple", "Tesla", "IBM"]
+
+    let name = names[Math.floor(Math.random() * names.length)];
+    let company = companies[Math.floor(Math.random() * companies.length)];
+
+    return {
+        id: id,
+        text: `${name} completed a compaign with ${company}!`,
+        timestamp: formatTime(new Date()),
+    };
+}
+
 export default function Feed() {
     // Mock data for chat messages
-    const [messages, setMessages] = useState([
-        { id: 1, text: 'Hello there!', timestamp: '9:15 AM' },
-        { id: 2, text: 'General Kenobi!', timestamp: '9:16 AM' },
-    ]);
+    const [messages, setMessages] = useState(() => {
+        let arr = [];
+        for (let i = 0; i < 20; i++) {
+            arr.push(generateDummy(i));
+        }
+        return arr;
+    });
 
     useEffect(() => {
         // For demonstration purposes, let's add a new message every 10 seconds
@@ -14,7 +35,7 @@ export default function Feed() {
             const newMessage = {
                 id: messages.length + 1,
                 text: `This is message number ${messages.length + 1}`,
-                timestamp: new Date().toLocaleTimeString(),
+                timestamp: formatTime(new Date()),
             };
 
             setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -51,6 +72,10 @@ const styles = StyleSheet.create({
     messagesContainer: {
         flex: 1,
         padding: 10,
+    },
+    messageContentContainer: {
+        flexGrow: 1,
+        justifyContent: 'flex-end',
     },
     messageBox: {
         backgroundColor: '#f1f1f1',
