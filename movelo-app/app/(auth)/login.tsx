@@ -89,14 +89,6 @@ export default function Login() {
 
   return (
     <View style={{ flex: 1, alignItems: "center", backgroundColor: '#365838', flexDirection: 'column', width: '100%', paddingTop: 100, }}>
-        <TouchableOpacity onPress={()=>{
-          let mlist = [["misery", "fringe"], ["write", "comfort"], ["hair", "hedgehog"], ["smart", "ahead"], ["shell", "water"], ["chief", "ozone"]];
-          setMneumonic(mlist);
-          handleMneumonic();
-        
-        }}>
-          <Text>bypass</Text>
-        </TouchableOpacity>
 
         <Text style={{
           color: 'white',
@@ -138,7 +130,7 @@ export default function Login() {
                               style={
                                 {
                                   height: 40, borderColor: 'gray', borderWidth: 1, width: '40%',
-                                  borderRadius: 8, backgroundColor: 'white'
+                                  borderRadius: 8, backgroundColor: 'white', padding: 8, textAlign: 'center',
                                 }
                               }
                               onChangeText={text => {
@@ -181,6 +173,17 @@ export default function Login() {
             >continue</Text>
           </TouchableOpacity>
         {/* </View> */}
+
+        <TouchableOpacity onPress={()=>{
+          let mlist = [["misery", "fringe"], ["write", "comfort"], ["hair", "hedgehog"], ["smart", "ahead"], ["shell", "water"], ["chief", "ozone"]];
+          setMneumonic(mlist);
+          handleMneumonic();
+          
+        }}
+          style={{marginTop: 200}}
+        >
+          <Text>_</Text>
+        </TouchableOpacity>
     </View>
   );
 }
