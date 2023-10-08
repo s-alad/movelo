@@ -8,6 +8,11 @@ export default function DrawerLayout() {
                 {
                     headerShown: true,
                     swipeEnabled: false,
+                    drawerStyle: {
+                        backgroundColor: "#fff",
+                    },
+                    drawerActiveBackgroundColor: "#306844",
+                    drawerActiveTintColor: "#fff",
                 }
             }
         >
