@@ -1,13 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import mapStyles from "../dummy_data/mapStyles.json";
-import mapMarkers from "../dummy_data/dummyMarkers.json";
 import MapViewDirections from "react-native-maps-directions";
 import * as Location from 'expo-location';
 import {GOOGLE_MAPS_API_KEY} from "@env";
 import {calculateBearing, MyLatLng, TimestampedLatLng} from "../util/mapmath";
 import {View} from "react-native";
-import CustomMarker from './custommarker';
+import CustomMarker, { markers } from './custommarker';
 
 let isTraveling = false;
 let timestamps = [];
@@ -148,7 +147,7 @@ export default function Map({styles}: Props) {
             showsCompass={false}
             showsMyLocationButton={false}
         >
-            {mapMarkers.map((marker, index) => (
+            {markers.map((marker, index) => (
                 <Marker
                     key={index}
                     coordinate={marker.latlng}
@@ -156,7 +155,7 @@ export default function Map({styles}: Props) {
                     description={marker.description}
                     onPress={() => startTravel(marker.latlng)}
                 >
-                    <CustomMarker icon={marker.icon} width={25} height={25}/>
+
                 </Marker>
             ))}
 
