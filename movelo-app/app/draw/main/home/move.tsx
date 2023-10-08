@@ -64,6 +64,16 @@ export default function App() {
                         longitude: -71.049611,
                     },
                     icon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/redhat_logo_icon_168023.png"
+                },
+                {
+                    title: "Engineer",
+                    description: "Build with duct tape",
+                    vechain_reward_to_mile: 0.04,
+                    latlng: {
+                        latitude: 42.363105,
+                        longitude: -71.126159
+                    },
+                    icon: "https://media.officedepot.com/images/f_auto,q_auto,e_sharpen,h_450/products/348554/348554_o51_et_8573995/348554"
                 }
             ],
         },
@@ -158,7 +168,7 @@ export default function App() {
     if (location !== null && destination !== null) {
         let distance = haversineDistance(location, destination);
         if (distance < 0.05) {
-            console.log("You've arrived!")
+            alert("you did it")
             setCurrentMarker(null);
             setDestination(null);
         }
