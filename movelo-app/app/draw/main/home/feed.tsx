@@ -54,12 +54,6 @@ export default function Feed() {
                     </View>
                 ))}
             </ScrollView>
-            <TextInput
-                multiline
-                numberOfLines={4}
-                placeholder="Type your message..."
-                style={styles.input}
-            />
         </View>
     );
 }
