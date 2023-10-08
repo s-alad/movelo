@@ -88,3 +88,19 @@ export function isSpeeding(locations: TimestampedLatLng[], maxSpeed: number = 15
 
     return false;
 }
+
+export function getZoomLevel(distance: number): number {
+    if (distance < 0.1) return 18;
+    if (distance < 0.5) return 17;
+    if (distance < 1) return 16;
+    if (distance < 2) return 15;
+    if (distance < 5) return 14;
+    if (distance < 10) return 13;
+    if (distance < 20) return 12;
+    if (distance < 40) return 11;
+    if (distance < 80) return 10;
+    if (distance < 150) return 9;
+    if (distance < 300) return 8;
+    if (distance < 600) return 7;
+    return 6; // for anything > 600 miles
+}

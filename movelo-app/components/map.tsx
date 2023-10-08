@@ -5,7 +5,7 @@ import mapStyles from "../dummy_data/mapStyles.json";
 import MapViewDirections from "react-native-maps-directions";
 import * as Location from 'expo-location';
 import {GOOGLE_MAPS_API_KEY} from "@env";
-import {calculateBearing, MyLatLng, TimestampedLatLng} from "../util/mapmath";
+import {calculateBearing, getZoomLevel, haversineDistance, MyLatLng, TimestampedLatLng} from "../util/mapmath";
 import {View} from "react-native";
 import { Marker as MarkerInterface } from './custommarker';
 
@@ -60,13 +60,16 @@ export default function Map({styles, markers, selectMarker}: Props) {
         if (!mapRef.current)
             return;
 
+        // This gets the current camera properties
         mapRef.current.getCamera().then(camera => setPreviousCameraZoom(camera.zoom));
+
+        let distanceInMiles = haversineDistance(origin, destination);
         mapRef.current.animateCamera({
             heading: calculateBearing(origin, destination),
-            zoom: 16,
+            zoom: getZoomLevel(distanceInMiles),
             center: {
-                latitude: origin.latitude,
-                longitude: origin.longitude,
+                latitude: (origin.latitude * 2 + destination.latitude) / 3,
+                longitude: (origin.longitude * 2 + destination.longitude) / 3,
             },
             pitch: 45,
         });
