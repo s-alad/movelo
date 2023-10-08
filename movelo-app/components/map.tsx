@@ -14,6 +14,7 @@ let timestamps = [];
 
 interface Props {
     styles: any;
+    markers: any;
 }
 
 export default function Map({styles}: Props) {
