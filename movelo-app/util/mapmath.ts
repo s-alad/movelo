@@ -1,3 +1,6 @@
+import axios from "axios";
+import {GOOGLE_MAPS_API_KEY} from "@env";
+
 export interface MyLatLng {
     longitude: number;
     latitude: number;
@@ -41,4 +44,27 @@ export function calculateBearing(origin: MyLatLng, destination: MyLatLng) {
     let bearing = Math.atan2(y, x) * (180 / Math.PI);
     bearing = (bearing + 360) % 360; // Normalize to 0-360
     return bearing;
+}
+
+export async function getBikingDistance(origin: MyLatLng, destination: MyLatLng) {
+    const endpoint = 'https://maps.googleapis.com/maps/api/directions/json';
+
+    try {
+        const response = await axios.get(endpoint, {
+            params: {
+                origin: `${origin.latitude},${origin.longitude}`,
+                destination: `${destination.latitude},${destination.longitude}`,
+                mode: 'bicycling',
+                key: GOOGLE_MAPS_API_KEY
+            }
+        });
+
+        if (response.data.routes[0] && response.data.routes[0].legs[0]) {
+            return response.data.routes[0].legs[0].distance;
+        } else {
+            throw new Error('No route found.');
+        }
+    } catch (error) {
+        console.error(`Failed to get biking distance: ${error}`);
+    }
 }

@@ -5,42 +5,34 @@ import mapMarkers from "../dummy_data/dummyMarkers.json";
 import MapViewDirections from "react-native-maps-directions";
 import * as Location from 'expo-location';
 import { GOOGLE_MAPS_API_KEY } from "@env";
-import {calculateBearing, MyLatLng} from "../util/mapmath";
-const axios = require('axios');
+import {calculateBearing, getBikingDistance, MyLatLng} from "../util/mapmath";
+
+// Data for the user
+const [userLocation, setUserLocation] = useState<MyLatLng | null>(null);
+const [destination, setDestination] = useState<MyLatLng | null>(null);
+const mapRef = useRef<MapView>(null);
+
 
 interface Props {
     styles: any;
 }
 
-async function getBikingDistance(origin: MyLatLng, destination: MyLatLng) {
-    const endpoint = 'https://maps.googleapis.com/maps/api/directions/json';
-
-    try {
-        const response = await axios.get(endpoint, {
-            params: {
-                origin: `${origin.latitude},${origin.longitude}`,
-                destination: `${destination.latitude},${destination.longitude}`,
-                mode: 'bicycling',
-                key: GOOGLE_MAPS_API_KEY
-            }
-        });
-
-        if (response.data.routes[0] && response.data.routes[0].legs[0]) {
-            return response.data.routes[0].legs[0].distance;
-        } else {
-            throw new Error('No route found.');
-        }
-    } catch (error) {
-        console.error(`Failed to get biking distance: ${error}`);
-    }
+/**
+ * Start traveling to the selected location. This will animate the camera.
+ */
+export function startTravel(destination: MyLatLng) {
+    setDestination(destination);
+    if (userLocation)
+        animate(userLocation, destination);
 }
 
-const mapRef = useRef<MapView>(null);
+
+/**
+ * Animate the camera to the given location.
+ */
 async function animate(origin: MyLatLng, destination: MyLatLng) {
     if (!mapRef.current)
         return;
-
-    console.log("We do be animated though");
 
     mapRef.current.animateCamera({
         heading: calculateBearing(origin, destination),
@@ -53,14 +45,10 @@ async function animate(origin: MyLatLng, destination: MyLatLng) {
     });
 }
 
-
 export default function Map({styles}: Props) {
 
     // Request user permission to use location
     console.log("Google API Key: " + GOOGLE_MAPS_API_KEY);
-
-    const [userLocation, setUserLocation] = useState<MyLatLng | null>(null);
-    const [destination, setDestination] = useState<MyLatLng | null>(null);
 
     useEffect(() => {
         const fetchUserLocation = async () => {
@@ -79,19 +67,6 @@ export default function Map({styles}: Props) {
         fetchUserLocation();
     }, []);
 
-    // Handler for marker press to set destination
-    const handleMarkerPress = (coordinate: LatLng) => {
-        setDestination(coordinate);
-        if (userLocation)
-            animate(userLocation, coordinate);
-    };
-
-    if (userLocation && destination) {
-        getBikingDistance(userLocation, destination).then((distance) => {
-            console.log("Distance: " + distance.text);
-        });
-    }
-
     return (
         <MapView
             ref={mapRef}
@@ -108,30 +83,19 @@ export default function Map({styles}: Props) {
             showsCompass={false}
             showsMyLocationButton={false}
         >
-            {/* TODO add markers for each sponsorship */}
             {mapMarkers.map((marker, index) => (
                 <Marker
                     key={index}
                     coordinate={marker.latlng}
                     title={marker.title}
                     description={marker.description}
-                    onPress={() => handleMarkerPress(marker.latlng)}
+                    onPress={() => startTravel(marker.latlng)}
                 />
             ))}
 
             {/* Show directions from user's location to destination */}
             {userLocation && destination && (
                 <>
-                    {/* Thicker line for the "border" */}
-                    {/*<MapViewDirections
-                        origin={userLocation}
-                        mode={'BICYCLING'}
-                        destination={destination}
-                        apikey={GOOGLE_MAPS_API_KEY}
-                        strokeWidth={8}
-                        strokeColor="black"
-                    />*/}
-                    {/* Thinner line on top for the actual path */}
                     <MapViewDirections
                         origin={userLocation}
                         mode={'BICYCLING'}
@@ -142,7 +106,6 @@ export default function Map({styles}: Props) {
                     />
                 </>
             )}
-
         </MapView>
     );
 }
