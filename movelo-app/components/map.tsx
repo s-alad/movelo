@@ -1,25 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import React, {useEffect, useRef, useState} from 'react';
+import MapView, {LatLng, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import mapStyles from "../dummy_data/mapStyles.json";
 import mapMarkers from "../dummy_data/dummyMarkers.json";
 import MapViewDirections from "react-native-maps-directions";
 import * as Location from 'expo-location';
 import { GOOGLE_MAPS_API_KEY } from "@env";
+import {calculateBearing, MyLatLng} from "../util/mapmath";
 const axios = require('axios');
 
 interface Props {
     styles: any;
 }
 
-type Location = {
-    latitude: number;
-    longitude: number;
-} | null;
-
-async function getBikingDistance(origin: Location, destination: Location) {
-    if (!origin || !destination) {
-        throw new Error('Origin or destination is null');
-    }
+async function getBikingDistance(origin: MyLatLng, destination: MyLatLng) {
     const endpoint = 'https://maps.googleapis.com/maps/api/directions/json';
 
     try {
@@ -42,10 +35,33 @@ async function getBikingDistance(origin: Location, destination: Location) {
     }
 }
 
+const mapRef = useRef<MapView>(null);
+async function animate(origin: MyLatLng, destination: MyLatLng) {
+    if (!mapRef.current)
+        return;
+
+    console.log("We do be animated though");
+
+    mapRef.current.animateCamera({
+        heading: calculateBearing(origin, destination),
+        zoom: 16,
+        center: {
+            latitude: origin.latitude,
+            longitude: origin.longitude,
+        },
+        pitch: 45,
+    });
+}
+
+
 export default function Map({styles}: Props) {
 
     // Request user permission to use location
     console.log("Google API Key: " + GOOGLE_MAPS_API_KEY);
+
+    const [userLocation, setUserLocation] = useState<MyLatLng | null>(null);
+    const [destination, setDestination] = useState<MyLatLng | null>(null);
+
     useEffect(() => {
         const fetchUserLocation = async () => {
             // Ask for permissions first
@@ -63,30 +79,12 @@ export default function Map({styles}: Props) {
         fetchUserLocation();
     }, []);
 
-    const [userLocation, setUserLocation] = useState<Location>(null);
-    const [destination, setDestination] = useState<Location>(null);
-
     // Handler for marker press to set destination
-    const handleMarkerPress = (coordinate: Location) => {
+    const handleMarkerPress = (coordinate: LatLng) => {
         setDestination(coordinate);
+        if (userLocation)
+            animate(userLocation, coordinate);
     };
-
-
-    useEffect(() => {
-        const fetchUserLocation = async () => {
-            const { status } = await Location.requestForegroundPermissionsAsync();
-
-            if (status === 'granted') {
-                const location = await Location.getCurrentPositionAsync({});
-                const { latitude, longitude } = location.coords;
-                setUserLocation({ latitude, longitude });
-            } else {
-                alert('Location permission not granted');
-            }
-        };
-
-        fetchUserLocation();
-    }, []);  // Note the addition of dependency array.
 
     if (userLocation && destination) {
         getBikingDistance(userLocation, destination).then((distance) => {
@@ -96,6 +94,7 @@ export default function Map({styles}: Props) {
 
     return (
         <MapView
+            ref={mapRef}
             style={styles.map}
             provider={PROVIDER_GOOGLE}
             customMapStyle={mapStyles}
