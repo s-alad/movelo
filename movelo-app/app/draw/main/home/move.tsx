@@ -38,6 +38,7 @@ export default function App() {
             data: [
                 {
                     entity: "redhat",
+                    description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.1,
                     location: {
                         latitude: 42.371433,
@@ -47,32 +48,38 @@ export default function App() {
                 },
                 {
                     entity: "github",
+                    description: "code all dat",
                     vechain_reward_to_mile: 0.1,
                     location: {
                         latitude: 42.371433,
                         longitude: -71.128903,
                     },
+                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
                 }
             ],
         },
         {
             title: 'Promoted Movelos',
-            data: /* ['Tattes Harvard', 'GSU', 'Marcianos'], */ [
+            data: [
                 {
                     entity: "GSU",
-                    vechain_reward_to_mile: 0.1,
-                    location: {
-                        latitude: 42.371433,
-                        longitude: -71.128903,
-                    }, 
-                },
-                {
-                    entity: "Marcianos",
+                    description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.1,
                     location: {
                         latitude: 42.371433,
                         longitude: -71.128903,
                     },
+                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
+                },
+                {
+                    entity: "Marcianos",
+                    vechain_reward_to_mile: 0.1,
+                    description: "Buy food n' stuff",
+                    location: {
+                        latitude: 42.371433,
+                        longitude: -71.128903,
+                    },
+                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
                 }
             ]
         },
@@ -81,19 +88,23 @@ export default function App() {
             data: /* ['Dominoes', 'Papa Johns', 'Pizza Hut', "McDonalds"], */ [
                 {
                     entity: "Dominoes",
+                    description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.1,
                     location: {
                         latitude: 42.371433,
                         longitude: -71.128903,
                     }, 
+                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
                 },
                 {
                     entity: "McDonalds",
+                    description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.1,
                     location: {
                         latitude: 42.371433,
                         longitude: -71.128903,
                     },
+                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
                 }
             ]
         },
@@ -151,7 +162,7 @@ export default function App() {
                 </TouchableOpacity>
             </View>
 
-            <Map styles={styles} markers={markers} selectMarker={handleMarkerChange}/>
+            <Map styles={styles} markers={DATA} selectMarker={handleMarkerChange}/>
 
             <BottomSheet
                 index={1}
