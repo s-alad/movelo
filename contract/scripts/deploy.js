@@ -18,6 +18,8 @@ async function main() {
     await movelo.deployed();
     console.log('Movelo deployed to:', movelo.address);
 
+
+
 }
 
 main()
