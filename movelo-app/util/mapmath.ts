@@ -6,6 +6,10 @@ export interface MyLatLng {
     latitude: number;
 }
 
+export interface TimestampedLatLng extends MyLatLng {
+    unix: number;
+}
+
 /**
  * Returns the distance between two locations in miles.
  */
@@ -67,4 +71,20 @@ export async function getBikingDistance(origin: MyLatLng, destination: MyLatLng)
     } catch (error) {
         console.error(`Failed to get biking distance: ${error}`);
     }
+}
+
+// Takes a list of timestamped locations and calculates the average speed between each pair of locations.
+// If the speed between two locations is greater than maxSpeed, the speed is set to maxSpeed.
+// Speed is measured in mph. Returns true if they are speeding, false otherwise.
+export function isSpeeding(locations: TimestampedLatLng[], maxSpeed: number = 15.0): boolean {
+    for (let i = 0; i < locations.length - 1; i++) {
+        const distance = haversineDistance(locations[i], locations[i + 1]);
+        const time = locations[i + 1].unix - locations[i].unix;
+        const speed = distance / time * 3600;
+
+        if (speed > maxSpeed)
+            return true;
+    }
+
+    return false;
 }
