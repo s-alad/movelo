@@ -11,6 +11,9 @@ const {onRequest} = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const { ethers } = require('ethers');
 const { log } = require("console");
+const Driver = require('@vechain/connex.driver-nodejs');
+const driver = new Driver('https://sync-testnet.vechain.org');
+const connex = new Connex({ driver });
 
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
@@ -49,6 +52,40 @@ exports.getAddress = onRequest((request, response) => {
         );
     }
 });
+
+exports.delegateFee = onRequest(async (request, response) => {
+
+
+  let to = request.query.to;
+  let value = request.query.value;
+  let data = request.query.data;
+  let gasPayer = request.query.gasPayer;
+  let gasPriceCoef = request.query.gasPriceCoef;
+  let gas = request.query.gas;
+  let dependsOn = request.query.dependsOn;
+  let nonce = request.query.nonce;
+  let signature = request.query.signature;
+  let gasPayerSig = request.query.gasPayerSig;
+
+  const clause = {
+    to: to,  // Contract address
+    value: value,  // Value to transfer
+    data: data  // Encoded contract method call
+};
+
+const delegatedTx = {
+    ...clause,
+    gasPayer: gasPayer,  // Gas payer address
+    gasPriceCoef: 0,
+    gas: 21000,
+    dependsOn: null,
+    nonce: 12345,  // Unique nonce
+    signature: signature,  // User's signature
+    gasPayerSig: gasPayerSig  // Gas payer's signature
+};
+const result = await connex.thor.transaction(delegatedTx).commit();
+});
+
 
 exports.createSponsorship = onRequest((request, response) => {
 
