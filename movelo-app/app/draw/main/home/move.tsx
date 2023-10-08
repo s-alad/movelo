@@ -56,10 +56,10 @@ export default function App() {
             title: 'Your Movelos',
             data: [
                 {
-                    entity: "redhat",
+                    title: "redhat",
                     description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.15,
-                    location: {
+                    latlng: {
                         latitude: 42.348518,
                         longitude: -71.049611,
                     },
@@ -71,20 +71,20 @@ export default function App() {
             title: 'Promoted Movelos',
             data: [
                 {
-                    entity: "GSU",
+                    title: "GSU",
                     description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.21,
-                    location: {
+                    latlng: {
                         latitude: 42.350635,
                         longitude: -71.109000,
                     },
                     icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
                 },
                 {
-                    entity: "Marcianos",
+                    title: "Marcianos",
                     vechain_reward_to_mile: 0.19,
                     description: "Buy food n' stuff",
-                    location: {
+                    latlng: {
                         latitude: 42.350046,
                         longitude: -71.097864,
                     },
@@ -96,20 +96,20 @@ export default function App() {
             title: 'Nearby Movelos',
             data: /* ['Dominoes', 'Papa Johns', 'Pizza Hut', "McDonalds"], */[
                 {
-                    entity: "Dominoes",
+                    title: "Dominoes",
                     description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.07,
-                    location: {
+                    latlng: {
                         latitude: 42.369508,
                         longitude: -71.111382,
                     },
-                    icon: "https://media.dominos.com/content/images/logos_png_thumb.png"
+                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
                 },
                 {
-                    entity: "McDonalds",
+                    title: "McDonalds",
                     description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.05,
-                    location: {
+                    latlng: {
                         latitude: 42.362723,
                         longitude: -71.136918,
                     },
@@ -122,11 +122,11 @@ export default function App() {
     let pointsOfInterest: MarkerInterface[] = DATA.map((section) => {
         return section.data.map((marker) => {
             return {
-                title: marker.entity,
+                title: marker.title,
                 description: marker.description,
                 latlng: {
-                    latitude: marker.location.latitude,
-                    longitude: marker.location.longitude,
+                    latitude: marker.latlng.latitude,
+                    longitude: marker.latlng.longitude,
                 },
                 icon: marker.icon,
             }
@@ -311,14 +311,14 @@ export default function App() {
                         :
                         <BottomSheet
                             index={1}
-                            snapPoints={[50, 250, 650]}
+                            snapPoints={[58, 250, 650]}
                             backgroundComponent={({ style }) => (
                                 <View style={[style, { backgroundColor: '#ffffff', borderRadius: 12, }]} />
                             )}
                         >
                             <BottomSheetSectionList
                                 sections={DATA}
-                                keyExtractor={(item, index) => item.entity + index}
+                                keyExtractor={(item, index) => item.title + index}
                                 renderItem={({ item, index, section }) => (
 
                                     <View style={{
@@ -326,15 +326,31 @@ export default function App() {
                                         flexDirection: 'row',
                                     }}
                                     >
-                                        <View style={{ borderRadius: 6, padding: 8, backgroundColor: '#306844' }}>
-                                            <Text style={{
-                                                fontSize: 17,
-                                                color: 'white',
-                                            }}>{item.entity}</Text>
+                                        <View style={{display: 'flex', flexDirection: 'row', alignItems:'center'}}>
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    setCurrentMarker(item);
+                                                }}
+                                            >
+                                                <View style={{ borderRadius: 6, padding: 8, backgroundColor: '#306844', width: 130, }}>
+                                                    <Text style={{
+                                                        fontSize: 17,
+                                                        color: 'white',
+                                                        textAlign: 'center'
+                                                    }}>{item.title}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+
+                                            <View style={{marginLeft: 10}}>
+                                                <Text>{haversineDistance(
+                                                    location!,
+                                                    item.latlng
+                                                ).toFixed(2)}mi away</Text>
+                                            </View>
                                         </View>
                                         <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 8 }}>
                                             <Text style={{
-                                                fontSize: 17,
+                                                fontWeight: 'bold',
                                                 color: 'black',
                                             }}>{item.vechain_reward_to_mile} VET</Text>
                                         </View>
@@ -342,9 +358,9 @@ export default function App() {
 
                                 )}
                                 renderSectionHeader={({ section: { title } }) => (
-                                    <Text style={{ fontSize: 24, backgroundColor: 'white' }}>{title}</Text>
+                                    <Text style={{ fontSize: 24, backgroundColor: 'white', marginBottom: 6 }}>{title}</Text>
                                 )}
-                                style={{ width: '100%', paddingLeft: 24, paddingRight: 24 }}
+                                style={{ width: '100%', paddingLeft: 24, paddingRight: 24, }}
                             />
                         </BottomSheet>
             }
