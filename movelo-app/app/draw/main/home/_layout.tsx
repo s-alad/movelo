@@ -66,7 +66,8 @@ export default function TabsLayout() {
                     name="feed"
                     options={{
                         title: "",
-                        headerShown: false,
+                        headerTitle: "Feed",
+                        headerShown: true,
                         href: {
                             pathname: "/draw/main/home/feed",
                         },

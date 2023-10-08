@@ -52,12 +52,12 @@ export default function Feed() {
         <View style={styles.container}>
             <View style={{
                 backgroundColor: 'white',
-                height: 80,
+                height: 0,
             }} />
-            <LinearGradient
+{/*             <LinearGradient
                 colors={['rgb(255, 255, 255)', 'transparent']}
                 style={styles.gradient}
-            />
+            /> */}
             <ScrollView style={styles.messagesContainer}>
 
                 {messages.map((message) => (
