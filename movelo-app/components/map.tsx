@@ -166,7 +166,7 @@ export default function Map({ styles, markers, selectMarker }: Props) {
                         selectMarker(marker, index);
                     }}
                 >
-                    <View style={{alignItems: 'center', justifyContent: 'center', position: 'absolute',  width: 44, height: 58}}>
+                    <View style={{alignItems: 'center', justifyContent: 'center', position: 'relative',  width: 44, height: 58}}>
                         <Image source={{
                             uri: marker.icon,
                         }} style={{
