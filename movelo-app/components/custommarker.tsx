@@ -10,27 +10,6 @@ export interface Marker {
     icon: string
 }
 
-export const markers: Marker[] = [
-    {
-        "title": "Trader Joes",
-        "description": "Buy food n' stuff",
-        "latlng": {
-            "latitude": 42.363245,
-            "longitude": -71.129785
-        },
-        "icon": "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/trader_joes.png"
-    },
-    {
-        "title": "BU FitRec",
-        "description": "Go to the gym",
-        "latlng": {
-            "latitude": 42.351117,
-            "longitude": -71.114117
-        },
-        "icon": "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
-    }
-]
-
 // @ts-ignore
 export default function CustomMarker({image, width = 50, height = 50}) {
     const overlay = ''
