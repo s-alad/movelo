@@ -13,6 +13,7 @@ export default function DrawerLayout() {
                     },
                     drawerActiveBackgroundColor: "#306844",
                     drawerActiveTintColor: "#fff",
+                    headerTintColor: "black",
                 }
             }
         >
@@ -23,6 +24,7 @@ export default function DrawerLayout() {
                 }}
             />
             <Drawer.Screen name="campaign" />
+            <Drawer.Screen name="account" />
         </Drawer>
     )
 }

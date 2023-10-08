@@ -9,7 +9,7 @@
 
 const {onRequest} = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
-const ethers = require('ethers');
+const { ethers } = require('ethers');
 const { log } = require("console");
 
 // Create and deploy your first functions
@@ -51,17 +51,17 @@ exports.getAddress = onRequest((request, response) => {
 });
 
 exports.createSponsorship = onRequest((request, response) => {
-    //take private key from params
-    /* const privateKey = request.query.private; */
-    const privateKey = "9eadccbca90b3efbfc8bc6cb6aea89758b6979c19d881d2782ac0d3b9f2072ae"
-    logger.info(privateKey, {structuredData: true});
+
+    // Set up a provider (e.g., a connection to a test network)
     const provider = new ethers.providers.JsonRpcProvider('https://sepolia.infura.io/v3/7a4319061db849c3ac8c04cde995e81e');
-
-    const wallet = new ethers.Wallet(privateKey, provider);
-
-    const contractAddress = "0x818aDEE33B683D90556685bef6f7b4cB6763014F";
-
-    const abi = [
+    
+    // Set up a signer (e.g., a wallet with a private key)
+    const wallet = new ethers.Wallet('9eadccbca90b3efbfc8bc6cb6aea89758b6979c19d881d2782ac0d3b9f2072ae', provider);
+    // The address of your deployed Movelo contract
+    const moveloAddress = '0x818aDEE33B683D90556685bef6f7b4cB6763014F';
+    
+    // The ABI (Application Binary Interface) of your Movelo contract
+    const moveloAbi = [
         {
           "inputs": [],
           "stateMutability": "nonpayable",
@@ -455,23 +455,43 @@ exports.createSponsorship = onRequest((request, response) => {
           "stateMutability": "nonpayable",
           "type": "function"
         }
-      ]
-
-    const contract = new ethers.Contract(contractAddress, abi, wallet);
-
-    async function makeSponsor() {
-        try {
-            const data = await contract.createSponsorship(
-                "test", "desc", "img", 100, 5, [], [100], [100]
-            );
-            console.log(data);
-            logger.info(data, {structuredData: true});
-        } catch (error) {
-            console.log(error);
-            logger.info(error, {structuredData: true});
-        }
+      ];  // Paste your contract's ABI here
+    
+    // Create a contract instance
+    const movelo = new ethers.Contract(moveloAddress, moveloAbi, wallet);
+    const name = "Test Sponsorship";
+    const description = "A test sponsorship for demonstrating the Movelo app.";
+    const imageURL = "https://example.com/image.jpg";
+    const duration = 7 * 24 * 60 * 60;  // 7 days in seconds
+    const ratePerMile = ethers.utils.parseEther('0.01');  // 0.01 VET per mile
+    const allowedAddresses = [];  // Empty array means all addresses are allowed
+    const locationLatitudes = [];
+    const locationLongitudes = [];
+    async function addSponsorship() {
+      const tx = await movelo.createSponsorship(
+        name,
+        description,
+        imageURL,
+        duration,
+        ratePerMile,
+        allowedAddresses,
+        locationLatitudes,
+        locationLongitudes,
+        { value: ethers.utils.parseEther('10'), gasLimit: 3000000 }
+      );
+    
+      // Wait for the transaction to be mined
+      const receipt = await tx.wait();
+      console.log('Transaction mined:', receipt.transactionHash);
+    
+      // Output the SponsorshipCreated event (if any)
+      const event = receipt.events.find(e => e.event === 'SponsorshipCreated');
+      if (event) {
+        console.log('SponsorshipCreated event:', event.args);
+      }
     }
-
-    makeSponsor();
+    
+    // Run the function
+    addSponsorship().catch(console.error);
 });
 
