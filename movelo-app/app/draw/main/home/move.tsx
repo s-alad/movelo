@@ -185,7 +185,12 @@ export default function App() {
     }, []);
 
     async function updateVet() {
-        save("balance", (parseFloat(await getValueFor("balance") as string) + currentMarker!.vechain_reward_to_mile).toString());
+        console.log("UPDATING VET")
+        let amountBal = await getValueFor("balance");
+        console.log("AMOUNT BAL", amountBal, currentMarker!.vechain_reward_to_mile)
+        let newAmountBal = parseFloat(amountBal!) + currentMarker!.vechain_reward_to_mile;
+        console.log("NEW AMOUNT BAL", newAmountBal)
+        await save("balance", newAmountBal.toString());
     }
 
     const [isFinished, setIsFinished] = useState<boolean>(false);

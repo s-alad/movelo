@@ -1,6 +1,7 @@
 import { View, Text } from "react-native";
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 export default function Account() {
 
     async function getValueFor(key: string) {
@@ -19,6 +20,15 @@ export default function Account() {
             setBal(res);
         })
     }, [])
+
+    useFocusEffect(() => {
+        getValueFor('address').then((res) => {
+            setAddy(res);
+        })
+        getValueFor('balance').then((res) => {
+            setBal(res);
+        })
+    })
 
 
     return (
