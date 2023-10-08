@@ -56,20 +56,20 @@ export default function App() {
             title: 'Your Movelos',
             data: [
                 {
-                    entity: "redhat",
+                    title: "redhat",
                     description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.1,
-                    location: {
+                    latlng: {
                         latitude: 42.371433,
                         longitude: -72.903,
                     },
                     icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/trader_joes.png"
                 },
                 {
-                    entity: "github",
+                    title: "github",
                     description: "code all dat",
                     vechain_reward_to_mile: 0.1,
-                    location: {
+                    latlng: {
                         latitude: 42.171433,
                         longitude: -71.128903,
                     },
@@ -81,20 +81,20 @@ export default function App() {
             title: 'Promoted Movelos',
             data: [
                 {
-                    entity: "GSU",
+                    title: "GSU",
                     description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.1,
-                    location: {
+                    latlng: {
                         latitude: 42.371433,
                         longitude: -71.128903,
                     },
                     icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
                 },
                 {
-                    entity: "Marcianos",
+                    title: "Marcianos",
                     vechain_reward_to_mile: 0.1,
                     description: "Buy food n' stuff",
-                    location: {
+                    latlng: {
                         latitude: 42.371433,
                         longitude: -71.128903,
                     },
@@ -106,20 +106,20 @@ export default function App() {
             title: 'Nearby Movelos',
             data: /* ['Dominoes', 'Papa Johns', 'Pizza Hut', "McDonalds"], */[
                 {
-                    entity: "Dominoes",
+                    title: "Dominoes",
                     description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.1,
-                    location: {
+                    latlng: {
                         latitude: 42.9714333,
                         longitude: -71.128903,
                     },
                     icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
                 },
                 {
-                    entity: "McDonalds",
+                    title: "McDonalds",
                     description: "Buy food n' stuff",
                     vechain_reward_to_mile: 0.1,
-                    location: {
+                    latlng: {
                         latitude: 42.371433,
                         longitude: -71.128903,
                     },
@@ -132,11 +132,11 @@ export default function App() {
     let pointsOfInterest: MarkerInterface[] = DATA.map((section) => {
         return section.data.map((marker) => {
             return {
-                title: marker.entity,
+                title: marker.title,
                 description: marker.description,
                 latlng: {
-                    latitude: marker.location.latitude,
-                    longitude: marker.location.longitude,
+                    latitude: marker.latlng.latitude,
+                    longitude: marker.latlng.longitude,
                 },
                 icon: marker.icon,
             }
@@ -328,7 +328,7 @@ export default function App() {
                         >
                             <BottomSheetSectionList
                                 sections={DATA}
-                                keyExtractor={(item, index) => item.entity + index}
+                                keyExtractor={(item, index) => item.title + index}
                                 renderItem={({ item, index, section }) => (
 
                                     <View style={{
@@ -336,12 +336,18 @@ export default function App() {
                                         flexDirection: 'row',
                                     }}
                                     >
-                                        <View style={{ borderRadius: 6, padding: 8, backgroundColor: '#306844' }}>
-                                            <Text style={{
-                                                fontSize: 17,
-                                                color: 'white',
-                                            }}>{item.entity}</Text>
-                                        </View>
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                setCurrentMarker(item);
+                                            }}
+                                        >
+                                            <View style={{ borderRadius: 6, padding: 8, backgroundColor: '#306844' }}>
+                                                <Text style={{
+                                                    fontSize: 17,
+                                                    color: 'white',
+                                                }}>{item.title}</Text>
+                                            </View>
+                                        </TouchableOpacity>
                                         <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 8 }}>
                                             <Text style={{
                                                 fontSize: 17,
