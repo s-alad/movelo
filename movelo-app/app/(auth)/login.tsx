@@ -11,19 +11,21 @@ async function save(key: string, value: string) {
 
 async function getValueFor(key: string) {
   let result = await SecureStore.getItemAsync(key);
-  if (result) {
+/*   if (result) {
     alert("🔐 Here's your value 🔐 \n" + result);
   } else {
     alert('No values stored under that key.');
-  }
+  } */
+  return result;
 }
 
 export default function Login() {
   const { user, setUser } = useAuth();
 
-  const login = () => {
+  const login = (addr: string, priv: string) => {
     setUser({
-      name: "John Doe",
+      address: addr,
+      private: priv
     });
     console.log(user)
   }
@@ -48,21 +50,28 @@ export default function Login() {
     }).join(" ");
     console.log("MN", mneumonicString)
 
-    let reso =  await fetch(`https://getaddress-ai54nl56hq-uc.a.run.app?mnemonic=${mneumonicString}`)
-    let address = await reso.json();
-    let addressString = address;
-    console.log("address", addressString)
-    //check if the mneumonic is valid
-/*     if (ethers.Wallet.fromPhrase("misery fringe write comfort hair hedgehog smart ahead shell water chief ozone")) {
-      console.log("valid mneumonic")
+    let reso =  await fetch(`https://getaddress-ai54nl56hq-uc.a.run.app?mnemonic=${"misery fringe write comfort hair hedgehog smart ahead shell water chief ozone"}`)
+    let data = await reso.json();
+    console.log("address", data)
+    //check if there is an error in the address json
+    if (data.error) {
+      console.log("error", data.error)
     } else {
-      console.log("invalid mneumonic")
-    } */
+      //save the address to secure storage
+      await save("address", data.address);
+      await save("private", data.private);
+      //navigate to the home page
+      //check if properly saved
+      if (await getValueFor("address") === data.address && await getValueFor("private") === data.private) {
+        console.log("saved successfully")
+        login(data.address, data.private);
+      }
+    }
   }
 
   return (
     <View style={{ flex: 1, alignItems: "center", backgroundColor: '#365838', flexDirection: 'column', width: '100%', paddingTop: 100, }}>
-        <TouchableOpacity onPress={login}>
+        <TouchableOpacity onPress={()=>login('x', 'p')}>
           <Text>bypass</Text>
         </TouchableOpacity>
 

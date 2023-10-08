@@ -10,6 +10,7 @@
 const {onRequest} = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const ethers = require('ethers');
+const { log } = require("console");
 
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
@@ -28,11 +29,14 @@ exports.getAddress = onRequest((request, response) => {
     response.send(wallet.address); */
     try {
         const wallet = ethers.Wallet.fromMnemonic(mnemonic);
+        const privateKey = wallet.privateKey;
         console.log(wallet.address);
         logger.info(wallet.address, {structuredData: true});
+        logger.info(privateKey, {structuredData: true});
         response.send(
             {
                 "address": wallet.address,
+                "private": privateKey,
                 "mnemonic": mnemonic
             }
         );

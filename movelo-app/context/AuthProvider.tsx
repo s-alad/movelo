@@ -1,8 +1,10 @@
 import { useSegments, useRouter } from "expo-router";
 import { createContext, useContext, useEffect, useState } from "react";
+import * as SecureStore from 'expo-secure-store';
 
 type User = {
-  name: string;
+  address: string;
+  private: string;
 }
 
 type AuthType = {
@@ -38,8 +40,45 @@ function useProtectedRoute(user: any) {
   }, [user, segments]);
 }
 
+async function getValueFor(key: string) {
+  let result = await SecureStore.getItemAsync(key);
+  if (result) {
+    alert("🔐 Here's your value 🔐 \n" + result);
+  } else {
+    alert('No values stored under that key.');
+  }
+  return result;
+}
+
 export function AuthProvider({ children }: { children: JSX.Element }): JSX.Element {
-    const [user, setUser] = useState<User | null>(null);
+
+    // try to get the user from secure storage
+    let [user, setUser] = useState<User | null>(null);
+
+    function getUserAddress() {
+      const ua = getValueFor("address");
+      return ua;
+    }
+    function getUserPrivate() {
+      const up = getValueFor("private");
+      return up;
+    }
+
+    useEffect(() => {
+      async function getUser() {
+        const u = await getUserAddress();
+        const p = await getUserPrivate();
+
+        if (u && p) setUser(
+          {
+            address: u,
+            private: p,
+          }
+        );
+        else setUser(null);
+      }
+      getUser();
+    }, []);
 
     useProtectedRoute(user);
 
