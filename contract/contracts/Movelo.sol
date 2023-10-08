@@ -5,15 +5,20 @@ import "./ERC721.sol";
 
 contract Movelo {
     address public owner;
-
-    struct Sponsorship {
+    
+    struct Campaign {
         address sponsor;
+        string name;
+        string description;
+        string imageURL;
         uint256 budget;
         uint256 endTime;
         uint256 ratePerMile; // In VET
         address[] allowedAddresses;
         uint256[] locationLatitudes;
         uint256[] locationLongitudes; 
+        uint256 totalMiles; 
+        uint256 totalTrips;
     }
 
     struct Badge {
@@ -24,9 +29,10 @@ contract Movelo {
     }
 
     BadgeCreator public nftContract;  // The NFT contract.
-    Sponsorship[] public sponsorships;  // Array to track all sponsorships.
+    Campaign[] public campaigns;  // Array to track all sponsorships.
     mapping(address => uint256) public milesTraveled;  // User profile tracking miles.
     mapping(address => Badge[]) public userBadges;
+    mapping(address => uint256[]) public userCampaigns;
 
     event SponsorshipCreated(uint256 sponsorshipId, address sponsor, uint256 budget);
     event Payout(address user, uint256 amount, uint256 sponsorshipId);
@@ -47,43 +53,55 @@ contract Movelo {
 
     function createSponsorship(
         uint256 budget, 
+        string memory name,
+        string memory description,
+        string memory imgeURL,
         uint256 duration, 
         uint256 ratePerMile, 
         address[] memory allowedAddresses,
         uint256[] memory locationLatitudes,
         uint256[] memory locationLongitudes
         ) external {
-        Sponsorship memory newSponsorship = Sponsorship({
+        Campaign memory newCampaign = Campaign({
             sponsor: msg.sender,
             budget: budget,
+            name: name,
+            description: description,
+            imageURL: imgeURL,
             endTime: block.timestamp + duration,
             ratePerMile: ratePerMile,
             allowedAddresses: allowedAddresses,
             locationLatitudes: locationLatitudes,
-            locationLongitudes: locationLongitudes
+            locationLongitudes: locationLongitudes,
+            totalMiles: 0,
+            totalTrips: 0
         });
 
-        sponsorships.push(newSponsorship);
-        emit SponsorshipCreated(sponsorships.length - 1, msg.sender, budget);
+        campaigns.push(newCampaign);
+        emit SponsorshipCreated(campaigns.length - 1, msg.sender, budget);
     }
 
     function payout(uint256 miles, uint256 sponsorshipId) external {
-        require(sponsorshipId < sponsorships.length, "Invalid sponsorshipId");
-        Sponsorship storage sponsorship = sponsorships[sponsorshipId];
+        require(sponsorshipId < campaigns.length, "Invalid sponsorshipId");
+        Campaign storage campaign = campaigns[sponsorshipId];
 
-        require(block.timestamp <= sponsorship.endTime, "Sponsorship has ended");
-        require(sponsorship.budget > 0, "No funds left in this sponsorship");
+        require(block.timestamp <= campaign.endTime, "Sponsorship has ended");
+        require (campaign.budget > 0, "No funds left in this sponsorship");
 
         // Check if this address is allowed for this sponsorship
-        if (sponsorship.allowedAddresses.length > 0) {
-            require(isAddressInList(msg.sender, sponsorship.allowedAddresses), "Not allowed for this sponsorship");
+        if (campaign.allowedAddresses.length > 0) {
+            require(isAddressInList(msg.sender, campaign.allowedAddresses), "Not allowed for this sponsorship");
         }
 
-        uint256 amount = miles * sponsorship.ratePerMile;
-        require(amount <= sponsorship.budget, "Not enough funds left in the sponsorship");
+        uint256 amount = miles * campaign.ratePerMile;
+        require(amount <= campaign.budget, "Not enough funds left in the sponsorship");
 
-        sponsorship.budget -= amount;  // Deduct from sponsorship
+        campaign.budget -= amount;  // Deduct from sponsorship
         payable(msg.sender).transfer(amount);  // Pay the user
+
+        milesTraveled[msg.sender] += miles;  // Update user profile
+        campaign.totalMiles += miles;  // Update campaign
+        campaign.totalTrips += 1;  // Update campaign
 
         emit Payout(msg.sender, amount, sponsorshipId);
     }
@@ -112,16 +130,38 @@ contract Movelo {
         return false;
     }
 
+    function campaignRunning(uint256 campaignId) external returns (bool) {
+        require(campaignId < campaigns.length, "Invalid campaignId");
+        Campaign storage campaign = campaigns[campaignId];
+
+        if (block.timestamp <= campaign.endTime && campaign.budget > 0) {
+            return true;
+        } else {
+            address campaignOwner = campaigns[campaignId].sponsor;  // Retrieve the owner's address of this campaign
+            uint256[] storage ownedCampaigns = userCampaigns[campaignOwner];
+            for (uint256 i = 0; i < ownedCampaigns.length; i++) {
+                if (ownedCampaigns[i] == campaignId) {
+                    // Swap the campaign to delete with the last campaign in the array
+                    ownedCampaigns[i] = ownedCampaigns[ownedCampaigns.length - 1];
+                    // Decrease the array length by 1 to remove the last item
+                    ownedCampaigns.pop();
+                    break;
+                }
+            }
+            return false;
+        }
+    }
+
     function withdrawUnspentFunds(uint256 sponsorshipId) external {
-        require(sponsorshipId < sponsorships.length, "Invalid sponsorshipId");
-        Sponsorship storage sponsorship = sponsorships[sponsorshipId];
+        require(sponsorshipId < campaigns.length, "Invalid sponsorshipId");
+        Campaign storage campaign = campaigns[sponsorshipId];
 
-        require(msg.sender == sponsorship.sponsor, "Only the sponsor can withdraw");
-        require(block.timestamp > sponsorship.endTime, "Sponsorship is still active");
-        require(sponsorship.budget > 0, "No funds left to withdraw");
+        require(msg.sender == campaign.sponsor, "Only the sponsor can withdraw");
+        require(block.timestamp > campaign.endTime, "Sponsorship is still active");
+        require(campaign.budget > 0, "No funds left to withdraw");
 
-        uint256 amount = sponsorship.budget;
-        sponsorship.budget = 0;  // Set the budget to zero to prevent double withdrawals
+        uint256 amount = campaign.budget;
+        campaign.budget = 0;  // Set the budget to zero to prevent double withdrawals
 
         payable(msg.sender).transfer(amount);
     }

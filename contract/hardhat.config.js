@@ -7,8 +7,11 @@ require("@vechain/hardhat-web3");
 module.exports = {
   defaultNetwork: "vechain",
   networks: {
+    localhost: {
+      url: "https://localhost:8669",
+    },
     vechain: {
-      url: "https://testnet.veblocks.net",  
+      url: "http://127.0.0.1:8669/",
       accounts: [`${process.env.PRIVATE_KEY}`],  
     },
   },
