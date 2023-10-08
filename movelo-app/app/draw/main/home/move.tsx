@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import Map from '../../../../components/map';
 import { Marker as MarkerInterface } from '../../../../components/custommarker';
 import * as Location from 'expo-location';
-import {haversineDistance, MyLatLng} from "../../../../util/mapmath";
+import { haversineDistance, MyLatLng } from "../../../../util/mapmath";
 
 export default function App() {
     const navigation: any = useNavigation();
@@ -219,10 +219,10 @@ export default function App() {
                 </TouchableOpacity>
             </View>
 
-            <Map 
+            <Map
                 styles={styles}
-                markers={pointsOfInterest} selectMarker={handleMarkerChange} 
-                destination={destination} selectDestination={setDestination}/>
+                markers={pointsOfInterest} selectMarker={handleMarkerChange}
+                destination={destination} selectDestination={setDestination} />
 
             {
                 (location !== null && destination !== null) ?
@@ -232,134 +232,131 @@ export default function App() {
                         backgroundComponent={({ style }) => (
                             <View style={[style, { backgroundColor: '#ffffff', borderRadius: 12, }]} />
                         )}
-                        style={{ width: '100%', paddingLeft: 24, paddingRight: 24, paddingTop: 14, display: 'flex' }}
+                        style={{ width: '100%', paddingLeft: 24, paddingRight: 24, display: 'flex', justifyContent: 'center' }}
                         handleComponent={() => (<View></View>)}
                     >
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
 
-                        <Text
-                            style={{
-                                color: 'black',
-                                fontSize: 32,
-                                fontWeight: 'bold',
-                            }}
-                        >{Math.round(haversineDistance(location, destination) * 10) / 10 + " miles"}</Text>
-                        <TouchableOpacity onPress={() => {
-                            setDestination(null);
-                            setCurrentMarker(null);
-                        }} style={[styles.button, styles.testButton]}>
-                            <Text style={styles.buttonText}>Cancel</Text>
-                        </TouchableOpacity>
-                        </View>
-                    </BottomSheet>
-
-                : currentMarker !== null ?
-                    <BottomSheet
-                        index={1}
-                        snapPoints={[250, 251]}
-                        backgroundComponent={({ style }) => (
-                            <View style={[style, { backgroundColor: '#ffffff', borderRadius: 12, }]} />
-                        )}
-                        style={{ width: '100%', paddingLeft: 24, paddingRight: 24, paddingTop: 14, display: 'flex' }}
-                        handleComponent={() => (<View></View>)}
-                    >
-                        <TouchableOpacity onPress={() => {
-                            setCurrentMarker(null);
-                            setDestination(null);
-                        }} style={{width: 10, marginBottom: 12}}>
-                            <View style={{display:'flex', width: 200, flexDirection: 'row', alignItems: 'center'}}><FontAwesome
-                                size={26}
-                                style={{ marginBottom: -3, marginRight: 12 }}
-                                name="long-arrow-left"
-                            />
-                            {/* <Text>back</Text> */}</View>
-                        </TouchableOpacity>
-                        <View style={{display: 'flex', flexDirection: 'row'}}>
-
-                            <View style={{flexDirection: 'column', width: '60%'}}>
-                                <View style={{display: 'flex', flexDirection: 'row'}}>
-                                    <View /* style={{ borderRadius: 6, padding: 8, }} */>
-                                        <Text style={{
-                                            fontSize: 24,
-                                            color: 'black',
-                                            fontWeight: 'bold',
-                                        }}>{currentMarker.title}</Text>
-                                    </View>
-                                </View>
-
-                                <Text>
-                                    {currentMarker.description}
-                                </Text>
-
-                                <Text>
-                                    Distance: 0.5 miles
-                                </Text>
-
-                                <Text>
-                                    VET reward: 0.1 VET
-                                </Text>
-                            </View>
-
-                            <View style={{flexDirection: 'column', width: '40%', height: 60}}>
-                                <TouchableOpacity onPress={ async() => {
-                                    console.log("OHHH NOO")
-                                    if (currentMarker !== null) {
-                                        console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
-                                        setDestination(currentMarker?.latlng)
-                                    }
-                                }} style={{width: '100%', display: 'flex', flex: 1}}>
-                                    <View style={{ borderRadius: 16, padding: 8, backgroundColor: '#306844', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                        <Text style={{
-                                            fontSize: 24,
-                                            color: 'white',
-                                            textAlign: 'center',
-                                            fontWeight: 'bold',
-                                        }}>Start</Text>
-                                    </View>
-                                </TouchableOpacity>
-
-                            </View>
-                        </View>
-                    </BottomSheet>
-                    :
-                    <BottomSheet
-                        index={1}
-                        snapPoints={[50, 250, 650]}
-                        backgroundComponent={({ style }) => (
-                            <View style={[style, { backgroundColor: '#ffffff', borderRadius: 12, }]} />
-                        )}
-                    >
-                        <BottomSheetSectionList
-                            sections={DATA}
-                            keyExtractor={(item, index) => item.entity + index}
-                            renderItem={({ item, index, section }) => (
-
-                                <View style={{
-                                    marginBottom: index === section.data.length - 1 ? 24 : 8,
-                                    flexDirection: 'row',
+                            <Text
+                                style={{
+                                    color: 'black',
+                                    fontSize: 26,
+                                    fontWeight: 'bold',
                                 }}
-                                >
-                                    <View style={{ borderRadius: 6, padding: 8, backgroundColor: '#306844' }}>
-                                        <Text style={{
-                                            fontSize: 17,
-                                            color: 'white',
-                                        }}>{item.entity}</Text>
+                            >{Math.round(haversineDistance(location, destination) * 10) / 10 + " miles"}</Text>
+
+                            <TouchableOpacity onPress={() => {
+                                setDestination(null);
+                                setCurrentMarker(null);
+                            }} style={[styles.button, styles.testButton, {margin: 0, top: 10}]}>
+                                <Text style={styles.buttonText}>Cancel</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </BottomSheet>
+
+                    : currentMarker !== null ?
+                        <BottomSheet
+                            index={1}
+                            snapPoints={[250, 251]}
+                            backgroundComponent={({ style }) => (
+                                <View style={[style, { backgroundColor: '#ffffff', borderRadius: 12, }]} />
+                            )}
+                            style={{ width: '100%', paddingLeft: 24, paddingRight: 24, paddingTop: 14, display: 'flex' }}
+                            handleComponent={() => (<View></View>)}
+                        >
+                            <TouchableOpacity onPress={() => {
+                                setCurrentMarker(null);
+                                setDestination(null);
+                            }} style={{ width: 10, marginBottom: 12 }}>
+                                <View style={{ display: 'flex', width: 200, flexDirection: 'row', alignItems: 'center' }}><FontAwesome
+                                    size={26}
+                                    style={{ marginBottom: -3, marginRight: 12 }}
+                                    name="long-arrow-left"
+                                />
+                                    {/* <Text>back</Text> */}</View>
+                            </TouchableOpacity>
+                            <View style={{ display: 'flex', flexDirection: 'row' }}>
+
+                                <View style={{ flexDirection: 'column', width: '60%' }}>
+                                    <View style={{ display: 'flex', flexDirection: 'row' }}>
+                                        <View /* style={{ borderRadius: 6, padding: 8, }} */>
+                                            <Text style={{
+                                                fontSize: 24,
+                                                color: 'black',
+                                                fontWeight: 'bold',
+                                            }}>{currentMarker.title}</Text>
+                                        </View>
                                     </View>
-                                    <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 8 }}>
-                                        <Text style={{
-                                            fontSize: 17,
-                                            color: 'black',
-                                        }}>{item.vechain_reward_to_mile} VET</Text>
-                                    </View>
+
+                                    <Text>
+                                        {currentMarker.description}
+                                    </Text>
+
+                                    <Text>
+                                        Distance: 0.5 miles
+                                    </Text>
+
+                                    <Text>
+                                        VET reward: 0.1 VET
+                                    </Text>
                                 </View>
 
+                                <View style={{ flexDirection: 'column', width: '40%', height: 60 }}>
+                                    <TouchableOpacity onPress={() => {
+                                        setDestination(currentMarker!.latlng);
+                                    }} style={{ width: '100%' }}>
+                                        <View style={{ borderRadius: 16, padding: 8, backgroundColor: '#306844', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <Text style={{
+                                                fontSize: 24,
+                                                color: 'white',
+                                                textAlign: 'center',
+                                                fontWeight: 'bold',
+                                            }}>Start</Text>
+                                        </View>
+                                    </TouchableOpacity>
+
+                                </View>
+                            </View>
+                        </BottomSheet>
+                        :
+                        <BottomSheet
+                            index={1}
+                            snapPoints={[50, 250, 650]}
+                            backgroundComponent={({ style }) => (
+                                <View style={[style, { backgroundColor: '#ffffff', borderRadius: 12, }]} />
                             )}
-                            renderSectionHeader={({ section: { title } }) => (
-                                <Text style={{ fontSize: 24, backgroundColor: 'white' }}>{title}</Text>
-                            )}
-                            style={{ width: '100%', paddingLeft: 24, paddingRight: 24 }}
-                        />
-                    </BottomSheet>
+                        >
+                            <BottomSheetSectionList
+                                sections={DATA}
+                                keyExtractor={(item, index) => item.entity + index}
+                                renderItem={({ item, index, section }) => (
+
+                                    <View style={{
+                                        marginBottom: index === section.data.length - 1 ? 24 : 8,
+                                        flexDirection: 'row',
+                                    }}
+                                    >
+                                        <View style={{ borderRadius: 6, padding: 8, backgroundColor: '#306844' }}>
+                                            <Text style={{
+                                                fontSize: 17,
+                                                color: 'white',
+                                            }}>{item.entity}</Text>
+                                        </View>
+                                        <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 8 }}>
+                                            <Text style={{
+                                                fontSize: 17,
+                                                color: 'black',
+                                            }}>{item.vechain_reward_to_mile} VET</Text>
+                                        </View>
+                                    </View>
+
+                                )}
+                                renderSectionHeader={({ section: { title } }) => (
+                                    <Text style={{ fontSize: 24, backgroundColor: 'white' }}>{title}</Text>
+                                )}
+                                style={{ width: '100%', paddingLeft: 24, paddingRight: 24 }}
+                            />
+                        </BottomSheet>
             }
         </View>
     );
