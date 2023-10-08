@@ -9,6 +9,15 @@ import Map from '../../../../components/map';
 import { Marker as MarkerInterface } from '../../../../components/custommarker';
 import * as Location from 'expo-location';
 import { haversineDistance, MyLatLng } from "../../../../util/mapmath";
+import * as SecureStore from 'expo-secure-store';
+async function save(key: string, value: string) {
+    await SecureStore.setItemAsync(key, value);
+  }
+
+async function getValueFor(key: string) {
+    let result = await SecureStore.getItemAsync(key);
+    return result;
+}
 
 export default function App() {
     const navigation: any = useNavigation();
@@ -166,6 +175,10 @@ export default function App() {
         })();
     }, []);
 
+    async function updateVet() {
+        save("balance", (parseFloat(await getValueFor("balance") as string) + currentMarker!.vechain_reward_to_mile).toString());
+    }
+
     const [isFinished, setIsFinished] = useState<boolean>(false);
     const [finished, setFinished] = useState<MarkerInterface | null>(null);
     console.log("FIN", finished)
@@ -173,6 +186,8 @@ export default function App() {
         let distance = haversineDistance(location, destination);
         if (distance < 0.05) {
             alert("Congrats")
+
+            updateVet();
 
             setIsFinished(true);
             setFinished(currentMarker);

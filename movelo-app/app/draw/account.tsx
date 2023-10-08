@@ -9,10 +9,14 @@ export default function Account() {
     }
 
     let [addy, setAddy] = useState<string | null>(null);
+    let [bal, setBal] = useState<string | null>(null);
 
     useEffect(() => {
         getValueFor('address').then((res) => {
             setAddy(res);
+        })
+        getValueFor('balance').then((res) => {
+            setBal(res);
         })
     }, [])
 
@@ -81,7 +85,7 @@ export default function Account() {
                         textAlign: 'center',
                         marginTop: 8,
                     }}
-                >15.5 VET</Text>
+                >{bal} VET</Text>
             </View>
         </View>
     )
