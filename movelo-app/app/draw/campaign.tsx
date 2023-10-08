@@ -421,7 +421,7 @@ export default function Campaign() {
         let addr = fetchUserAddress();
     }, []);
 
-    useEffect(() => {
+/*     useEffect(() => {
         if (!localAddr) return;
 
         const contract = connex.thor.account(localAddr).method(abi);
@@ -435,7 +435,7 @@ export default function Campaign() {
             .catch(error => {
                 console.error('Error calling campaigns getter:', error);
             });
-    }, [localAddr]);
+    }, [localAddr]); */
 
 
     // Campaign input fields

@@ -283,11 +283,18 @@ export default function App() {
                                     </Text>
 
                                     <Text>
-                                        Distance: 0.5 miles
+                                        Distance: {
+                                            location !== null ?
+                                                haversineDistance(
+                                                    location!,
+                                                    currentMarker!.latlng
+                                                ).toFixed(2) + "mi away"
+                                                : ""
+                                        }
                                     </Text>
 
                                     <Text>
-                                        VET reward: 0.1 VET
+                                        VET reward:
                                     </Text>
                                 </View>
 
@@ -342,10 +349,14 @@ export default function App() {
                                             </TouchableOpacity>
 
                                             <View style={{marginLeft: 10}}>
-                                                <Text>{location !== null ? haversineDistance(
-                                                    location,
-                                                    item.latlng
-                                                ).toFixed(2):""}mi away</Text>
+                                                <Text>{
+                                                    location !== null ?
+                                                    haversineDistance(
+                                                        location!,
+                                                        item.latlng
+                                                    ).toFixed(2) + "mi away"
+                                                    : ""
+                                                    }</Text>
                                             </View>
                                         </View>
                                         <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 8 }}>
