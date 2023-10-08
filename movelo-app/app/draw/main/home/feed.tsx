@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 function formatTime(date: Date) {
     return new Intl.DateTimeFormat('default', { hour: '2-digit', minute: '2-digit' }).format(date);
@@ -48,7 +50,16 @@ export default function Feed() {
 
     return (
         <View style={styles.container}>
+            <View style={{
+                backgroundColor: 'white',
+                height: 80,
+            }} />
+            <LinearGradient
+                colors={['rgb(255, 255, 255)', 'transparent']}
+                style={styles.gradient}
+            />
             <ScrollView style={styles.messagesContainer}>
+
                 {messages.map((message) => (
                     <View key={message.id} style={styles.messageBox}>
                         <Text>{message.text}</Text>
@@ -64,6 +75,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
+    },
+    gradient: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: 100, // Adjust this value as necessary
+        zIndex: 1, // Ensure the gradient is above the messages
     },
     messagesContainer: {
         flex: 1,
