@@ -342,10 +342,10 @@ export default function App() {
                                             </TouchableOpacity>
 
                                             <View style={{marginLeft: 10}}>
-                                                <Text>{haversineDistance(
-                                                    location!,
+                                                <Text>{location !== null ? haversineDistance(
+                                                    location,
                                                     item.latlng
-                                                ).toFixed(2)}mi away</Text>
+                                                ).toFixed(2):""}mi away</Text>
                                             </View>
                                         </View>
                                         <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 8 }}>
