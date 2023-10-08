@@ -5,6 +5,10 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import * as SecureStore from 'expo-secure-store';
 import { useState } from "react";
 
+import { collection, addDoc, getDoc, setDoc, doc } from "firebase/firestore"; 
+import { db } from "../../firebaseConfig";
+
+
 async function save(key: string, value: string) {
   await SecureStore.setItemAsync(key, value);
 }
@@ -60,6 +64,26 @@ export default function Login() {
       await save("private", data.private);
       //navigate to the home page
       //check if properly saved
+
+      // check if the user exists in the user collection in firestore
+      // if not, add them
+
+      let docRef = doc(db, "users", data.address);
+      let docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        console.log("adding user")
+        await setDoc(doc(db, "users", data.address), {
+          address: data.address,
+          private: data.private,
+          currentCampaign: null,
+        });
+      } else {
+        console.log("user exists")
+      }
+      
+      
+
+
       if (await getValueFor("address") === data.address && await getValueFor("private") === data.private) {
         console.log("saved successfully")
         login(data.address, data.private);
