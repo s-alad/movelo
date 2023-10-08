@@ -37,7 +37,7 @@ export default function App() {
         userLocationDot: {
             height: 16,
             width: 16,
-            borderRadius: 10,
+            borderRadius: 8,
             backgroundColor: '#099c09',
             justifyContent: 'center',
             alignItems: 'center',
@@ -51,18 +51,12 @@ export default function App() {
             backgroundColor: 'rgba(9, 156, 9, 0.5)',
         },
         arrow: {
-            width: 0,
-            height: 0,
-            backgroundColor: "transparent",
-            borderStyle: "solid",
-            borderLeftWidth: 10,
-            borderRightWidth: 10,
-            borderBottomWidth: 20,
-            borderLeftColor: "transparent",
-            borderRightColor: "transparent",
-            borderBottomColor: "red",
-            top: 2.5, // Adjust based on your custom dot size
-            left: 2.5,
+            width: 4,
+            height: 4,
+            left: 6,
+            bottom: 2,
+            borderRadius: 2,
+            backgroundColor: 'red',
         },
     });
 

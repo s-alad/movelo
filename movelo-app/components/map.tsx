@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {Text} from "react-native";
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import mapStyles from "../dummy_data/mapStyles.json";
 import MapViewDirections from "react-native-maps-directions";
@@ -154,9 +155,9 @@ export default function Map({styles}: Props) {
                     title={marker.title}
                     description={marker.description}
                     onPress={() => startTravel(marker.latlng)}
-                >
-
-                </Marker>
+                    icon={require("../dummy_data/traderjoes_overlay.png")}
+                    // Give the image rounded borders
+                />
             ))}
 
             {/* Show directions from user's location to destination */}
