@@ -42,11 +42,11 @@ function useProtectedRoute(user: any) {
 
 async function getValueFor(key: string) {
   let result = await SecureStore.getItemAsync(key);
-  if (result) {
+/*   if (result) {
     alert("🔐 Here's your value 🔐 \n" + result);
   } else {
     alert('No values stored under that key.');
-  }
+  } */
   return result;
 }
 
