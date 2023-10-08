@@ -124,6 +124,15 @@ export default function App() {
                         longitude: -71.136918,
                     },
                     icon: "https://seeklogo.com/images/M/mcdonald-s-logo-2325D6C1EF-seeklogo.com.png"
+                },
+                {
+                    title: "Trader Joes",
+                    description: "Buy food n' stuff",
+                    vechain_reward_to_mile: 42.363384,
+                    latlng: {
+                        latitude: 42.363384,
+                        longitude: -71.129581
+                    },icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/trader_joes.png"
                 }
             ]
         },
