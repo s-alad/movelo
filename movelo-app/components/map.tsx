@@ -144,7 +144,7 @@ export default function Map({styles}: Props) {
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
             }}
-            showsUserLocation={false}
+            showsUserLocation={true}
             showsCompass={false}
             showsMyLocationButton={false}
         >
@@ -173,15 +173,6 @@ export default function Map({styles}: Props) {
                     />
                 </>
             )}
-
-            {userLocation &&
-                <Marker coordinate={userLocation}>
-                    <View style={{...styles.userLocationDot, transform: [{rotate: `${heading}deg`}]}}>
-                        <View style={styles.pulse}></View>
-                        <View style={styles.arrow}></View>
-                    </View>
-                </Marker>
-            }
         </MapView>
     );
 }

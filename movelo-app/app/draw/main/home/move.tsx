@@ -32,32 +32,7 @@ export default function App() {
         map: {
             width: '100%',
             height: '100%',
-        },
-        // green circle with a white border
-        userLocationDot: {
-            height: 16,
-            width: 16,
-            borderRadius: 8,
-            backgroundColor: '#099c09',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderColor: 'white',
-            borderWidth: 1,
-        },
-        pulse: {
-            height: 10,
-            width: 10,
-            borderRadius: 5,
-            backgroundColor: 'rgba(9, 156, 9, 0.5)',
-        },
-        arrow: {
-            width: 4,
-            height: 4,
-            left: 6,
-            bottom: 2,
-            borderRadius: 2,
-            backgroundColor: 'red',
-        },
+        }
     });
 
     const DATA = [
