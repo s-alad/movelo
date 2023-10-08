@@ -1,14 +1,442 @@
-import {useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Keyboard, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, View} from "react-native";
-
+import * as SecureStore from 'expo-secure-store';
 import { Connex } from "@vechain/connex";
 
 export default function Campaign() {
+    async function getValueFor(key: string) {
+        let result = await SecureStore.getItemAsync(key);
+        return result;
+      }
 
-    const connexInstance = new Connex({
-        node: '',
+    const contractAddress = "0x8161ffc13309613f9De0a3bc56e2586c92a4D6dE";
+    /* const contract = connex.thor.account(contractAddress).method(abi); */
+    const connex = new Connex({
+        node: 'https://node-testnet.vechaindev.energy',
         network: 'test'
-    });
+    })
+    let abi = [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "badgeId",
+              "type": "uint256"
+            }
+          ],
+          "name": "BadgeEarned",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "activator",
+              "type": "address"
+            }
+          ],
+          "name": "EmergencyStopActivated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "activator",
+              "type": "address"
+            }
+          ],
+          "name": "EmergencyStopDeactivated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "sponsorshipId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Payout",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "sponsorshipId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "sponsor",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "budget",
+              "type": "uint256"
+            }
+          ],
+          "name": "SponsorshipCreated",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "imageURI",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "sponsor",
+              "type": "address"
+            }
+          ],
+          "name": "awardBadge",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "campaignId",
+              "type": "uint256"
+            }
+          ],
+          "name": "campaignRunning",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "campaigns",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "sponsor",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "imageURL",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "budget",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "endTime",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "ratePerMile",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalMiles",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalTrips",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "imgeURL",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "duration",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "ratePerMile",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address[]",
+              "name": "allowedAddresses",
+              "type": "address[]"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "locationLatitudes",
+              "type": "uint256[]"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "locationLongitudes",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "createSponsorship",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "milesTraveled",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "nftContract",
+          "outputs": [
+            {
+              "internalType": "contract BadgeCreator",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "miles",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sponsorshipId",
+              "type": "uint256"
+            }
+          ],
+          "name": "payout",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "userBadges",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "imageURI",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "dateEarned",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "sponsor",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "userCampaigns",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "campaignId",
+              "type": "uint256"
+            }
+          ],
+          "name": "withdrawUnspentFunds",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ]
+    console.log(abi)
+    let [localAddr, setLocalAddr] = useState<string | null>(null);
+    useEffect(() => {
+        const fetchUserAddress = async () => {
+            const ua = await getValueFor("address");
+            setLocalAddr(ua);
+            return ua;
+        };
+        let addr = fetchUserAddress();
+    }, []);
+
+    useEffect(() => {
+        if (!localAddr) return;
+
+        const contract = connex.thor.account(localAddr).method(abi);
+        console.log("START>>>>>>>>>>>>")
+        console.log(contract)
+
+        contract.call('getAllCampaigns', 0)
+            .then(response => {
+                console.log('Campaign data:', response.decoded);
+            })
+            .catch(error => {
+                console.error('Error calling campaigns getter:', error);
+            });
+    }, [localAddr]);
+
 
     // Campaign input fields
     const [company, setCompany] = useState('Harvard');
@@ -21,6 +449,8 @@ export default function Campaign() {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.inputContainer}>
+                <Text>Company</Text>
+                <Text>{connex.thor.genesis.id}</Text>
                 <TextInput
                     style={styles.input}
                     value={company}
