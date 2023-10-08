@@ -321,7 +321,7 @@ export default function App() {
                         :
                         <BottomSheet
                             index={1}
-                            snapPoints={[50, 250, 650]}
+                            snapPoints={[58, 250, 650]}
                             backgroundComponent={({ style }) => (
                                 <View style={[style, { backgroundColor: '#ffffff', borderRadius: 12, }]} />
                             )}
@@ -336,21 +336,31 @@ export default function App() {
                                         flexDirection: 'row',
                                     }}
                                     >
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                                setCurrentMarker(item);
-                                            }}
-                                        >
-                                            <View style={{ borderRadius: 6, padding: 8, backgroundColor: '#306844' }}>
-                                                <Text style={{
-                                                    fontSize: 17,
-                                                    color: 'white',
-                                                }}>{item.title}</Text>
+                                        <View style={{display: 'flex', flexDirection: 'row', alignItems:'center'}}>
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    setCurrentMarker(item);
+                                                }}
+                                            >
+                                                <View style={{ borderRadius: 6, padding: 8, backgroundColor: '#306844', width: 130, }}>
+                                                    <Text style={{
+                                                        fontSize: 17,
+                                                        color: 'white',
+                                                        textAlign: 'center'
+                                                    }}>{item.title}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+
+                                            <View style={{marginLeft: 10}}>
+                                                <Text>{haversineDistance(
+                                                    location!,
+                                                    item.latlng
+                                                ).toFixed(2)}mi away</Text>
                                             </View>
-                                        </TouchableOpacity>
+                                        </View>
                                         <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 8 }}>
                                             <Text style={{
-                                                fontSize: 17,
+                                                fontWeight: 'bold',
                                                 color: 'black',
                                             }}>{item.vechain_reward_to_mile} VET</Text>
                                         </View>
@@ -358,9 +368,9 @@ export default function App() {
 
                                 )}
                                 renderSectionHeader={({ section: { title } }) => (
-                                    <Text style={{ fontSize: 24, backgroundColor: 'white' }}>{title}</Text>
+                                    <Text style={{ fontSize: 24, backgroundColor: 'white', marginBottom: 6 }}>{title}</Text>
                                 )}
-                                style={{ width: '100%', paddingLeft: 24, paddingRight: 24 }}
+                                style={{ width: '100%', paddingLeft: 24, paddingRight: 24, }}
                             />
                         </BottomSheet>
             }
