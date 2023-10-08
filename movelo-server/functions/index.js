@@ -53,13 +53,13 @@ exports.getAddress = onRequest((request, response) => {
 exports.createSponsorship = onRequest((request, response) => {
     //take private key from params
     /* const privateKey = request.query.private; */
-    const privateKey = "0x01b40fd5a9d5469664271404bb1b2d584872eee1f59c09506afb00dc0f90f1a1"
-
-    const provider = new ethers.providers.JsonRpcProvider('https://node-testnet.vechaindev.energy');
+    const privateKey = "9eadccbca90b3efbfc8bc6cb6aea89758b6979c19d881d2782ac0d3b9f2072ae"
+    logger.info(privateKey, {structuredData: true});
+    const provider = new ethers.providers.JsonRpcProvider('https://sepolia.infura.io/v3/7a4319061db849c3ac8c04cde995e81e');
 
     const wallet = new ethers.Wallet(privateKey, provider);
 
-    const contractAddress = "0x8161ffc13309613f9De0a3bc56e2586c92a4D6dE";
+    const contractAddress = "0x818aDEE33B683D90556685bef6f7b4cB6763014F";
 
     const abi = [
         {
