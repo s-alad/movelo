@@ -17,13 +17,14 @@ let timestamps = [];
 interface Props {
     styles: any;
     markers: MarkerInterface[];
+    destination: MyLatLng | null;
+    selectDestination: (destination: MyLatLng | null) => void;
     selectMarker: (marker: MarkerInterface, index: number) => void;
 }
 
-export default function Map({ styles, markers, selectMarker }: Props) {
+export default function Map({ styles, markers, selectMarker, destination, selectDestination }: Props) {
     // Data for the user
     const [userLocation, setUserLocation] = useState<MyLatLng | null>(null);
-    const [destination, setDestination] = useState<MyLatLng | null>(null);
     const [previousCameraZoom, setPreviousCameraZoom] = useState<number | undefined>(undefined);
     const [locations, setLocations] = useState<Array<TimestampedLatLng>>([]);
     const [heading, setHeading] = useState<number | null>(null);
@@ -33,7 +34,7 @@ export default function Map({ styles, markers, selectMarker }: Props) {
         isTraveling = true;
 
         console.log("Starting!")
-        setDestination(destination);
+        selectDestination(destination);
         if (userLocation)
             animate(userLocation, destination);
     }
@@ -43,7 +44,7 @@ export default function Map({ styles, markers, selectMarker }: Props) {
         timestamps.length = 0;
 
         console.log("Stopping!")
-        setDestination(null)
+        selectDestination(null)
         if (mapRef.current && previousCameraZoom) {
             console.log("CJCrafter is stupid");
             mapRef.current.animateCamera({

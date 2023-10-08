@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import Map from '../../../../components/map';
 import CustomMarker from '../../../../components/custommarker';
 import { Marker as MarkerInterface } from '../../../../components/custommarker';
+import { MyLatLng } from 'util/mapmath';
 
 export default function App() {
     const navigation: any = useNavigation();
@@ -125,6 +126,7 @@ export default function App() {
     }).flat();
 
 
+    const [destination, setDestination] = useState<MyLatLng | null>(null);
     let [currentMarker, setCurrentMarker] = useState<MarkerInterface | null>(null);
     function handleMarkerChange(marker: MarkerInterface, index: number) {
         setCurrentMarker(marker);
@@ -176,7 +178,10 @@ export default function App() {
                 </TouchableOpacity>
             </View>
 
-            <Map styles={styles} markers={pointsOfInterest} selectMarker={handleMarkerChange} />
+            <Map 
+                styles={styles}
+                markers={pointsOfInterest} selectMarker={handleMarkerChange} 
+                destination={destination} selectDestination={setDestination}/>
 
             {
                 currentMarker !== null ?
@@ -186,10 +191,13 @@ export default function App() {
                         backgroundComponent={({ style }) => (
                             <View style={[style, { backgroundColor: '#ffffff', borderRadius: 12, }]} />
                         )}
-                        style={{ width: '100%', paddingLeft: 24, paddingRight: 24, paddingTop: 24, display: 'flex' }}
+                        style={{ width: '100%', paddingLeft: 24, paddingRight: 24, paddingTop: 14, display: 'flex' }}
                         handleComponent={() => (<View></View>)}
                     >
-                        <TouchableOpacity onPress={() => {setCurrentMarker(null)}} style={{width: 10}}>
+                        <TouchableOpacity onPress={() => {
+                            setCurrentMarker(null);
+                            setDestination(null);
+                        }} style={{width: 10, marginBottom: 12}}>
                             <View style={{display:'flex', width: 200, flexDirection: 'row', alignItems: 'center'}}><FontAwesome
                                 size={26}
                                 style={{ marginBottom: -3, marginRight: 12 }}
@@ -197,7 +205,46 @@ export default function App() {
                             />
                             {/* <Text>back</Text> */}</View>
                         </TouchableOpacity>
-                        <View><Text>{currentMarker.title}</Text></View>
+                        <View style={{display: 'flex', flexDirection: 'row'}}>
+
+                            <View style={{flexDirection: 'column', width: '60%'}}>
+                                <View style={{display: 'flex', flexDirection: 'row'}}>
+                                    <View /* style={{ borderRadius: 6, padding: 8, }} */>
+                                        <Text style={{
+                                            fontSize: 24,
+                                            color: 'black',
+                                            fontWeight: 'bold',
+                                        }}>{currentMarker.title}</Text>
+                                    </View>
+                                </View>
+
+                                <Text>
+                                    {currentMarker.description}
+                                </Text>
+
+                                <Text>
+                                    Distance: 0.5 miles
+                                </Text>
+
+                                <Text>
+                                    VET reward: 0.1 VET
+                                </Text>
+                            </View>
+
+                            <View style={{flexDirection: 'column', width: '40%', height: 60}}>
+                                <TouchableOpacity style={{width: '100%', display: 'flex', flex: 1}}>
+                                    <View style={{ borderRadius: 16, padding: 8, backgroundColor: '#306844', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                        <Text style={{
+                                            fontSize: 24,
+                                            color: 'white',
+                                            textAlign: 'center',
+                                            fontWeight: 'bold',
+                                        }}>start</Text>
+                                    </View>
+                                </TouchableOpacity>
+
+                            </View>
+                        </View>
                     </BottomSheet>
                     :
                     <BottomSheet
