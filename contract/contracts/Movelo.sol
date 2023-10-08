@@ -45,14 +45,13 @@ contract Movelo {
         _;
     }
 
-
-    constructor(address _nftContractAddress) {
-        nftContract = BadgeCreator(_nftContractAddress);
+    address private _nftContractAddress = 0xA90bcD5EA4c5A21e6509CDF7B2bAEC917F1CB6a7;
+    constructor() {
+        nftContract = BadgeCreator(_nftContractAddress );
         owner = msg.sender;
     }
 
-    function createSponsorship(
-        uint256 budget, 
+    function createSponsorship( 
         string memory name,
         string memory description,
         string memory imgeURL,
@@ -61,10 +60,10 @@ contract Movelo {
         address[] memory allowedAddresses,
         uint256[] memory locationLatitudes,
         uint256[] memory locationLongitudes
-        ) external {
+        ) external payable {
         Campaign memory newCampaign = Campaign({
             sponsor: msg.sender,
-            budget: budget,
+            budget: msg.value,
             name: name,
             description: description,
             imageURL: imgeURL,
@@ -78,7 +77,7 @@ contract Movelo {
         });
 
         campaigns.push(newCampaign);
-        emit SponsorshipCreated(campaigns.length - 1, msg.sender, budget);
+        emit SponsorshipCreated(campaigns.length - 1, msg.sender, msg.value);
     }
 
     function payout(uint256 miles, uint256 sponsorshipId) external {
@@ -165,5 +164,61 @@ contract Movelo {
 
         payable(msg.sender).transfer(amount);
     }
+
+    //Convreter
+    function uint256ToString(uint256 value) public pure returns (string memory) {
+        if (value == 0) {
+            return "0";
+        }
+        uint256 tempValue = value;
+        uint256 digits;
+        while (tempValue != 0) {
+            digits++;
+            tempValue /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+
+    // getter functions 
+    function getAllCampaignLatsLongs() public view returns (string memory) {
+        string memory allCampaigns = "";
+        for (uint i = 0; i < campaigns.length; i++) {
+            if(campaigns[i].locationLatitudes.length > 1){
+                for(uint j = 0; j < campaigns[i].locationLatitudes.length; j++){
+                    allCampaigns = string.concat(allCampaigns,string(abi.encodePacked(
+                        allCampaigns,
+                        "{",
+                        " Latitudes: ", uint256ToString(campaigns[i].locationLatitudes[j]),
+                        ",\n Longitudes: ", uint256ToString(campaigns[i].locationLongitudes[j]),
+                        "}"
+                    )));
+                }
+            }
+            else{
+                allCampaigns = string.concat(allCampaigns,string(abi.encodePacked(
+                    allCampaigns,
+                    "{",
+                    " LocationLatitudes: ", uint256ToString(campaigns[i].locationLatitudes[0]),
+                    ",\n LocationLongitudes: ", uint256ToString(campaigns[i].locationLongitudes[0]),
+                    "}"
+                )));
+            }
+            if (i < campaigns.length - 1) {
+                allCampaigns = string(abi.encodePacked(allCampaigns, ", "));
+            }
+        }
+        return allCampaigns;
+    }
+
+
+    //getNearby
+    //getFeatured
+    //getMyCampaigns
 
 }

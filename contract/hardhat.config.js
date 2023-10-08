@@ -11,7 +11,7 @@ module.exports = {
       url: "https://localhost:8669",
     },
     vechain: {
-      url: "http://127.0.0.1:8669/",
+      url: "https://node-testnet.vechain.energy",
       accounts: [`${process.env.PRIVATE_KEY}`],  
     },
   },
