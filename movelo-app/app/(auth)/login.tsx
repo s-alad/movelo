@@ -31,18 +31,16 @@ export default function Login() {
   }
 
   const [mneumonic, setMneumonic] = useState<string[][]>([["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""]]);
-  const [key, onChangeKey] = useState('Your key here');
-  const [value, onChangeValue] = useState('Your value here');
 
   async function handleMneumonic() {
     console.log(mneumonic)
 
     //check if there is an empty string in the mneumonic, if so return
-    /* for (let i = 0; i < mneumonic.length; i++) {
+    for (let i = 0; i < mneumonic.length; i++) {
       for (let j = 0; j < mneumonic[i].length; j++) {
         if (mneumonic[i][j] === "") return;
       }
-    } */
+    }
 
     //convert the mneumonic to a singlle string with spaces. The current mneumonic is an nested array of strings
     let mneumonicString = mneumonic.map((item) => {
@@ -50,7 +48,7 @@ export default function Login() {
     }).join(" ");
     console.log("MN", mneumonicString)
 
-    let reso =  await fetch(`https://getaddress-ai54nl56hq-uc.a.run.app?mnemonic=${"misery fringe write comfort hair hedgehog smart ahead shell water chief ozone"}`)
+    let reso =  await fetch(`https://getaddress-ai54nl56hq-uc.a.run.app?mnemonic=${mneumonicString}`)
     let data = await reso.json();
     console.log("address", data)
     //check if there is an error in the address json
@@ -71,7 +69,12 @@ export default function Login() {
 
   return (
     <View style={{ flex: 1, alignItems: "center", backgroundColor: '#365838', flexDirection: 'column', width: '100%', paddingTop: 100, }}>
-        <TouchableOpacity onPress={()=>login('x', 'p')}>
+        <TouchableOpacity onPress={()=>{
+          let mlist = [["misery", "fringe"], ["write", "comfort"], ["hair", "hedgehog"], ["smart", "ahead"], ["shell", "water"], ["chief", "ozone"]];
+          setMneumonic(mlist);
+          handleMneumonic();
+        
+        }}>
           <Text>bypass</Text>
         </TouchableOpacity>
 
