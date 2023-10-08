@@ -29,6 +29,7 @@ export default function Feed() {
         return arr;
     });
 
+    /*
     useEffect(() => {
         // For demonstration purposes, let's add a new message every 10 seconds
         const interval = setInterval(() => {
@@ -43,6 +44,7 @@ export default function Feed() {
 
         return () => clearInterval(interval);
     }, [messages]);
+    */
 
     return (
         <View style={styles.container}>
