@@ -43,6 +43,7 @@ export default function App() {
                         latitude: 42.371433,
                         longitude: -71.128903,
                     }, 
+                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/trader_joes.png"
                 },
                 {
                     entity: "github",

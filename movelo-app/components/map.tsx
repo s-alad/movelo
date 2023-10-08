@@ -1,6 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Text} from "react-native";
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import { Image } from "react-native";
+import { useRef, useState, useEffect } from "react";
+import * as React from 'react';
+import { Text } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import mapStyles from "../dummy_data/mapStyles.json";
 import MapViewDirections from "react-native-maps-directions";
 import * as Location from 'expo-location';
@@ -18,7 +20,7 @@ interface Props {
     selectMarker: (marker: MarkerInterface, index: number) => void;
 }
 
-export default function Map({styles, markers, selectMarker}: Props) {
+export default function Map({ styles, markers, selectMarker }: Props) {
     // Data for the user
     const [userLocation, setUserLocation] = useState<MyLatLng | null>(null);
     const [destination, setDestination] = useState<MyLatLng | null>(null);
@@ -101,14 +103,14 @@ export default function Map({styles, markers, selectMarker}: Props) {
 
         const watch = async () => {
             await Location.watchPositionAsync({
-                    accuracy: Location.Accuracy.High,
-                    timeInterval: 1000,
-                    distanceInterval: 1
-                },
+                accuracy: Location.Accuracy.High,
+                timeInterval: 1000,
+                distanceInterval: 1
+            },
                 (location) => {
-                    const {latitude, longitude} = location.coords;
+                    const { latitude, longitude } = location.coords;
                     if (isMounted)
-                        setUserLocation({latitude, longitude});
+                        setUserLocation({ latitude, longitude });
                 });
         };
 
@@ -123,7 +125,7 @@ export default function Map({styles, markers, selectMarker}: Props) {
         let isMounted = true;
 
         const watch = async () => {
-            await Location.watchHeadingAsync(({trueHeading}) => {
+            await Location.watchHeadingAsync(({ trueHeading }) => {
                 if (isMounted) {
                     setHeading(trueHeading);
                 }
@@ -163,9 +165,23 @@ export default function Map({styles, markers, selectMarker}: Props) {
                         startTravel(marker.latlng);
                         selectMarker(marker, index);
                     }}
-                    icon={require("../dummy_data/traderjoes_overlay.png")}
-                    // Give the image rounded borders
-                />
+                >
+                    <View style={{alignItems: 'center', justifyContent: 'center', position: 'absolute',  width: 44, height: 58}}>
+                        <Image source={{
+                            uri: marker.icon,
+                        }} style={{
+                            width: 30,
+                            height: 30,
+                            position: 'relative',
+                            borderRadius: 15,
+                            top: -6
+                        }}/> 
+                        <Image source={{
+                            uri: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/overlay.png",
+                        }} style={{position: 'absolute', width: 50, height: 50,}}/>
+                    </View>
+
+                </Marker>
             ))}
 
             {/* Show directions from user's location to destination */}
