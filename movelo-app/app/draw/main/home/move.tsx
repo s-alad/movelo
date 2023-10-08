@@ -58,22 +58,12 @@ export default function App() {
                 {
                     entity: "redhat",
                     description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 0.1,
+                    vechain_reward_to_mile: 0.15,
                     location: {
-                        latitude: 42.371433,
-                        longitude: -72.903,
+                        latitude: 42.348518,
+                        longitude: -71.049611,
                     },
-                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/trader_joes.png"
-                },
-                {
-                    entity: "github",
-                    description: "code all dat",
-                    vechain_reward_to_mile: 0.1,
-                    location: {
-                        latitude: 42.171433,
-                        longitude: -71.128903,
-                    },
-                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
+                    icon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/redhat_logo_icon_168023.png"
                 }
             ],
         },
@@ -83,20 +73,20 @@ export default function App() {
                 {
                     entity: "GSU",
                     description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 0.1,
+                    vechain_reward_to_mile: 0.21,
                     location: {
-                        latitude: 42.371433,
-                        longitude: -71.128903,
+                        latitude: 42.350635,
+                        longitude: -71.109000,
                     },
                     icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
                 },
                 {
                     entity: "Marcianos",
-                    vechain_reward_to_mile: 0.1,
+                    vechain_reward_to_mile: 0.19,
                     description: "Buy food n' stuff",
                     location: {
-                        latitude: 42.371433,
-                        longitude: -71.128903,
+                        latitude: 42.350046,
+                        longitude: -71.097864,
                     },
                     icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
                 }
@@ -108,22 +98,22 @@ export default function App() {
                 {
                     entity: "Dominoes",
                     description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 0.1,
+                    vechain_reward_to_mile: 0.07,
                     location: {
-                        latitude: 42.9714333,
-                        longitude: -71.128903,
+                        latitude: 42.369508,
+                        longitude: -71.111382,
                     },
-                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
+                    icon: "https://media.dominos.com/content/images/logos_png_thumb.png"
                 },
                 {
                     entity: "McDonalds",
                     description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 0.1,
+                    vechain_reward_to_mile: 0.05,
                     location: {
-                        latitude: 42.371433,
-                        longitude: -71.128903,
+                        latitude: 42.362723,
+                        longitude: -71.136918,
                     },
-                    icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
+                    icon: "https://seeklogo.com/images/M/mcdonald-s-logo-2325D6C1EF-seeklogo.com.png"
                 }
             ]
         },
