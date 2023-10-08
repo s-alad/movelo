@@ -1,6 +1,16 @@
 import {Image, Text, View} from 'react-native';
 
-export const markers = [
+interface Marker {
+    title: string,
+    description: string,
+    latlng: {
+        latitude: number,
+        longitude: number
+    },
+    icon: string
+}
+
+export const markers: Marker[] = [
     {
         "title": "Trader Joes",
         "description": "Buy food n' stuff",
