@@ -1,7 +1,14 @@
 import {useState} from "react";
 import {Keyboard, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, View} from "react-native";
 
+import { Connex } from "@vechain/connex";
+
 export default function Campaign() {
+
+    const connexInstance = new Connex({
+        node: '',
+        network: 'test'
+    });
 
     // Campaign input fields
     const [company, setCompany] = useState('Harvard');
