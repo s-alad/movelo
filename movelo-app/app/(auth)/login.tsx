@@ -57,6 +57,7 @@ export default function Login() {
       //save the address to secure storage
       await save("address", data.address);
       await save("private", data.private);
+      await save("balance", "15.2")
       //navigate to the home page
       //check if properly saved
 
