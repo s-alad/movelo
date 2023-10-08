@@ -7,6 +7,7 @@ import * as Location from 'expo-location';
 import {GOOGLE_MAPS_API_KEY} from "@env";
 import {calculateBearing, MyLatLng, TimestampedLatLng} from "../util/mapmath";
 import {View} from "react-native";
+import CustomMarker from './custommarker';
 
 let isTraveling = false;
 let timestamps = [];
@@ -154,7 +155,9 @@ export default function Map({styles}: Props) {
                     title={marker.title}
                     description={marker.description}
                     onPress={() => startTravel(marker.latlng)}
-                />
+                >
+                    <CustomMarker icon={marker.icon} width={25} height={25}/>
+                </Marker>
             ))}
 
             {/* Show directions from user's location to destination */}
