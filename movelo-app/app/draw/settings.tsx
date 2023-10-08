@@ -19,7 +19,7 @@ export default function Settings() {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={[styles.button, styles.testButton]} onPress={async () => {
+            <TouchableOpacity style={[styles.button, styles.testButton, ]} onPress={async () => {
                 deleteAddressAndPrivateKey();
                 console.log('deleted');
                 console.log(await getValueFor('address'));
@@ -28,7 +28,7 @@ export default function Settings() {
             }}>
                 <Text style={styles.buttonText}>Logout</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button]} onPress={async () => {
+            <TouchableOpacity style={[styles.button, {backgroundColor: 'black'}]} onPress={async () => {
                 console.log(user);
                 console.log(user?.address);
                 console.log(user?.private);
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#3498db', // Change this to your primary color
         paddingVertical: 15,
         paddingHorizontal: 25,
-        borderRadius: 25,
+        borderRadius: 8,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
