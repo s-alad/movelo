@@ -11,6 +11,10 @@ export default function Campaign() {
     const [rate, setRate] = useState('0.1');
     const [image, setImage] = useState('https://1000logos.net/wp-content/uploads/2017/02/Harvard-symbol.jpg');
 
+    function createCampaign() {
+
+    }
+
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.inputContainer}>
@@ -54,7 +58,7 @@ export default function Campaign() {
                     placeholder="Image"
                 />
                 <TouchableOpacity style={styles.button} onPress={async () => {
-                    console.log("Creating campaign...")
+                    createCampaign()
                 }}>
                     <Text style={styles.buttonText}>Create Campaign</Text>
                 </TouchableOpacity>

@@ -1,21 +1,14 @@
 import { StyleSheet, Text, useColorScheme, View } from 'react-native';
 import BottomSheet, { BottomSheetSectionList } from "@gorhom/bottom-sheet";
 import React, { useEffect, useState } from "react";
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import mapStyles from '../../../../dummy_data/mapStyles.json';
-import mapMarkers from '../../../../dummy_data/dummyMarkers.json';
-import { GOOGLE_MAPS_API_KEY } from '@env';
-import MapViewDirections from 'react-native-maps-directions';
-import * as Location from 'expo-location'; import { FontAwesome } from "@expo/vector-icons";
-import { BottomTabBar } from "@react-navigation/bottom-tabs";
-import { Tabs } from "expo-router";
+import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
 import Map from '../../../../components/map';
-import CustomMarker from '../../../../components/custommarker';
 import { Marker as MarkerInterface } from '../../../../components/custommarker';
-import { MyLatLng } from 'util/mapmath';
+import * as Location from 'expo-location';
+import {haversineDistance, MyLatLng} from "../../../../util/mapmath";
 
 export default function App() {
     const navigation: any = useNavigation();
@@ -30,7 +23,32 @@ export default function App() {
         map: {
             width: '100%',
             height: '100%',
-        }
+        },
+        button: {
+            backgroundColor: '#3498db', // Change this to your primary color
+            paddingVertical: 15,
+            paddingHorizontal: 25,
+            borderRadius: 25,
+            shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.23,
+            shadowRadius: 2.62,
+            elevation: 4,
+            width: '100%',
+            alignItems: 'center',
+            marginBottom: 20,
+        },
+        buttonText: {
+            color: 'white',
+            fontWeight: '600',
+            fontSize: 16,
+        },
+        testButton: {
+            backgroundColor: '#e74c3c', // Change this to your secondary or warning color
+        },
     });
 
     const DATA = [
@@ -133,6 +151,29 @@ export default function App() {
         console.log(marker)
     }
 
+    const [location, setLocation] = useState<MyLatLng | null>(null);
+    useEffect(() => {
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                alert('Permission to access location was denied');
+                return;
+            }
+
+            let loc = await Location.getCurrentPositionAsync({});
+            setLocation(loc.coords);
+        })();
+    }, []);
+
+    if (location !== null && destination !== null) {
+        let distance = haversineDistance(location, destination);
+        if (distance < 0.05) {
+            console.log("You've arrived!")
+            setCurrentMarker(null);
+            setDestination(null);
+        }
+    }
+
     return (
 
         <View
@@ -184,7 +225,35 @@ export default function App() {
                 destination={destination} selectDestination={setDestination}/>
 
             {
-                currentMarker !== null ?
+                (location !== null && destination !== null) ?
+                    <BottomSheet
+                        index={1}
+                        snapPoints={[70, 71]}
+                        backgroundComponent={({ style }) => (
+                            <View style={[style, { backgroundColor: '#ffffff', borderRadius: 12, }]} />
+                        )}
+                        style={{ width: '100%', paddingLeft: 24, paddingRight: 24, paddingTop: 14, display: 'flex' }}
+                        handleComponent={() => (<View></View>)}
+                    >
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                        <Text
+                            style={{
+                                color: 'black',
+                                fontSize: 32,
+                                fontWeight: 'bold',
+                            }}
+                        >{Math.round(haversineDistance(location, destination) * 10) / 10 + " miles"}</Text>
+                        <TouchableOpacity onPress={() => {
+                            setDestination(null);
+                            setCurrentMarker(null);
+                        }} style={[styles.button, styles.testButton]}>
+                            <Text style={styles.buttonText}>Cancel</Text>
+                        </TouchableOpacity>
+                        </View>
+                    </BottomSheet>
+
+                : currentMarker !== null ?
                     <BottomSheet
                         index={1}
                         snapPoints={[250, 251]}
@@ -232,14 +301,20 @@ export default function App() {
                             </View>
 
                             <View style={{flexDirection: 'column', width: '40%', height: 60}}>
-                                <TouchableOpacity style={{width: '100%', display: 'flex', flex: 1}}>
+                                <TouchableOpacity onPress={ async() => {
+                                    console.log("OHHH NOO")
+                                    if (currentMarker !== null) {
+                                        console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+                                        setDestination(currentMarker?.latlng)
+                                    }
+                                }} style={{width: '100%', display: 'flex', flex: 1}}>
                                     <View style={{ borderRadius: 16, padding: 8, backgroundColor: '#306844', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                         <Text style={{
                                             fontSize: 24,
                                             color: 'white',
                                             textAlign: 'center',
                                             fontWeight: 'bold',
-                                        }}>start</Text>
+                                        }}>Start</Text>
                                     </View>
                                 </TouchableOpacity>
 

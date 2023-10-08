@@ -30,11 +30,19 @@ export default function Map({ styles, markers, selectMarker, destination, select
     const [heading, setHeading] = useState<number | null>(null);
     const mapRef = useRef<MapView>(null);
 
+    useEffect(() => {
+        if (destination === null) {
+            stopTravel();
+        } else {
+            startTravel(destination);
+        }
+    }, [destination]);
+
     function startTravel(destination: MyLatLng) {
         isTraveling = true;
 
         console.log("Starting!")
-        selectDestination(destination);
+        //selectDestination(destination);
         if (userLocation)
             animate(userLocation, destination);
     }
@@ -43,10 +51,8 @@ export default function Map({ styles, markers, selectMarker, destination, select
         isTraveling = false;
         timestamps.length = 0;
 
-        console.log("Stopping!")
-        selectDestination(null)
+        //selectDestination(null)
         if (mapRef.current && previousCameraZoom) {
-            console.log("CJCrafter is stupid");
             mapRef.current.animateCamera({
                 zoom: previousCameraZoom,
                 center: {
@@ -54,7 +60,7 @@ export default function Map({ styles, markers, selectMarker, destination, select
                     longitude: userLocation?.longitude ?? 0,
                 },
                 pitch: 0,
-                heading: 0,
+                heading: heading ?? 0,
             });
         }
     }
@@ -79,7 +85,6 @@ export default function Map({ styles, markers, selectMarker, destination, select
     }
 
     // Request user permission to use location
-    console.log("Google API Key: " + GOOGLE_MAPS_API_KEY);
 
     useEffect(() => {
         const intervalId = setInterval(async () => {
@@ -163,7 +168,6 @@ export default function Map({ styles, markers, selectMarker, destination, select
                     title={marker.title}
                     description={marker.description}
                     onPress={() => {
-                        startTravel(marker.latlng);
                         selectMarker(marker, index);
                     }}
                 >
