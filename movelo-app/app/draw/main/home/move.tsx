@@ -65,16 +65,6 @@ export default function App() {
             title: 'Your Movelos',
             data: [
                 {
-                    title: "redhat",
-                    description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 12,
-                    latlng: {
-                        latitude: 42.348518,
-                        longitude: -71.049611,
-                    },
-                    icon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/redhat_logo_icon_168023.png"
-                },
-                {
                     title: "John A. Paul",
                     description: "Build with duct tape",
                     vechain_reward_to_mile: 2,
@@ -90,9 +80,18 @@ export default function App() {
             title: 'Promoted Movelos',
             data: [
                 {
+                    title: "Trader Joes",
+                    description: "Buy food n' stuff",
+                    vechain_reward_to_mile: 12.363384,
+                    latlng: {
+                        latitude: 42.363384,
+                        longitude: -71.129581
+                    },icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/trader_joes.png"
+                },
+                {
                     title: "GSU",
                     description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 0.21,
+                    vechain_reward_to_mile: 40.21,
                     latlng: {
                         latitude: 42.350635,
                         longitude: -71.109000,
@@ -101,14 +100,14 @@ export default function App() {
                 },
                 {
                     title: "Marcianos",
-                    vechain_reward_to_mile: 0.19,
+                    vechain_reward_to_mile: 70.19,
                     description: "Buy food n' stuff",
                     latlng: {
                         latitude: 42.350046,
                         longitude: -71.097864,
                     },
                     icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/bu.png"
-                }
+                },
             ]
         },
         {
@@ -117,7 +116,7 @@ export default function App() {
                 {
                     title: "Dominoes",
                     description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 0.07,
+                    vechain_reward_to_mile: 35.07,
                     latlng: {
                         latitude: 42.369508,
                         longitude: -71.111382,
@@ -127,22 +126,13 @@ export default function App() {
                 {
                     title: "McDonalds",
                     description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 0.05,
+                    vechain_reward_to_mile: 17.05,
                     latlng: {
                         latitude: 42.362723,
                         longitude: -71.136918,
                     },
                     icon: "https://seeklogo.com/images/M/mcdonald-s-logo-2325D6C1EF-seeklogo.com.png"
                 },
-                {
-                    title: "Trader Joes",
-                    description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 42.363384,
-                    latlng: {
-                        latitude: 42.363384,
-                        longitude: -71.129581
-                    },icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/trader_joes.png"
-                }
             ]
         },
     ];
@@ -302,7 +292,9 @@ export default function App() {
                                 </Text>
 
                                 <Text>
-                                    Total VET Earned: .04
+                                    Total VET Earned: {
+                                        finished?.vechain_reward_to_mile
+                                    }
                                 </Text>
                             </View>
                         </View>
@@ -385,7 +377,9 @@ export default function App() {
                                         </Text>
 
                                         <Text>
-                                            VET reward:
+                                            Anticipated VET reward: {
+                                                currentMarker.vechain_reward_to_mile
+                                            }
                                         </Text>
                                     </View>
 
