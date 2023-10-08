@@ -7,7 +7,8 @@ export interface Marker {
         latitude: number,
         longitude: number
     },
-    icon: string
+    icon: string,
+    vechain_reward_to_mile?: any,
 }
 
 // @ts-ignore

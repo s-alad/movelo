@@ -12,17 +12,17 @@ export default function DrawerLayout() {
                         backgroundColor: "#fff",
                     },
                     drawerActiveBackgroundColor: "#306844",
-                    drawerActiveTintColor: "#fff",
+                    drawerActiveTintColor: "black",
                     headerTintColor: "black",
                 }
             }
         >
-            <Drawer.Screen name="settings" />
             <Drawer.Screen name="main" 
                 options={{
                     headerShown: false,
                 }}
             />
+            <Drawer.Screen name="settings" />
             <Drawer.Screen name="campaign" />
             <Drawer.Screen name="account" />
         </Drawer>
