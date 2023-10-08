@@ -152,9 +152,9 @@ contract Movelo {
         }
     }
 
-    function withdrawUnspentFunds(uint256 sponsorshipId) external {
-        require(sponsorshipId < campaigns.length, "Invalid sponsorshipId");
-        Campaign storage campaign = campaigns[sponsorshipId];
+    function withdrawUnspentFunds(uint256 campaignId) external {
+        require(campaignId < campaigns.length, "Invalid sponsorshipId");
+        Campaign storage campaign = campaigns[campaignId];
 
         require(msg.sender == campaign.sponsor, "Only the sponsor can withdraw");
         require(block.timestamp > campaign.endTime, "Sponsorship is still active");
