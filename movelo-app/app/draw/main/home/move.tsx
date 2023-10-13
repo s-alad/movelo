@@ -67,7 +67,7 @@ export default function App() {
                 {
                     title: "John A. Paul",
                     description: "Build with duct tape",
-                    vechain_reward_to_mile: 2,
+                    vechain_reward_to_mile: 5.21,
                     latlng: {
                         latitude: 42.363105,
                         longitude: -71.126159
@@ -82,7 +82,7 @@ export default function App() {
                 {
                     title: "Trader Joes",
                     description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 12.363384,
+                    vechain_reward_to_mile: 14.363384,
                     latlng: {
                         latitude: 42.363384,
                         longitude: -71.129581
@@ -91,7 +91,7 @@ export default function App() {
                 {
                     title: "GSU",
                     description: "Buy food n' stuff",
-                    vechain_reward_to_mile: 40.21,
+                    vechain_reward_to_mile: 58.21,
                     latlng: {
                         latitude: 42.350635,
                         longitude: -71.109000,
@@ -113,6 +113,15 @@ export default function App() {
         {
             title: 'Nearby Movelos',
             data: /* ['Dominoes', 'Papa Johns', 'Pizza Hut', "McDonalds"], */[
+                {
+                    title: "Trader Joes",
+                    description: "Buy food n' stuff",
+                    vechain_reward_to_mile: 14.363384,
+                    latlng: {
+                        latitude: 42.363384,
+                        longitude: -71.129581
+                    },icon: "https://raw.githubusercontent.com/s-alad/movelo/main/movelo-app/dummy_data/trader_joes.png"
+                },
                 {
                     title: "Dominoes",
                     description: "Buy food n' stuff",
