@@ -2,3 +2,9 @@
     padding-left: 40px;
     padding-right: 40px;
 }
+
+@mixin center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
