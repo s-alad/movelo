@@ -2,6 +2,7 @@
 @use '../../styles/common.scss' as c;
 
 .navbar {
+    position: fixed;
     background-color: p.$primary;
     height: 80px;
     width: 100%;

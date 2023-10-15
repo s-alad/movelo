@@ -6,99 +6,147 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+
     background: linear-gradient(0deg, #FAF9EF, #014539);
     background-size: 100% 60%;
     background-repeat: no-repeat;
-/*     -webkit-animation: gradient 10s ease infinite;
+
+    /*  
+    -webkit-animation: gradient 10s ease infinite;
     -moz-animation: gradient 10s ease infinite;
-    animation: gradient 10s ease infinite; */
+    animation: gradient 10s ease infinite; 
+    */
 
-    padding-top: 40px;
-    @include c.padlr();
+    .main {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        @include c.padlr();
+        /* height: calc(100vh - 120px); */
 
-    .intro {
-        background-color: p.$secondary;
-        height: min-content;
-        padding: 24px;
-        border-radius: 8px;
-        font-size: 2.4rem;
-        max-width: 700px;
+        .intro {
+            background-color: p.$secondary;
+            height: min-content;
+            padding: 24px;
+            border-radius: 8px;
+            font-size: 2.4rem;
+            max-width: 700px;
 
-        span {
-            font-weight: 700;
-            font-style: italic;
-            color: p.$accent;
-            background-color: #014539;
-            padding: 0px 12px;
-        }
+            span {
+                font-weight: 700;
+                font-style: italic;
+                color: p.$accent;
+                background-color: #014539;
+                padding: 0px 12px;
+            }
 
-        .explanation {
-            font-size: 1.4rem;
-            margin-top: 16px;
-        }
+            .explanation {
+                font-size: 1.4rem;
+                margin-top: 16px;
+            }
 
-        button {
-            margin-top: 32px;
-            background-color: p.$accent;
-            border: none;
-            border-radius: 24px;
-            padding: 16px 32px;
-            color: p.$primary;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.15s ease-in-out;
-            &:hover {
-                // add a faint spread white glow effect
-                box-shadow: 0px 0px 18px 2px rgba(255,255,255,0.5);
-                
+            button {
+                margin-top: 32px;
+                background-color: p.$accent;
+                border: none;
+                border-radius: 24px;
+                padding: 16px 32px;
+                color: p.$primary;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: all 0.15s ease-in-out;
+
+                &:hover {
+                    // add a faint spread white glow effect
+                    box-shadow: 0px 0px 18px 2px rgba(255, 255, 255, 0.5);
+
+                }
+            }
+
+            .learn {
+                background-color: transparent;
+                margin-left: 12px;
+                border: 1px solid p.$primary;
             }
         }
 
-        .learn {
-            background-color: transparent;
-            margin-left: 12px;
-            border: 1px solid p.$primary;
+        .examples {
+            display: flex;
+            flex-direction: column;
+            margin-top: 40px;
+            gap: 20px;
+
+            .example {
+                max-width: 700px;
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+
+                .graphic {
+                    height: 100px;
+                    width: 100px;
+                    background-color: p.$primary;
+                    border-radius: 8px;
+                    color: white;
+                    font-size: 3rem;
+                    @include c.center();
+                }
+
+                .content {
+                    background-color: p.$primary;
+                    border-radius: 8px;
+                    height: 100px;
+                    flex: 1;
+                    padding: 18px 24px;
+                    color: white;
+
+                    .type {
+                        font-size: 1rem;
+                        font-weight: 700;
+                        color: p.$accent;
+                        margin-bottom: 2px;
+                    }
+
+                    .details {
+                        font-size: 1.2rem;
+                        font-weight: 400;
+                    }
+                }
+            }
         }
     }
 
-    .examples {
-        display: flex;
-        flex-direction: column;
-        margin-top: 40px;
-        gap: 20px;
-        .example {
-            width: 700px;
+    .trusted {
+        width: 100%;
+        background-color: p.$primary;
+        height: 300px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        @include c.padlr();
+
+        .backed {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: p.$secondary;
+            margin-bottom: 16px;
+        }
+        .backers {
             display: flex;
-            justify-content: space-between;
-            gap: 20px;
+            flex-direction: row;
+            gap: 40px;
 
-            .graphic {
-                height: 100px;
-                width: 100px;
-                background-color: p.$primary;
+            .backer {
+                padding: 12px;
+                height: 120px;
+                max-height: 100px;
+                object-fit: contain;
+                background-color: p.$secondary;
                 border-radius: 8px;
-                color: white;
-                font-size: 3rem;
-                @include c.center();
-            }
 
-            .content {
-                background-color: p.$primary;
-                border-radius: 8px;
-                height: 100px;
-                flex: 1;
-                padding: 18px 24px;
-                color: white;
-
-                .type {
-                    font-size: 1rem;
-                    font-weight: 700;
-                    color: p.$accent;
-                    margin-bottom: 2px;
-                }
-                .details {
-                    font-size: 1.2rem;
-                    font-weight: 400;
+                img {
+                    height: 100%;
+                    width: 200px;
+                    min-width: 150px;
+                    object-fit: contain;
                 }
             }
         }
@@ -107,17 +155,43 @@
 }
 
 @-webkit-keyframes gradient {
-    0%{background-position:51% 0%}
-    50%{background-position:50% 100%}
-    100%{background-position:51% 0%}
+    0% {
+        background-position: 51% 0%
+    }
+
+    50% {
+        background-position: 50% 100%
+    }
+
+    100% {
+        background-position: 51% 0%
+    }
 }
+
 @-moz-keyframes gradient {
-    0%{background-position:51% 0%}
-    50%{background-position:50% 100%}
-    100%{background-position:51% 0%}
+    0% {
+        background-position: 51% 0%
+    }
+
+    50% {
+        background-position: 50% 100%
+    }
+
+    100% {
+        background-position: 51% 0%
+    }
 }
+
 @keyframes gradient {
-    0%{background-position:51% 0%}
-    50%{background-position:50% 100%}
-    100%{background-position:51% 0%}
+    0% {
+        background-position: 51% 0%
+    }
+
+    50% {
+        background-position: 50% 100%
+    }
+
+    100% {
+        background-position: 51% 0%
+    }
 }
