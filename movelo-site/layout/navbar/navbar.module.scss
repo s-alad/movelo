@@ -1,0 +1,50 @@
+@use '../../styles/palette.scss' as p;
+@use '../../styles/common.scss' as c;
+
+.navbar {
+    background-color: p.$primary;
+    height: 70px;
+    width: 100%;
+    @include c.padlr();
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: p.$secondary;
+
+    .left, .right {display: flex; align-items: center;}
+
+    .movelo {
+        font-size: 2.2rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .links {
+        margin-left: 20px;
+        display: flex;
+        gap: 20px;
+        font-size: 1rem;
+
+        a {
+            color: p.$secondary;
+            font-weight: 400;
+            transition: color 0.15s ease-in-out;
+
+            &:hover {
+                color: p.$accent;
+            }
+        }
+    }
+
+    button {
+        background-color: p.$accent;
+        border: none;
+        border-radius: 16px;
+        padding: 8px 16px;
+        color: p.$primary;
+        font-size: 1rem;
+    }
+}

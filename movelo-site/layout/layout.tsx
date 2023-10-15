@@ -1,7 +1,9 @@
-import { Inter, Roboto, Oxygen_Mono } from 'next/font/google'
+import { Inter, Roboto, Oxygen_Mono, Montserrat } from 'next/font/google'
 import Navbar from './navbar/navbar'
 import Footer from './footer/footer'
 import Head from 'next/head'
+
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -12,9 +14,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            
+
             <Navbar />
-            <main className={``}>
+            <main className={`${montserrat.className}`}>
                 {children}
             </main>
             <Footer />
