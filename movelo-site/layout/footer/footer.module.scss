@@ -1,0 +1,6 @@
+@use '../../styles/palette.scss' as p;
+@use '../../styles/common.scss' as c;
+
+.footer {
+    background-color: p.$primary;
+}

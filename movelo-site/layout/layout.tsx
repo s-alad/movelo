@@ -16,9 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </Head>
 
             <Navbar />
-            <main className={`${montserrat.className}`}>
-                {children}
-            </main>
+            {children}
             <Footer />
         </>
     )
