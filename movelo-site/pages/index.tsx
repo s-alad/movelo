@@ -174,7 +174,7 @@ export default function Home() {
 
 			</section>
 
-			<section className={s.roadmap}>
+			<section className={s.roadmap} id="roadmap">
 				<div className={s.road}>Roadmap</div>
 
 				<div className={s.map}>

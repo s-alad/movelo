@@ -22,7 +22,7 @@ export default function Navbar() {
                     <Link href={"#about"}>
                         about us
                     </Link>
-                    <Link href={""}>
+                    <Link href={"#roadmap"}>
                         roadmap
                     </Link>
                     <Link href={""}>

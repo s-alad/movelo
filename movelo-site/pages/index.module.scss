@@ -8,7 +8,7 @@
     flex: 1;
 
     background: linear-gradient(0deg, #FAF9EF, #014539);
-    background-size: 100% 60%;
+    background-size: 100% 20%;
     background-repeat: no-repeat;
 
     /*  
@@ -121,7 +121,7 @@
         padding-top: 40px;
         padding-bottom: 40px;
         @include c.padlr();
-        scroll-margin-top: 50px;
+        scroll-margin-top: 80px;
 
         .backed {
             font-size: 2.0rem;
@@ -211,6 +211,7 @@
         padding-top: 40px;
         padding-bottom: 40px;
         @include c.padlr();
+        scroll-margin-top: 80px;
 
         .road {
             font-size: 2.0rem;
