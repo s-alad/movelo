@@ -218,6 +218,80 @@
             color: p.$primary;
             margin-bottom: 32px;
         }
+
+        .map {
+            .entry {
+                height: 300px;
+                display: flex;
+                align-items: center;
+
+                .legend {
+                    position: relative;
+                    width: 100px;
+                    height: 100%;
+
+                    .line {
+                        position: absolute;
+                        left: 50%;
+                        top: 0;
+                        transform: translate(-50%, 0);
+                        width: 8px;
+                        height: 100%;
+                        background-color: p.$primary;
+                    }
+                    .last {height: 50%;}
+
+                    .star {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 40px;
+                        height: 40px;
+                        border: 2px solid p.$primary;
+                        background-color: p.$secondary;
+                        border-radius: 8px;
+                        transform-origin: center;
+                    }
+                    .active {
+                        background-color: p.$accent;
+                    }
+                }
+
+                .content {
+                    background-color: p.$primary;
+                    width: 600px;
+                    height: min-content;
+                    border-radius: 8px;
+                    padding: 24px;
+
+                    .head {
+                        font-size: 2rem;
+                        display: flex;
+                        margin-bottom: 16px;
+                        color: p.$primary;
+                        background-color: p.$accent;
+                        width: min-content;
+                        font-weight: 700;
+                        font-style: italic;
+                        padding: 0px 12px;
+                        span {
+                            display: flex;
+                            align-items: center;
+                            margin: 0px 12px;
+                        }
+                    }
+
+                    .details {
+                        font-size: 1.4rem;
+                        color: p.$secondary;
+                        margin-left: 24px;
+                    }
+                }
+
+            }
+        }
+
     }
 }
 

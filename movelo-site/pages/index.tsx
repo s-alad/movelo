@@ -10,6 +10,8 @@ import { BsPersonFill } from 'react-icons/bs';
 import { TbWalk } from "react-icons/tb";
 import { IoBusinessSharp } from "react-icons/io5";
 import { MdOutlineWork } from "react-icons/md";
+import { CgArrowsHAlt } from "react-icons/cg";
+
 import Divider from '@/components/divider/divider'
 import Link from 'next/link'
 
@@ -50,6 +52,39 @@ export default function Home() {
 			logo: '/logos/harvard.png',
 			name: "Harvard University",
 		}
+	]
+
+	const roadmap = [
+		{
+			active: true,
+			head: <div className={s.head}>employer <span><CgArrowsHAlt /></span> employee</div>,
+			details: [
+				"Focus on employees/employers",
+				"Use data to increase app usage by improving app/rewards",
+				"Get employees used to using even when not commuting through leaderboards"
+			]
+		},
+		{
+			active: false,
+			head: <div className={s.head}>company <span><CgArrowsHAlt /></span> person</div>,
+			details: [
+				"Focus on companies",
+				"Get companies to sponsor rewards",
+				"Get users to use app to get rewards",
+				"Increase daily usage"
+			]
+		},
+		{
+			active: false,
+			head: <div className={s.head}>company <span><CgArrowsHAlt /></span> company</div>,
+			details: [
+				"Integrate with other companies such as Citi-Bike or Blue-Bikes",
+				"Get companies to sponsor unique rewards",
+				"Become the market leader for non-car directions"
+			]
+		}
+
+		
 	]
 
 	return (
@@ -113,9 +148,9 @@ export default function Home() {
 				<div className={s.problem}>
 					<div className={s.details}>
 						<span>The Problem</span>
-						<div className={s.statement}>Transportation is the largest contributor of greenhouse gasses in the  <Link href={'https://www.rff.org/publications/explainers/federal-climate-policy-104-the-transportation-sector/'}>US</Link>. 
-						Companies are constantly looking for ways to advance their green initiatives but this is often done 
-						through issue-prone & intangible carbon credits.</div>
+						<div className={s.statement}>Transportation is the largest contributor of greenhouse gasses in the  <Link href={'https://www.rff.org/publications/explainers/federal-climate-policy-104-the-transportation-sector/'}>US</Link>.
+							Companies are constantly looking for ways to advance their green initiatives but this is often done
+							through issue-prone & intangible carbon credits.</div>
 					</div>
 
 					<div className={s.graphics}>
@@ -132,8 +167,8 @@ export default function Home() {
 					<div className={s.details}>
 						<span>The Solution</span>
 						<div className={s.statement}>A system that enables employers to pay their employees to walk or bike, instead of using cars
-						to get to work. This ensures both employees and employers that their environmental funds are used effectively & in a tangible manner, 
-						not on elusive carbon credits.</div>
+							to get to work. This ensures both employees and employers that their environmental funds are used effectively & in a tangible manner,
+							not on elusive carbon credits.</div>
 					</div>
 				</div>
 
@@ -141,6 +176,35 @@ export default function Home() {
 
 			<section className={s.roadmap}>
 				<div className={s.road}>Roadmap</div>
+
+				<div className={s.map}>
+
+					{
+						roadmap.map((item, i) => {
+							return ( 
+								<div className={s.entry}>
+									<div className={s.legend}>
+										<div className={`${s.line} ${
+											i == roadmap.length - 1 ? s.last : ''
+										}`}></div>
+										<div className={`${s.star} ${item.active ? s.active : ''}`}></div>
+									</div>
+									<div className={s.content}>
+										{item.head}
+										<ul className={s.details}>
+											{
+												item.details.map((detail, i) => {
+													return <li>{detail}</li>
+												})
+											}
+										</ul>
+									</div>
+								</div>
+							)
+						})
+					}
+
+				</div>
 			</section>
 
 		</main>
