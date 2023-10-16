@@ -214,8 +214,17 @@ export default function Home() {
 			</section>
 
 			<section className={s.waitlist}>
-				
+				<div className={s.wait}>Interested? Join the waitlist!</div>
+				<div className={s.list}>
+					<input type="text" placeholder="Name" />
+					<input type="text" placeholder="Company" />
+					<input type="text" placeholder="Email" />
+					<button>Join Waitlist</button>
+
+				</div>
 			</section>
+
+			<Divider />
 
 		</main>
 	)
