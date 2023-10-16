@@ -56,7 +56,7 @@
 
                 &:hover {
                     // add a faint spread white glow effect
-                    box-shadow: 0px 0px 18px 2px rgba(255, 255, 255, 0.5);
+                    box-shadow: 0px 0px 18px 2px rgba(164, 158, 158, 0.5);
 
                 }
             }
@@ -65,6 +65,11 @@
                 background-color: transparent;
                 margin-left: 12px;
                 border: 1px solid p.$primary;
+
+                &:hover {
+                    background-color: p.$primary;
+                    color: p.$secondary;
+                }
             }
         }
 
@@ -336,6 +341,7 @@
                 padding: 16px 32px;
                 color: p.$primary;
                 font-size: 1rem;
+                cursor: pointer;
             }
 
         }
