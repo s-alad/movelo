@@ -90,7 +90,7 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section className={s.trusted}>
+			<section className={s.trusted} id="about">
 				<div className={s.backed}>
 					Winner of the EasyA x VeChain x BCG 2023 hackathon at Harvard
 				</div>
@@ -127,6 +127,20 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
+
+				<div className={s.solution}>
+					<div className={s.details}>
+						<span>The Solution</span>
+						<div className={s.statement}>A system that enables employers to pay their employees to walk or bike, instead of using cars
+						to get to work. This ensures both employees and employers that their environmental funds are used effectively & in a tangible manner, 
+						not on elusive carbon credits.</div>
+					</div>
+				</div>
+
+			</section>
+
+			<section className={s.roadmap}>
+				<div className={s.road}>Roadmap</div>
 			</section>
 
 		</main>

@@ -19,7 +19,7 @@ export default function Navbar() {
                     <div>movelo</div>
                 </div>
                 <div className={s.links}>
-                    <Link href={""}>
+                    <Link href={"#about"}>
                         about us
                     </Link>
                     <Link href={""}>
