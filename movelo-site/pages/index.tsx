@@ -14,6 +14,7 @@ import { CgArrowsHAlt } from "react-icons/cg";
 
 import Divider from '@/components/divider/divider'
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Home() {
 
@@ -90,6 +91,27 @@ export default function Home() {
 
 		
 	]
+
+	interface Wait {
+		name: string,
+		company: string,
+		email: string
+	}
+	let [wait, setWait] = useState<Wait>({
+		name: "",
+		company: "",
+		email: ""
+	})
+
+	function handleWaitlist() {
+		console.log(wait)
+
+		setWait({
+			name: "",
+			company: "",
+			email: ""
+		})
+	}
 
 	return (
 		<main className={`${comfortaa.className} ${s.index}`}>
@@ -226,10 +248,36 @@ export default function Home() {
 			<section className={s.waitlist} id="waitlist">
 				<div className={s.wait}>Interested? Join the waitlist!</div>
 				<div className={s.list}>
-					<input type="text" placeholder="Name" />
-					<input type="text" placeholder="Company" />
-					<input type="text" placeholder="Email" />
-					<button>Join Waitlist</button>
+					<input type="text" placeholder="Name" 
+						value={wait.name}
+						onChange={(e) => {
+							setWait({
+								...wait,
+								name: e.target.value
+							})
+						}}
+					/>
+					<input type="text" placeholder="Company" 
+						value={wait.company}
+						onChange={(e) => {
+							setWait({
+								...wait,
+								company: e.target.value
+							})
+						}}
+					/>
+					<input type="email" placeholder="Email" 
+						value={wait.email}
+						onChange={(e) => {
+							setWait({
+								...wait,
+								email: e.target.value
+							})
+						}}
+					/>
+					<button
+						onClick={handleWaitlist}
+					>Join Waitlist</button>
 
 				</div>
 			</section>
