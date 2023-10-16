@@ -39,18 +39,22 @@ export default function Home() {
 		{
 			logo: "/logos/vechain.png",
 			name: "VeChain",
+			link: "https://www.vechain.org/"
 		},
 		{
 			logo: '/logos/bcg.png',
 			name: "Boston Consulting Group",
+			link: "https://www.bcg.com/"
 		},
 		{
 			logo: '/logos/buni.png',
 			name: "Boston University",
+			link: "https://www.bu.edu/"
 		},
 		{
 			logo: '/logos/harvard.png',
 			name: "Harvard University",
+			link: "https://www.harvard.edu/"
 		}
 	]
 
@@ -137,9 +141,11 @@ export default function Home() {
 					{
 						backers.map((backer, i) => {
 							return (
-								<div className={s.backer}>
-									<Image src={backer.logo} width={300} height={200} alt={backer.name} />
-								</div>
+								<Link href={backer.link}>
+									<div className={s.backer}>
+										<Image src={backer.logo} width={300} height={200} alt={backer.name} />
+									</div>
+								</Link>
 							)
 						})
 					}
