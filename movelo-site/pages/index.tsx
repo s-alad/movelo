@@ -11,6 +11,7 @@ import { TbWalk } from "react-icons/tb";
 import { IoBusinessSharp } from "react-icons/io5";
 import { MdOutlineWork } from "react-icons/md";
 import { CgArrowsHAlt } from "react-icons/cg";
+import { ImCheckmark }	from "react-icons/im";
 
 import Divider from '@/components/divider/divider'
 import Link from 'next/link'
@@ -92,6 +93,9 @@ export default function Home() {
 		
 	]
 
+
+	let [sucess, setSuccess] = useState<boolean>(false)
+
 	interface Wait {
 		name: string,
 		company: string,
@@ -105,6 +109,11 @@ export default function Home() {
 
 	function handleWaitlist() {
 		console.log(wait)
+
+		setSuccess(true)
+		setTimeout(() => {
+			setSuccess(false)
+		}, 1000)
 
 		setWait({
 			name: "",
@@ -277,7 +286,12 @@ export default function Home() {
 					/>
 					<button
 						onClick={handleWaitlist}
-					>Join Waitlist</button>
+						disabled={sucess}
+					>
+						{
+							sucess ? "Thank you!": "Join Waitlist"
+						}
+					</button>
 
 				</div>
 			</section>
