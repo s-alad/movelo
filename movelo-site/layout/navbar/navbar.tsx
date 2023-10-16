@@ -25,16 +25,18 @@ export default function Navbar() {
                     <Link href={"#roadmap"}>
                         roadmap
                     </Link>
-                    <Link href={""}>
+                    <Link href={"#footer"}>
                         contact
                     </Link>
                 </div>
             </div>
-            
+
             <div className={s.right}>
-                <button>
-                    Join Waitlist
-                </button>
+                <Link href={"#waitlist"}>
+                    <button>
+                        Join Waitlist
+                    </button>
+                </Link>
             </div>
         </nav>
     )

@@ -6,7 +6,7 @@ const montserrat = Montserrat({ subsets: ['latin'] })
 export default function Footer() {
     return (
         <div className={`${montserrat.className} ${s.footer}`}>
-            
+            contact@movelop.app
         </div>
     )
 }

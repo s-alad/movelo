@@ -97,12 +97,16 @@ export default function Home() {
 						movelo encourages users to take enviormentally friendly transportation methods through rewards sponsored by businesses & companies looking to reduce their carbon footprint.
 					</div>
 					<div>
-						<button>
-							Join Waitlist
-						</button>
-						<button className={s.learn}>
-							Learn More
-						</button>
+						<Link href={"#waitlist"}>
+							<button>
+								Join Waitlist
+							</button>
+						</Link>
+						<Link href={'#about'}>
+							<button className={s.learn}>
+								Learn More
+							</button>
+						</Link>
 					</div>
 				</div>
 
@@ -213,7 +217,7 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section className={s.waitlist}>
+			<section className={s.waitlist} id="waitlist">
 				<div className={s.wait}>Interested? Join the waitlist!</div>
 				<div className={s.list}>
 					<input type="text" placeholder="Name" />
