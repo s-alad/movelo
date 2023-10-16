@@ -115,7 +115,7 @@ export default function Home() {
 						<span>The Problem</span>
 						<div className={s.statement}>Transportation is the largest contributor of greenhouse gasses in the  <Link href={'https://www.rff.org/publications/explainers/federal-climate-policy-104-the-transportation-sector/'}>US</Link>. 
 						Companies are constantly looking for ways to advance their green initiatives but this is often done 
-						through carbon credits which aren’t tangible </div>
+						through issue-prone & intangible carbon credits.</div>
 					</div>
 
 					<div className={s.graphics}>
