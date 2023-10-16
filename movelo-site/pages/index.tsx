@@ -213,6 +213,10 @@ export default function Home() {
 				</div>
 			</section>
 
+			<section className={s.waitlist}>
+				
+			</section>
+
 		</main>
 	)
 }

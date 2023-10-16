@@ -7,10 +7,6 @@
     flex-direction: column;
     flex: 1;
 
-    background: linear-gradient(0deg, #FAF9EF, #014539);
-    background-size: 100% 20%;
-    background-repeat: no-repeat;
-
     /*  
     -webkit-animation: gradient 10s ease infinite;
     -moz-animation: gradient 10s ease infinite;
@@ -21,6 +17,9 @@
         padding-top: 40px;
         padding-bottom: 40px;
         @include c.padlr();
+        background: linear-gradient(0deg, #FAF9EF, p.$primary,);
+        background-size: 100% 50%;
+        background-repeat: no-repeat;
         /* height: calc(100vh - 120px); */
 
         .intro {
@@ -293,6 +292,15 @@
             }
         }
 
+    }
+
+    .waitlist {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        @include c.padlr();
+        background: linear-gradient(0deg, p.$primary, #FAF9EF,);
+        background-size: 100% 50%;
+        background-repeat: no-repeat;
     }
 }
 
