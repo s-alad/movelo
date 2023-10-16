@@ -170,6 +170,12 @@ export default function Home() {
 							to get to work. This ensures both employees and employers that their environmental funds are used effectively & in a tangible manner,
 							not on elusive carbon credits.</div>
 					</div>
+
+					<div className={s.graphics}>
+						<div className={s.graphic}>
+							<Image src="/graphics/tam.png" width={600} height={300} alt="donut" />
+						</div>
+					</div>
 				</div>
 
 			</section>
