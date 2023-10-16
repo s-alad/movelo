@@ -118,19 +118,19 @@
     .trusted {
         width: 100%;
         background-color: p.$primary;
-        height: 300px;
         padding-top: 40px;
         padding-bottom: 40px;
         @include c.padlr();
 
         .backed {
-            font-size: 2.4rem;
-            font-weight: 700;
+            font-size: 2.0rem;
+            font-weight: 600;
             color: p.$secondary;
-            margin-bottom: 16px;
+            margin-bottom: 32px;
         }
         .backers {
             display: flex;
+            flex-wrap: wrap;
             flex-direction: row;
             gap: 40px;
 
@@ -147,6 +147,56 @@
                     width: 200px;
                     min-width: 150px;
                     object-fit: contain;
+                }
+            }
+        }
+    }
+
+    .about {
+        width: 100%;
+        background-color: p.$primary;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        @include c.padlr();
+
+        .problem {
+            display: flex;
+            gap: 40px;
+            justify-content: space-between;
+            .details {
+                width: 600px;
+                span {
+                    font-weight: 700;
+                    font-size: 2rem;
+                    font-style: italic;
+                    color: p.$primary;
+                    background-color: p.$accent;
+                    padding: 0px 12px;
+                }
+
+                a {color: p.$accent; text-decoration: underline;}
+
+                .statement {
+                    font-size: 1.4rem;
+                    margin-top: 16px;
+                    color: p.$secondary;
+                }
+            }
+
+            .graphics {
+                display: flex;
+                gap: 12px;
+                .graphic {
+                    padding: 12px;
+                    height: 300px;
+                    background-color: p.$secondary;
+                    border-radius: 8px;
+    
+                    img {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: contain;
+                    }
                 }
             }
         }

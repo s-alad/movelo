@@ -10,6 +10,8 @@ import { BsPersonFill } from 'react-icons/bs';
 import { TbWalk } from "react-icons/tb";
 import { IoBusinessSharp } from "react-icons/io5";
 import { MdOutlineWork } from "react-icons/md";
+import Divider from '@/components/divider/divider'
+import Link from 'next/link'
 
 export default function Home() {
 
@@ -97,13 +99,36 @@ export default function Home() {
 						backers.map((backer, i) => {
 							return (
 								<div className={s.backer}>
-									<Image src={backer.logo} width={300} height={200} alt={backer.name}/>
+									<Image src={backer.logo} width={300} height={200} alt={backer.name} />
 								</div>
 							)
 						})
 					}
 				</div>
 			</section>
+
+			<Divider />
+
+			<section className={s.about}>
+				<div className={s.problem}>
+					<div className={s.details}>
+						<span>The Problem</span>
+						<div className={s.statement}>Transportation is the largest contributor of greenhouse gasses in the  <Link href={'https://www.rff.org/publications/explainers/federal-climate-policy-104-the-transportation-sector/'}>US</Link>. 
+						Companies are constantly looking for ways to advance their green initiatives but this is often done 
+						through carbon credits which aren’t tangible </div>
+					</div>
+
+					<div className={s.graphics}>
+						<div className={s.graphic}>
+							<Image src="/graphics/donut.png" width={600} height={300} alt="donut" />
+						</div>
+						<div className={s.graphic}>
+							<Image src="/graphics/stats.png" width={600} height={300} alt="donut" />
+						</div>
+					</div>
+				</div>
+			</section>
+
 		</main>
 	)
 }

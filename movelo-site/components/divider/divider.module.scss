@@ -1,0 +1,12 @@
+@use '../../styles/palette.scss' as p;
+@use '../../styles/common.scss' as c;
+
+.divider {
+    width: 100%;
+    @include c.padlr();
+    background-color: p.$primary;
+    .divide {
+        height: 2px;
+        background-color: p.$secondary;
+    }
+}
