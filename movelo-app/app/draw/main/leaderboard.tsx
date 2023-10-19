@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import {View, Text, StyleSheet, ScrollView, ImageBackground, Image, ImageBase} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Leaderboard() {
@@ -41,6 +41,7 @@ export default function Leaderboard() {
 
     return (
         <View style={styles.container}>
+            <Image source={require('../../../dummy_data/vechain.png')} style={styles.image} />
             <View style={styles.podiumContainer}>
                 <LinearGradient colors={['#C0C0C0', '#F8F8F8']} style={styles.secondPlace}>
                     <Text style={styles.placeText}>2nd</Text>
@@ -60,7 +61,7 @@ export default function Leaderboard() {
                     <View key={player.name} style={styles.row}>
                         <Text style={styles.position}>{index + 1}</Text>
                         <Text style={styles.name}>{player.name}</Text>
-                        <Text style={styles.co2}>Saved {player.co2Saved} pounds of CO2</Text>
+                        <Text style={styles.co2}>{player.co2Saved}lbs of CO₂</Text>
                     </View>
                 ))}
             </ScrollView>
@@ -75,6 +76,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
 /*         paddingTop: 40 */
     },
+    image: {
+        height: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -83,31 +89,36 @@ const styles = StyleSheet.create({
     podiumContainer: {
         flexDirection: 'row',
         marginBottom: 20,
-        height: 120
+        height: 120,
+        alignItems: 'flex-end',
+        marginTop: 20,
     },
     firstPlace: {
-        flex: 1,
-        justifyContent: 'flex-end',
+        width: '30%', // Set the width to 30%
+        marginHorizontal: '1.5%', // Adds spacing between blocks
         alignItems: 'center',
         padding: 10,
         borderBottomWidth: 10,
-        borderBottomColor: '#DAA520'
+        borderBottomColor: '#DAA520',
+        height: 120
     },
     secondPlace: {
-        flex: 1,
-        justifyContent: 'flex-end',
+        width: '30%', // Set the width to 30%
+        marginHorizontal: '1.5%', // Adds spacing between blocks
         alignItems: 'center',
         padding: 10,
         borderBottomWidth: 10,
-        borderBottomColor: '#B0B0B0'
+        borderBottomColor: '#B0B0B0',
+        height: 100,
     },
     thirdPlace: {
-        flex: 1,
-        justifyContent: 'flex-end',
+        width: '30%', // Set the width to 30%
+        marginHorizontal: '1.5%', // Adds spacing between blocks
         alignItems: 'center',
         padding: 10,
         borderBottomWidth: 10,
-        borderBottomColor: '#A0522D'
+        borderBottomColor: '#A0522D',
+        height: 80,
     },
     placeText: {
         fontSize: 32,

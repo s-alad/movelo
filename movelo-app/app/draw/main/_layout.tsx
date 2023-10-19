@@ -17,7 +17,7 @@ export default function RootLayout() {
             <Stack.Screen
                 name="leaderboard"
                 options={{
-                    title: "leaderboard",
+                    title: "VeChain Leaderboard",
                     headerShown: true,
                     headerBlurEffect: "regular",
                     headerLeft: () => <TouchableOpacity onPress={() => router.back()}>
