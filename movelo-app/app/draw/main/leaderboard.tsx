@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, ScrollView, ImageBackground, Image, ImageBase} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Leaderboard() {
@@ -41,7 +41,7 @@ export default function Leaderboard() {
 
     return (
         <View style={styles.container}>
-            <Image source={require('../../../dummy_data/vechain.png')} style={styles.image} />
+            <Image source={require('../../../dummy_data/img.png')} style={styles.image} />
             <View style={styles.podiumContainer}>
                 <LinearGradient colors={['#C0C0C0', '#F8F8F8']} style={styles.secondPlace}>
                     <Text style={styles.placeText}>2nd</Text>
@@ -78,6 +78,8 @@ const styles = StyleSheet.create({
     },
     image: {
         height: 100,
+        width: '100%',
+        resizeMode: 'contain',
         justifyContent: 'center',
         alignItems: 'center',
     },
