@@ -3,5 +3,8 @@
 
 .footer {
     background-color: p.$primary;
-    height: 100px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    @include c.padlr();
+    color: p.$accent;
 }

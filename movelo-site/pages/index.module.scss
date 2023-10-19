@@ -17,7 +17,7 @@
         padding-top: 40px;
         padding-bottom: 40px;
         @include c.padlr();
-        background: linear-gradient(0deg, #FAF9EF, p.$primary,);
+        background: linear-gradient(0deg, p.$secondary, p.$primary,);
         background-size: 100% 50%;
         background-repeat: no-repeat;
         /* height: calc(100vh - 120px); */
@@ -34,7 +34,7 @@
                 font-weight: 700;
                 font-style: italic;
                 color: p.$accent;
-                background-color: #014539;
+                background-color: p.$primary;
                 padding: 0px 12px;
             }
 
@@ -56,7 +56,7 @@
 
                 &:hover {
                     // add a faint spread white glow effect
-                    box-shadow: 0px 0px 18px 2px rgba(255, 255, 255, 0.5);
+                    box-shadow: 0px 0px 18px 2px rgba(164, 158, 158, 0.5);
 
                 }
             }
@@ -65,6 +65,11 @@
                 background-color: transparent;
                 margin-left: 12px;
                 border: 1px solid p.$primary;
+
+                &:hover {
+                    background-color: p.$primary;
+                    color: p.$secondary;
+                }
             }
         }
 
@@ -298,9 +303,52 @@
         padding-top: 40px;
         padding-bottom: 40px;
         @include c.padlr();
-        background: linear-gradient(0deg, p.$primary, #FAF9EF,);
+        /* background: linear-gradient(0deg, p.$primary, #FAF9EF,);
         background-size: 100% 50%;
         background-repeat: no-repeat;
+        background-position: 0% 100%; */
+        background-color: p.$primary;
+
+        .wait {
+            font-size: 2.0rem;
+            font-weight: 600;
+            color: p.$accent;
+            margin-bottom: 32px;
+        }
+
+        .list {
+            width: 500px;
+            background-color: p.$secondary;
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            input {
+                background-color: p.$primary;
+                border: none;
+                border-radius: 24px;
+                padding: 16px 32px;
+                color: p.$secondary;
+                font-size: 1rem;
+            }
+
+            button {
+                background-color: p.$accent;
+                border: none;
+                border-radius: 24px;
+                padding: 16px 32px;
+                color: p.$primary;
+                font-size: 1rem;
+                cursor: pointer;
+
+                &:disabled {
+                    opacity: .6;
+                }
+            }
+
+        }
     }
 }
 

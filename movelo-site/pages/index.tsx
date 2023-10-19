@@ -11,9 +11,11 @@ import { TbWalk } from "react-icons/tb";
 import { IoBusinessSharp } from "react-icons/io5";
 import { MdOutlineWork } from "react-icons/md";
 import { CgArrowsHAlt } from "react-icons/cg";
+import { ImCheckmark }	from "react-icons/im";
 
 import Divider from '@/components/divider/divider'
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Home() {
 
@@ -39,18 +41,22 @@ export default function Home() {
 		{
 			logo: "/logos/vechain.png",
 			name: "VeChain",
+			link: "https://www.vechain.org/"
 		},
 		{
 			logo: '/logos/bcg.png',
 			name: "Boston Consulting Group",
+			link: "https://www.bcg.com/"
 		},
 		{
 			logo: '/logos/buni.png',
 			name: "Boston University",
+			link: "https://www.bu.edu/"
 		},
 		{
 			logo: '/logos/harvard.png',
 			name: "Harvard University",
+			link: "https://www.harvard.edu/"
 		}
 	]
 
@@ -87,6 +93,35 @@ export default function Home() {
 		
 	]
 
+
+	let [sucess, setSuccess] = useState<boolean>(false)
+
+	interface Wait {
+		name: string,
+		company: string,
+		email: string
+	}
+	let [wait, setWait] = useState<Wait>({
+		name: "",
+		company: "",
+		email: ""
+	})
+
+	function handleWaitlist() {
+		console.log(wait)
+
+		setSuccess(true)
+		setTimeout(() => {
+			setSuccess(false)
+		}, 1000)
+
+		setWait({
+			name: "",
+			company: "",
+			email: ""
+		})
+	}
+
 	return (
 		<main className={`${comfortaa.className} ${s.index}`}>
 
@@ -97,12 +132,16 @@ export default function Home() {
 						movelo encourages users to take enviormentally friendly transportation methods through rewards sponsored by businesses & companies looking to reduce their carbon footprint.
 					</div>
 					<div>
-						<button>
-							Join Waitlist
-						</button>
-						<button className={s.learn}>
-							Learn More
-						</button>
+						<Link href={"#waitlist"}>
+							<button>
+								Join Waitlist
+							</button>
+						</Link>
+						<Link href={'#about'}>
+							<button className={s.learn}>
+								Learn More
+							</button>
+						</Link>
 					</div>
 				</div>
 
@@ -133,9 +172,11 @@ export default function Home() {
 					{
 						backers.map((backer, i) => {
 							return (
-								<div className={s.backer}>
-									<Image src={backer.logo} width={300} height={200} alt={backer.name} />
-								</div>
+								<Link href={backer.link}>
+									<div className={s.backer}>
+										<Image src={backer.logo} width={300} height={200} alt={backer.name} />
+									</div>
+								</Link>
 							)
 						})
 					}
@@ -213,9 +254,49 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section className={s.waitlist}>
-				
+			<section className={s.waitlist} id="waitlist">
+				<div className={s.wait}>Interested? Join the waitlist!</div>
+				<div className={s.list}>
+					<input type="text" placeholder="Name" 
+						value={wait.name}
+						onChange={(e) => {
+							setWait({
+								...wait,
+								name: e.target.value
+							})
+						}}
+					/>
+					<input type="text" placeholder="Company" 
+						value={wait.company}
+						onChange={(e) => {
+							setWait({
+								...wait,
+								company: e.target.value
+							})
+						}}
+					/>
+					<input type="email" placeholder="Email" 
+						value={wait.email}
+						onChange={(e) => {
+							setWait({
+								...wait,
+								email: e.target.value
+							})
+						}}
+					/>
+					<button
+						onClick={handleWaitlist}
+						disabled={sucess}
+					>
+						{
+							sucess ? "Thank you!": "Join Waitlist"
+						}
+					</button>
+
+				</div>
 			</section>
+
+			<Divider />
 
 		</main>
 	)

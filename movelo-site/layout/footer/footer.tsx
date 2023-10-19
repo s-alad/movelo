@@ -5,8 +5,8 @@ const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Footer() {
     return (
-        <div className={`${montserrat.className} ${s.footer}`}>
-            
+        <div className={`${montserrat.className} ${s.footer}`} id="footer">
+            contact@movelo.app
         </div>
     )
 }
