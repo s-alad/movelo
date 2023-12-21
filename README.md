@@ -1,4 +1,4 @@
-![](./branding/logo.png)
+![](./movelo-assets/logo.png)
 
 Movelo leverages blockchain technology to incentivize eco-friendly commuting choices such as walking or biking. By participating in campaigns sponsored by local businesses, users can earn rewards for choosing greener transportation options. Our smart contract on the Ethereum blockchain automates the process of tracking and rewarding these eco-conscious decisions.
 
