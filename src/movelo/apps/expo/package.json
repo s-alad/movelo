@@ -8,7 +8,8 @@
     "start:tunnel": "npx expo start --tunnel -c",
     "android": "npx expo run:android",
     "ios": "npx expo run:ios",
-    "eject": "npx expo eject"
+    "eject": "npx expo eject",
+    "prebuild": "expo prebuild"
   },
   "dependencies": {
     "@babel/runtime": "^7.18.9",
