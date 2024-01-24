@@ -1,10 +1,11 @@
 {
-  "name": "expo-app",
+  "name": "movelo",
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
   "scripts": {
     "start": "npx expo start -c",
+    "start:tunnel": "npx expo start --tunnel -c",
     "android": "npx expo run:android",
     "ios": "npx expo run:ios",
     "eject": "npx expo eject"
