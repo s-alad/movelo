@@ -1,0 +1,69 @@
+$main-tan: rgb(247, 226, 187);
+$main-green: #047a08ff;
+$main-brown: #5a360fff;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $main-brown;
+  margin-top: 17vh;
+
+  label {
+    font-size: 3vh;
+    align-self: flex-start;
+    margin-left: 20%;
+  }
+
+  textarea {
+    width: 60%;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: none;
+    font-family: "Roboto", sans-serif;
+    font-size: 2.5vh;
+    padding: 1vh 1vw;
+    height: 6vh;
+    color: $main-brown;
+    resize: none;
+    overflow: hidden;
+    line-height: 6vh;
+    background-color: #FFF3DE;
+    
+  }
+
+  textarea:focus {
+    outline: none;
+  }
+
+  .buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 60%;
+    margin-top: 10px;
+    align-self: flex-start;
+    margin-left: 19%;
+  }
+
+  .buttons {
+    background-color: $main-brown;
+    color: $main-tan;
+    border: none;
+    border-radius: 12px;
+    padding: 1vh 2vw;
+    height: 6vh;
+    font-size: 3vh;
+    font-family: Junegull;
+    cursor: pointer;
+    transition: 0.3s;
+    width: auto;
+    margin-right: 1vw;
+
+    &:hover {
+      background-color: $main-tan;
+      color: $main-brown;
+    }
+  }
+}

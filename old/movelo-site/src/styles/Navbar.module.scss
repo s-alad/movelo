@@ -1,0 +1,56 @@
+$main-tan: rgb(247, 226, 187);
+$main-green: #047a08ff;
+$main-brown: #5a360fff;
+$dark-tan: #AF8E51;
+
+.navbar {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    border-radius: 0 0 30px 30px;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $main-tan;
+  
+    li {
+      margin-top: 1%;
+      padding: 0.5%;
+      img {
+        height: auto;
+        width: 60%;
+        padding-left: 0.5%;
+      }
+      button {
+        background-color: $main-brown;
+        color: $main-tan;
+        border: 2px solid $main-brown;
+        border-radius: 12px;
+        padding: 0 1vw;
+        margin: 7px;
+        height: 6vh;
+        font-size: 1.5rem;
+        font-family: Junegull;
+        cursor: pointer;
+        transition: 0.3s;
+        white-space: nowrap;
+        &:hover {
+          background-color: $main-tan;
+          color: $main-brown;
+        }
+      }
+    }
+  }
+  
+  .spacer {
+    flex-grow: 1;
+  }
+  
+  .spacer2 {
+    width: 5%;
+  }

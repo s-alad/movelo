@@ -1,0 +1,268 @@
+$main-tan: #f7e2bbff;
+$main-green: #047a08ff;
+$main-brown: #5a360fff;
+$dark-green: #003C04ff;
+$dark-tan: #A07445ff;
+@import url('https://fonts.cdnfonts.com/css/junegull');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+
+.mainLayer {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1;
+  height: 100vh;
+  overflow: hidden;
+  margin-top: 10vh;
+  font-family: Nunito;
+  font-weight: 600;
+
+  h1 {
+    margin-top: 20vh;
+    font-size: 12vh;
+    color: $main-brown;
+    font-family: Nunito;
+    font-weight: 900;
+    margin-bottom: 0;
+  }
+
+  p{
+    font-size: 5vh;
+    margin-top: 0;
+    color: $main-brown;
+  }
+
+  .scrollTitle {
+    font-size: 2vh;
+    font-family: Junegull;
+    color: $main-brown;
+    margin-bottom: 2vh;
+    margin-top: 20vh;
+  }
+
+  .bobArrowContainer {
+    margin-top: 0vh;
+  }
+
+  .bobArrow {
+    width: 3vh;
+    height: auto;
+  }
+}
+
+.parallax {
+  z-index: 3;
+  height: 100vh;
+  width: 101vw;
+  left: -0.04%;
+  top: -0.1px;
+  align-items: first baseline;
+  overflow-y: scroll;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.firstCard,
+.secondCard,
+.interimCard,
+.thirdCard,
+.fourthCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px 5px;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+.firstCardWrapper {
+  width: 100vw;
+  align-items: first baseline;
+  justify-content: center;
+  display: flex;
+  height: 100%;
+}
+
+.firstCard {
+  background-color: $main-brown;
+  border-radius: 15px 15px 0px 0px;
+  width: 100vw;
+  height: 100%;
+  h1 {
+    font-size: 4vw;
+    color: $main-tan;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 17vh;
+  }
+}
+
+.firstCardBottomText{
+  display: flex;
+  justify-content: center;
+  color: $main-tan;
+  margin-top: 4vh;
+  text-align: center;
+  width: 96%;
+  margin-top: 1vh;
+  div{
+    color: $main-tan;
+    width: 30%;
+  }
+
+  img{
+    width: 8.5vw;
+    height: auto;
+  }
+
+  p{
+    font-size: 3vw;
+  }
+
+  .travel{
+    display: flex;
+    img{
+      width: auto;
+      height: 23vh;
+      margin: 5.5vh 2vw;
+    }
+  }
+
+  .money{
+    img{
+      height: 17vh;
+      width: auto;
+      margin-top: 9vh;
+    }
+  }
+}
+
+.firstMiddleElement{
+  margin: 0 1vw;
+}
+
+.socialsWrapper{
+  position: absolute;
+  top: 0.5vh;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10vw;
+  height: 8vh;
+  a{
+      img{
+      height: 5vh;
+      width: auto;
+      margin-right: 1vw;
+    }
+  }
+}
+
+.interimCard{
+  background-color: $main-tan;
+  border-radius: 15px;
+  h1{
+    margin-top: 25vh;
+    font-size: 5vh;
+    color: $main-brown;
+    width: 90%;
+    text-align: center;
+
+  }
+  img{
+    margin-top: 5vh;
+    height: 30vh;
+    width: auto;
+  }
+}
+
+.secondCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: $main-brown;
+  color: $main-tan;
+
+  h1 {
+    font-size: 5vw;
+    font-weight: 900;
+    margin-bottom: 2vh;
+    margin-top: 10vh;
+  }
+}
+
+.scendCardBottom {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 3vh;
+  margin-left: 1.5%;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 32%;
+
+    p {
+      font-size: 2.7vw;
+      margin-bottom: 1vh;
+    }
+
+    img {
+      width: 10vw;
+      height: auto;
+      margin-top: 10vh;
+      margin-bottom: 0;
+    }
+  }
+
+  .data{
+    img{
+      width: 7vw;
+      height: auto;
+      margin-top: 12vh;
+    }
+  }
+
+  .esg{
+    img{
+      margin-top: 13vh;
+    }
+  }
+}
+
+.thirdCard{
+  background-color: $main-tan;
+  
+
+  h1{
+    margin-top: 30vh;
+    font-size: 6vw;
+    color: $main-brown;
+  }
+
+  button{
+    border: none;
+    width: 40vw;
+    height: 20vh;
+    border-radius: 15px;
+    background-color: $main-brown;
+    color: $main-tan;
+    font-size: 8vh;
+    font-weight: 700;
+    font-family: Nunito;
+  }
+}
+

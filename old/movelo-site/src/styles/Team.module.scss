@@ -1,0 +1,53 @@
+$main-tan: #f7e2bbff;
+$main-green: #047a08ff;
+$main-brown: #5a360fff;
+
+
+.mainWrapper{
+    display: flex;
+    justify-content: center;
+    margin-top: 25vh;
+}
+
+.wesWrapper, 
+.saadWrapper, 
+.collinWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: $main-brown;
+    text-align: center;
+    height: 100%;
+
+    img{
+        width: 12vw;
+        height: auto;
+    }
+
+    h1{
+        font-size: 3vw;
+        margin-top: 0.5vh;
+        margin-bottom: 0.5vh;
+    }
+}
+
+.saadWrapper{
+    margin: 0 12vw;
+}
+
+.thinLine{
+    width: 15vw;
+    background-color: $main-green;
+    height: 0.5vh;
+    border-radius: 20px;
+}
+
+.description{
+        color: $main-brown;
+        font-size: 3vh;
+        text-align: left;
+}
+
+
+

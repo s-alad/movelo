@@ -1,0 +1,95 @@
+$main-tan: rgb(247, 226, 187);
+$main-green: #047a08ff;
+$main-brown: #5a360fff;
+@import url('https://fonts.cdnfonts.com/css/junegull');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+.points {
+    position: relative;
+    width: 80vw;
+    height: 2vh;
+    margin: 0 auto;
+    margin-top: 23vh;
+  }
+  
+  .line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 2vh;
+    background-color: $main-green;
+  }
+  
+  .circle {
+    position: absolute;
+    width: 4vh;
+    height: 4vh;
+    border-radius: 50%;
+    background-color: $main-green;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  #left {
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+  
+  #center {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  #right {
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+  
+  .number {
+    position: absolute;
+    top: -7vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 5vh;
+    color: $main-brown;
+  }
+
+  .boxes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10vh;
+  }
+  
+  .box {
+    flex: 1;
+    border: 7px solid $main-brown;
+    border-radius: 15px;
+    background-color: $main-tan;
+    margin: 0 1.5vw;
+    height: 60vh; 
+    padding: 1vw;
+    box-sizing: border-box;
+    overflow: auto;
+  }
+  
+  .box ul {
+    color: $main-brown;list-style-type: none;
+    padding-left: 1.5vw;
+  }
+  
+  .box li {
+    position: relative;
+    margin-bottom: 2vw;
+    font-size: 1.8vw;
+  }
+  
+  .box li::before {
+    content: "\2022";
+    position: absolute;
+    left: -1.8vw;
+    color: $main-green; 
+    font-size: 2.5vw;
+    line-height: 1;
+  }
