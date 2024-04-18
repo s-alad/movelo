@@ -1,12 +1,7 @@
 {
   "expo": {
-<<<<<<<< HEAD:src/movelo-app/movelo-expo/app.json
-    "name": "movelo-expo",
-    "slug": "movelo-expo",
-========
     "name": "movelo",
-    "slug": "movelo",
->>>>>>>> 137b3fb (scaffold):movelo/app.json
+    "slug": "movelo-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -30,14 +25,19 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-<<<<<<<< HEAD:src/movelo-app/movelo-expo/app.json
     },
     "plugins": [
       "expo-router"
     ],
-    "scheme": "your-app-scheme"
-========
-    }
->>>>>>>> 137b3fb (scaffold):movelo/app.json
+    "scheme": "movelo-app",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ff781a0f-6da6-4b7e-862e-f30f78645512"
+      }
+    },
+    "owner": "movelo"
   }
 }
