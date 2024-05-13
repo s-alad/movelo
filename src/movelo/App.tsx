@@ -1,5 +1,3 @@
-
-// https://docs.expo.dev/develop/development-builds/use-development-builds/
 import 'expo-dev-client';
 
 

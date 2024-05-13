@@ -48,7 +48,7 @@ function RootLayoutNav() {
             <StatusBar style="dark" />
             <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
                 <MenuProvider>
-                    <AuthProvider>
+                    {/* <AuthProvider> */}
                         <Stack
                             screenOptions={{
                                 headerShown: false,
@@ -56,7 +56,7 @@ function RootLayoutNav() {
                         >
                             <Stack.Screen name="(protected)" options={{ headerShown: false }} />
                         </Stack>
-                    </AuthProvider>
+                    {/* </AuthProvider> */}
                 </MenuProvider>
             </SafeAreaView>
         </GestureHandlerRootView>
