@@ -15,7 +15,7 @@ contract Movelo {
         string imageURL;
         uint256 budget;
         uint256 endBlock;
-        uint256 vetPerMile; //wei per 0.000001 miles
+        uint256 vetPerMile;
         uint256 totalMiles;
         uint256 totalTrips;
     }
@@ -40,7 +40,7 @@ contract Movelo {
             revert NoCampaignExists();
         }
 
-        if(addressToCampaigns[msg.sender][_index].endBlock > block.number){
+        if(addressToCampaigns[msg.sender][_index].endBlock > block.number && addressToCampaigns[msg.sender][_index].endBlock != 0){
             revert CampaignNotActive();
         }
         _;
@@ -52,7 +52,14 @@ contract Movelo {
         i_OWNER = msg.sender;
     }
 
-    //Create Campaign
+    /**
+     * 
+     * @param _name Name of the campaign
+     * @param _description Description of campaign
+     * @param _imageUrl URL of the campaign logo
+     * @param _blockDuration Number of blocks to keep the campaign open, set to 0 for infinite
+     * @param _vetPerMile Wei per 0.000001 miles
+     */
     function createCampaign(
         string memory _name,
         string memory _description,
@@ -85,18 +92,30 @@ contract Movelo {
         emit newCampaign(msg.sender, addressToCampaigns[msg.sender].length - 1);
     }
 
-   
+   /**
+    * 
+    * @param _index Index of campaign in users array of campaigns
+    */
     function fundCampaign(uint256 _index) external payable {
         addressToCampaigns[msg.sender][_index].budget += msg.value;
     }
 
-    
+    /**
+     * 
+     * @param _index Index of campaign in users array of campaigns
+     * @param _name Name to update campaign to
+     * @param _description Decription to update campaign to
+     * @param _imageUrl URL of logo to to update campaign to
+     * @param _blocksToAdd Number of blocks to add to duration. Can be 0 to set length to infinite
+     * @param _vetPerMile Wei per 0.000001 miles to update campaign to
+     * @dev To only update one variable leave all others in default state ("" for strings, 0 for uint, 1 for blocksToAdd)
+     */
     function updateCampaign(
         uint256 _index,
         string memory _name,
         string memory _description,
         string memory _imageUrl,
-        uint256 _blockDuration,
+        uint256 _blocksToAdd,
         uint256 _vetPerMile
     ) 
         external 
@@ -137,8 +156,7 @@ contract Movelo {
             updatedCampaign.description = temp.description;
         }
 
-        //Campaign can be updated to infinite by putting block duration to 0
-        if (_blockDuration == 1) {
+        if (_blocksToAdd == 1) {
             updatedCampaign.endBlock = temp.endBlock;
         }
 
@@ -149,6 +167,13 @@ contract Movelo {
         addressToCampaigns[msg.sender][_index] = updatedCampaign;
     }
 
+    /**
+     * 
+     * @param _sponsor Sponsor of campaign's address
+     * @param _index Index of campaign in sponsors array of campaigns
+     * @param _recipient Address to payout to
+     * @param _miles Number of miles completed by recipient
+     */
     function payout(
         address _sponsor,
         uint256 _index,
@@ -172,8 +197,14 @@ contract Movelo {
         }
 
         addressToCampaigns[_sponsor][_index].budget -= amountToBePaid;
+        addressToCampaigns[_sponsor][_index].totalMiles += _miles;
+        addressToCampaigns[_sponsor][_index].totalTrips++;
     }
 
+    /**
+     * 
+     * @param _index Index of campaign in users array of campaigns
+     */
     function withdrawFunds(uint256 _index) external {
 
         (bool success,) = payable(msg.sender).call{value: addressToCampaigns[msg.sender][_index].budget}("");
@@ -185,7 +216,20 @@ contract Movelo {
         addressToCampaigns[msg.sender][_index].budget = 0;
     }
 
+    /**
+     * 
+     * @param _sponsor Sponsor of campaign's address
+     * @param _index Index of campaign in sponsors array of campaigns
+     */
     function getCampaign(address _sponsor, uint256 _index) external view returns(Campaign memory) {
         return addressToCampaigns[_sponsor][_index];
+    }
+
+    /**
+     * 
+     * @param _sponsor Sponsor of campaign's address
+     */
+    function getNumberOfCampaignsOfAddress(address _sponsor) external view returns(uint256){
+        return addressToCampaigns[_sponsor].length;
     }
 }
