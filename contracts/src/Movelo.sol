@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-contract Movelo {
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
+contract Movelo is ReentrancyGuard {
     error OnlyOwner();
     error NoCampaignExists();
     error NotEnoughBudget();
@@ -47,17 +49,6 @@ contract Movelo {
         }
         _;
     }
-
-    modifier reentrancyGuard() {
-        if(entered = true){
-            revert NoReentrancy();
-        }
-        entered = true;
-        _;
-        entered = false;
-    }
-
-    //add reentrancy check
 
     event newCampaign(address creator, uint256 index);
 
@@ -229,7 +220,7 @@ contract Movelo {
      * 
      * @param _index Index of campaign in users array of campaigns
      */
-    function withdrawFunds(uint256 _index) external reentrancyGuard {
+    function withdrawFunds(uint256 _index) external nonReentrant {
 
         (bool success,) = payable(msg.sender).call{value: addressToCampaigns[msg.sender][_index].budget}("");
         

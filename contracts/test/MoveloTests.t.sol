@@ -70,4 +70,8 @@ contract MoveloTest is Test {
         assertEq(movelo.getCampaign(address(this), 0).budget, 0);
     }
 
+    fallback() external payable {}
+
+    receive() external payable {}
+
 }
