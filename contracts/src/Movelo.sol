@@ -7,6 +7,7 @@ contract Movelo {
     error NotEnoughBudget();
     error TransactionFailed();
     error CampaignNotActive();
+    error NoReentrancy();
 
     struct Campaign {
         address sponsor;
@@ -23,6 +24,7 @@ contract Movelo {
 
     address immutable i_OWNER;
     mapping(address => Campaign[]) addressToCampaigns;
+    bool entered = false;
 
     modifier onlyOwner() {
         if (msg.sender != i_OWNER) {
@@ -45,6 +47,17 @@ contract Movelo {
         }
         _;
     }
+
+    modifier reentrancyGuard() {
+        if(entered = true){
+            revert NoReentrancy();
+        }
+        entered = true;
+        _;
+        entered = false;
+    }
+
+    //add reentrancy check
 
     event newCampaign(address creator, uint256 index);
 
@@ -96,9 +109,10 @@ contract Movelo {
     * 
     * @param _index Index of campaign in users array of campaigns
     */
-    function fundCampaign(uint256 _index) external payable {
+    function fundCampaign(uint256 _index) external payable existsAndActive(_index) {
         addressToCampaigns[msg.sender][_index].budget += msg.value;
     }
+
 
     /**
      * 
@@ -140,6 +154,8 @@ contract Movelo {
             keccak256(abi.encodePacked(""))
         ) {
             updatedCampaign.name = temp.name;
+        } else {
+            updatedCampaign.name = _name;
         }
 
         if (
@@ -147,6 +163,8 @@ contract Movelo {
             keccak256(abi.encodePacked(""))
         ) {
             updatedCampaign.description = temp.description;
+        } else {
+            updatedCampaign.description = _description;
         }
 
         if (
@@ -154,14 +172,20 @@ contract Movelo {
             keccak256(abi.encodePacked(""))
         ) {
             updatedCampaign.description = temp.description;
+        } else {
+            updatedCampaign.imageURL = _imageUrl;
         }
 
         if (_blocksToAdd == 1) {
             updatedCampaign.endBlock = temp.endBlock;
+        } else {
+            updatedCampaign.endBlock = temp.endBlock + _blocksToAdd;
         }
 
         if (_vetPerMile == 0) {
             updatedCampaign.vetPerMile = temp.vetPerMile;
+        } else {
+            updatedCampaign.vetPerMile = _vetPerMile;
         }
 
         addressToCampaigns[msg.sender][_index] = updatedCampaign;
@@ -205,7 +229,7 @@ contract Movelo {
      * 
      * @param _index Index of campaign in users array of campaigns
      */
-    function withdrawFunds(uint256 _index) external {
+    function withdrawFunds(uint256 _index) external reentrancyGuard {
 
         (bool success,) = payable(msg.sender).call{value: addressToCampaigns[msg.sender][_index].budget}("");
         
